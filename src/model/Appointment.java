@@ -1,4 +1,8 @@
 package model;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 /**
  * Responsible for containing and allowing access to Appointment data.
  * Descriptions are followed by the data type in the database.
@@ -43,7 +47,7 @@ public class Appointment {
      * Appointment creation date.
      * CAppointment creation date.reate_Date DATETIME
      * */
-    private String createDate;
+    private LocalDateTime createDate;
     /**
      * Who created the appointment.
      * Created_By VARCHAR(50)
@@ -53,7 +57,7 @@ public class Appointment {
      * Time appointment was last updated.
      * Last_Update TIMESTAMP
      * */
-    private String lastUpdate;
+    private Timestamp lastUpdate;
     /**
      * Who last updated the appointment.
      * Last_Updated_By VARCHAR(50)

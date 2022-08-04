@@ -1,4 +1,8 @@
 package model;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 /**
  * Responsible for containing and allowing access to User data.
  * Descriptions are followed by the data type in the database.
@@ -23,7 +27,7 @@ public class User {
      * Date User was created.
      * Create_Date DATETIME
      * */
-    private String createDate;
+    private LocalDateTime createDate;
     /**
      * Who created the User.
      * Created_By VARCHAR(50)
@@ -33,7 +37,7 @@ public class User {
      * Time User was last updated.
      * Last_Update TIMESTAMP
      * */
-    private String lastUpdate;
+    private Timestamp lastUpdate;
     /**
      * Who last updated the User.
      * Last_Updated_By VARCHAR(50)
