@@ -3,8 +3,7 @@ package helper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 /**
- * JDBC is used to establish a connection to the MySQL database on the provided virtual machine. It is configured to
- * work with a MySQL server that is provided on a virtual machine, for this assignment.
+ * JDBC is configured to connect to a MySQL server that is provided on a virtual machine, for this assignment.
  * */
 public abstract class JDBC {
     /**
@@ -26,7 +25,7 @@ public abstract class JDBC {
     /**
      * URL for the provided server.
      * */
-    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
+    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER";
     /**
      * Driver reference.
      * */
@@ -34,7 +33,7 @@ public abstract class JDBC {
     /**
      * Username for MySQL user on the provided virtual machine.
      * */
-    private static final String userName = "";
+    private static String username = "";
     /**
      * Password for MySQL user on the provided virtual machine.
      * */
@@ -45,23 +44,25 @@ public abstract class JDBC {
     public static Connection connection;
 
     /**
-     * Attempts to establish a connection. Prints either a success message or error message.
+     * Attempts to establish a connection. Prints either a success message or a detailed stack trace.
      * */
-    public static void openConnection()
+    public static void openConnection(String usernameEntry, String passwordEntry)
     {
+        setUsername(usernameEntry);
+        setPassword(passwordEntry);
         try {
-            Class.forName(driver); // Locate Driver
-            connection = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
+            Class.forName(driver);
+            connection = DriverManager.getConnection(jdbcUrl, username, password);
             System.out.println("Connection successful!");
         }
         catch(Exception e)
         {
-            System.out.println("Error:" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     /**
-     * Attempts to close the connection. Prints either a success message or error message.
+     * Attempts to close the connection. Prints either a success message or a detailed stack trace.
      * */
     public static void closeConnection() {
         try {
@@ -70,7 +71,20 @@ public abstract class JDBC {
         }
         catch(Exception e)
         {
-            System.out.println("Error:" + e.getMessage());
+            e.printStackTrace();
         }
     }
+    /**
+     * Access to set the user's password.
+     * */
+    public static void setPassword(String passwordEntry) {
+        password = passwordEntry;
+    }
+    /**
+     * Access to set the username.
+     * */
+    public static void setUsername(String usernameEntry) {
+        username = usernameEntry;
+    }
+
 }
