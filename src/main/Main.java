@@ -1,7 +1,6 @@
 package main;
 
-import com.sun.javafx.runtime.VersionInfo;
-import helper.JDBC;
+import db.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
