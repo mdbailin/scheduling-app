@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="10cdcf52-3518-4cef-b45b-2fbcf3beb717" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/LanguageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/LanguageManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/lang_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/lang_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/lang_fr.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utility/Alerter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/Alerter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
