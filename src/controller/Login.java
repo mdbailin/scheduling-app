@@ -67,12 +67,19 @@ public class Login {
      * Used to establish a connection and log the user into the database.
      * */
     public void onLoginButton(ActionEvent actionEvent) throws IOException {
-        Main.startConnection(usernameTextField.getText(), passwordField.getText());
+        if (!usernameTextField.getText().equals("")  && !passwordField.getText().equals("")) {
+            Main.startConnection(usernameTextField.getText(), passwordField.getText());
 
-        FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Schedule.fxml"));
-        Parent root = loadSchedule.load();
-        scheduleScene = new Scene(root);
-        scheduleStage.setScene(scheduleScene);
-        scheduleStage.show();
+            FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Schedule.fxml"));
+            Parent root = loadSchedule.load();
+            scheduleScene = new Scene(root);
+            scheduleStage.setScene(scheduleScene);
+            scheduleStage.setTitle(LanguageManager.getLocalString("Schedule"));
+            scheduleStage.show();
+        }
+        else {
+            Alerter.alert("Login_Credentials");
+        }
+
     }
 }
