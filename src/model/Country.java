@@ -37,5 +37,21 @@ public class Country {
      * Who last updated the Country.
      * Last_Updated_By VARCHAR(50)
      * */
-    private String lastUpdateBy;
+    private String lastUpdatedBy;
+
+    public Country(int countryId, String country, LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy) {
+        this.countryId = countryId;
+        this.country = country;
+        this.createDate = createDate;
+        this.createdBy = createdBy;
+        this.lastUpdate = lastUpdate;
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
+    /**
+     * For testing
+     * */
+    public void printCountry() {
+        System.out.println(this.country);
+    }
+
 }

@@ -1,12 +1,11 @@
 package main;
 
-import db.JDBC;
+import connection.DBConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utility.Alerter;
 
 import java.io.IOException;
 /**
@@ -18,7 +17,7 @@ public class Main extends Application {
      * */
     public static void main(String[] args) {
         launch(args);
-        JDBC.closeConnection();
+        DBConnector.closeConnection();
     }
     /**
      * Sets and loads the Login view.
@@ -30,11 +29,11 @@ public class Main extends Application {
         primaryStage.show();
     }
     /**
-     * Connects the user to the database with openConnection() from the JDBC class.
+     * Connects the user to the database with openConnection() from the DBConnector class.
      * @param username the username used to access the database
      * @param password the password used to access the database
      * */
     public static void startConnection(String username, String password) {
-        JDBC.openConnection(username, password);
+        DBConnector.openConnection(username, password);
     }
 }

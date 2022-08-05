@@ -1,11 +1,12 @@
-package db;
+package connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
 /**
- * JDBC is configured to connect to a MySQL server that is provided on a virtual machine, for this assignment.
+ * DBConnector is configured to connect to a MySQL server that is provided on a virtual machine, for this assignment.
  * */
-public abstract class JDBC {
+public abstract class DBConnector {
     /**
      * Driver.
      * */
@@ -62,6 +63,14 @@ public abstract class JDBC {
     }
 
     /**
+     * Returns the current Connection.
+     * @Return Connection
+     * */
+    public static Connection getConnection() {
+        return connection;
+    }
+
+    /**
      * Attempts to close the connection. Prints either a success message or a detailed stack trace.
      * */
     public static void closeConnection() {
@@ -69,10 +78,7 @@ public abstract class JDBC {
             connection.close();
             System.out.println("Connection closed!");
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+        catch(Exception e){}
     }
     /**
      * Access to set the user's password.
