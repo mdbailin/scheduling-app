@@ -8,12 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.Main;
+import resources.LanguageManager;
 import utility.Alerter;
 
 import java.io.IOException;
@@ -23,35 +21,46 @@ import java.io.IOException;
  * */
 public class Login {
     /**
-     * Access to the time zone Label.
+     * Access to the time zone Label description
+     * */
+    public Label timeZoneDescLabel;
+    /**
+     * Access to the time zone Label that is updated to display the current time zone.
      * */
     public Label timeZoneLabel;
     /**
-     * Access to the language Combo Box.
+     * Access to the username Label.
      * */
-    public ComboBox languageComboBox;
+    public Label usernameLabel;
     /**
      * Access to the username Text Field.
      * */
     public TextField usernameTextField;
     /**
+     * Access to the password Label.
+     * */
+    public Label passwordLabel;
+    /**
      * Access to the Password Field.
      * */
     public PasswordField passwordField;
     /**
-     * ObservableList to contain the language options for the language Combo Box.
+     * Access to the login Button.
      * */
-    private final ObservableList<String> langaugeList = FXCollections.observableArrayList("English", "French");
+    public Button loginButton;
 
     Stage scheduleStage = new Stage();
     Scene scheduleScene;
 
     /**
-     * Initializes the Login view.
+     * Initializes the Login view. This includes translating text on the Login view.
      * */
     @FXML
     private void initialize() {
-        languageComboBox.setItems(langaugeList);
+        timeZoneDescLabel.setText(LanguageManager.getLocalString("Time_Zone"));
+        usernameLabel.setText(LanguageManager.getLocalString("Username"));
+        passwordLabel.setText(LanguageManager.getLocalString("Password"));
+        loginButton.setText(LanguageManager.getLocalString("Login"));
     }
 
     /**
@@ -65,9 +74,5 @@ public class Login {
         scheduleScene = new Scene(root);
         scheduleStage.setScene(scheduleScene);
         scheduleStage.show();
-    }
-
-    public void onLanguageComboBox(ActionEvent actionEvent) {
-        Alerter.alert("This is a test");
     }
 }
