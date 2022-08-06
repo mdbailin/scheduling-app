@@ -15,6 +15,8 @@ import resources.LanguageManager;
 import utility.Alerter;
 
 import java.io.IOException;
+import java.time.ZoneId;
+import java.util.TimeZone;
 
 /**
  * Controller for the Login view.
@@ -48,8 +50,13 @@ public class Login {
      * Access to the login Button.
      * */
     public Button loginButton;
-
+    /**
+     * Used to load a Stage for the Schedule view.
+     * */
     Stage scheduleStage = new Stage();
+    /**
+     * Used to load a Scene for the Schedule view.
+     * */
     Scene scheduleScene;
 
     /**
@@ -58,6 +65,7 @@ public class Login {
     @FXML
     private void initialize() {
         timeZoneDescLabel.setText(LanguageManager.getLocalString("Time_Zone"));
+        timeZoneLabel.setText(ZoneId.systemDefault().toString());
         usernameLabel.setText(LanguageManager.getLocalString("Username"));
         passwordLabel.setText(LanguageManager.getLocalString("Password"));
         loginButton.setText(LanguageManager.getLocalString("Login"));
