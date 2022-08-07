@@ -19,4 +19,12 @@ public class Contact {
      * Email VARCHAR(50)
      * */
     private String email;
+    /**
+     * Contact constructor.
+     * */
+    public Contact(int contactId, String contactName, String email) {
+        this.contactId = contactId;
+        this.contactName = contactName;
+        this.email = email;
+    }
 }

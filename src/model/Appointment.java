@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * Responsible for containing and allowing access to Appointment data.
  * Descriptions are followed by the data type in the database.
  * */
-public class Appointment {
+public class Appointment extends TrackedDBObject {
     /**
      * Appointment ID.
      * Appointment_ID INT(10) (PK)
@@ -37,32 +37,12 @@ public class Appointment {
      * Appointment start date & time.
      * Start DATETIME
      * */
-    private String start;
+    private LocalDateTime start;
     /**
      * Appointment end date & time.
      * End DATETIME
      * */
-    private String end;
-    /**
-     * Appointment creation date.
-     * CAppointment creation date.reate_Date DATETIME
-     * */
-    private LocalDateTime createDate;
-    /**
-     * Who created the appointment.
-     * Created_By VARCHAR(50)
-     * */
-    private String createdBy;
-    /**
-     * Time appointment was last updated.
-     * Last_Update TIMESTAMP
-     * */
-    private Timestamp lastUpdate;
-    /**
-     * Who last updated the appointment.
-     * Last_Updated_By VARCHAR(50)
-     * */
-    private String lastUpdatedBy;
+    private LocalDateTime end;
     /**
      * Customer ID relevant to the appointment.
      * Customer_ID INT(10) (FK)
@@ -78,5 +58,24 @@ public class Appointment {
      * Contact_ID INT(10) (FK)
      * */
     private int contactId;
+    /**
+     * Appointment constructor.
+     */
+    public Appointment(int appointmentId, String title, String description, String location, String type, LocalDateTime start,
+                       LocalDateTime end, int customerId, int userId, int contactId, LocalDateTime createDate,
+                       String createdBy, Timestamp lastUpdate, String lastUpdatedBy)
+    {
+        super(createDate, createdBy, lastUpdate, lastUpdatedBy);
+        this.appointmentId = appointmentId;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.customerId = customerId;
+        this.userId = userId;
+        this.contactId = contactId;
 
+    }
 }

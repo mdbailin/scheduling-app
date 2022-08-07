@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * Responsible for containing and allowing access to User data.
  * Descriptions are followed by the data type in the database.
  * */
-public class User {
+public class User extends TrackedDBObject {
     /**
      * User ID.
      * User_ID INT(10) (PK)
@@ -24,23 +24,12 @@ public class User {
      * */
     private String password;
     /**
-     * Date User was created.
-     * Create_Date DATETIME
+     * User constructor.
      * */
-    private LocalDateTime createDate;
-    /**
-     * Who created the User.
-     * Created_By VARCHAR(50)
-     * */
-    private String createdBy;
-    /**
-     * Time User was last updated.
-     * Last_Update TIMESTAMP
-     * */
-    private Timestamp lastUpdate;
-    /**
-     * Who last updated the User.
-     * Last_Updated_By VARCHAR(50)
-     * */
-    private String lastUpdatedBy;
+    public User(int userId, String username, String password, LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy) {
+        super(createDate, createdBy, lastUpdate, lastUpdatedBy);
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+    }
 }
