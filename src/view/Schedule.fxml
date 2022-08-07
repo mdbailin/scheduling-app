@@ -11,16 +11,17 @@
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="400.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="828.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="400.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="828.0" />
-            <Button fx:id="addAppointmentButton" layoutX="24.0" layoutY="367.0" mnemonicParsing="false" onAction="#onAddAppointmentButton" text="Add" />
-            <Button fx:id="updateAppointmentButton" layoutX="118.0" layoutY="367.0" mnemonicParsing="false" onAction="#onUpdateAppointmentButton" text="Update" />
-            <Button fx:id="deleteAppointmentButton" layoutX="238.0" layoutY="367.0" mnemonicParsing="false" onAction="#onDeleteAppointmentButton" text="Delete" />
+            <Button fx:id="addButton" layoutX="24.0" layoutY="367.0" mnemonicParsing="false" onAction="#onAddButton" text="Add" />
+            <Button fx:id="updateButton" layoutX="118.0" layoutY="367.0" mnemonicParsing="false" onAction="#onUpdateButton" text="Update" />
+            <Button fx:id="deleteButton" layoutX="238.0" layoutY="367.0" mnemonicParsing="false" onAction="#onDeleteButton" text="Delete" />
             <RadioButton fx:id="appointmentByMonthRadio" layoutX="238.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by month" />
             <RadioButton fx:id="appointmentByWeekRadio" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by week" />
             <Label fx:id="timeZoneDescLabel" layoutX="637.0" layoutY="14.0" text="Time Zone" />
             <Label fx:id="timeZoneLabel" layoutX="708.0" layoutY="14.0" text="Time Zone string" />
+            <ToggleButton fx:id="toggleViewButton" layoutX="664.0" layoutY="367.0" mnemonicParsing="false" onAction="#onToggleViewButton" text="View appointments" />
          </children>
       </Group>
-      <TableView fx:id="appointmentTableView" layoutX="3.0" layoutY="50.0" prefHeight="311.0" prefWidth="822.0">
+      <TableView fx:id="appointmentTableView" layoutX="4.0" layoutY="50.0" prefHeight="310.0" prefWidth="820.0">
         <columns>
           <TableColumn prefWidth="117.0" text="Appointment_ID" />
           <TableColumn prefWidth="47.0" text="Title" />
@@ -34,7 +35,7 @@
             <TableColumn prefWidth="73.0" text="User_ID" />
         </columns>
       </TableView>
-      <TableView fx:id="customerTableView" disable="true" layoutX="3.0" layoutY="51.0" prefHeight="311.0" prefWidth="822.0">
+      <TableView fx:id="customerTableView" disable="true" layoutX="4.0" layoutY="50.0" prefHeight="310.0" prefWidth="820.0" visible="false">
          <columns>
             <TableColumn prefWidth="92.0" text="Customer_ID" />
             <TableColumn prefWidth="155.0" text="Customer_Name" />

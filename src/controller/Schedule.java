@@ -1,18 +1,10 @@
 package controller;
 
-import database.CountryDB;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableView;
-import model.Country;
+import javafx.scene.control.*;
 import resources.LanguageManager;
 
-import java.sql.SQLException;
 import java.time.ZoneId;
 
 /**
@@ -20,23 +12,23 @@ import java.time.ZoneId;
  * */
 public class Schedule {
     /**
-     * Access to the time zone Label description
+     * Access to the addButton
      * */
-    public Button addAppointmentButton;
+    public Button addButton;
     /**
-     * Access to the time zone Label description
+     * Access to the updateButton
      * */
-    public Button updateAppointmentButton;
+    public Button updateButton;
     /**
-     * Access to the time zone Label description
+     * Access to the deleteButton
      * */
-    public Button deleteAppointmentButton;
+    public Button deleteButton;
     /**
-     * Access to the time zone Label description
+     * Access to the appointmentByMonthRadio
      * */
     public RadioButton appointmentByMonthRadio;
     /**
-     * Access to the time zone Label description
+     * Access to the appointmentByWeekRadio
      * */
     public RadioButton appointmentByWeekRadio;
     /**
@@ -44,35 +36,86 @@ public class Schedule {
      * */
     public Label timeZoneDescLabel;
     /**
-     * Access to the time zone Label description
+     * Access to the time zone Label
      * */
     public Label timeZoneLabel;
     /**
-     * Access to the time zone Label description
+     * Access to the toggleViewButton
+     * */
+    public ToggleButton toggleViewButton;
+    /**
+     * Keep track of which TableView should be active.
+     * */
+    public boolean viewAppointments = true;
+    /**
+     * Access to the appointmentTableView
      * */
     public TableView appointmentTableView;
+    /**
+     * Access to the customerTableView
+     * */
+    public TableView customerTableView;
+
+
     /**
      * Initializes Schedule by translating all text and filling the TableView.
      * */
     @FXML
     private void initialize() {
+        addButton.setText(LanguageManager.getLocalString("Add"));
+        updateButton.setText(LanguageManager.getLocalString("Update"));
+        deleteButton.setText(LanguageManager.getLocalString("Delete"));
+        appointmentByMonthRadio.setText(LanguageManager.getLocalString("Appointments_By_Month"));
+        appointmentByWeekRadio.setText(LanguageManager.getLocalString("Appointments_By_Week"));
+        timeZoneDescLabel.setText(LanguageManager.getLocalString("Time_Zone"));
+        toggleViewButton.setText(LanguageManager.getLocalString("View_Customers"));
         timeZoneDescLabel.setText(LanguageManager.getLocalString("Time_Zone"));
         timeZoneLabel.setText(ZoneId.systemDefault().toString());
     }
     /**
      * Opens the AddAppointment view when the user presses the addAppointmentButton.
      * */
-    public void onAddAppointmentButton(ActionEvent actionEvent) {
+    public void onAddButton(ActionEvent actionEvent) {
     }
     /**
      * Opens the UpdateAppointment view when the user presses the updateAppointmentButton.
      * */
-    public void onUpdateAppointmentButton(ActionEvent actionEvent) {
+    public void onUpdateButton(ActionEvent actionEvent) {
     }
     /**
      * Deletes the selected appointment when the user presses the deleteAppointmentButton.
      *
      * */
-    public void onDeleteAppointmentButton(ActionEvent actionEvent) {
+    public void onDeleteButton(ActionEvent actionEvent) {
+    }
+    /**
+     * Allows the user to toggle between the Appointment TableView and the Customer TableView
+     * */
+    public void onToggleViewButton(ActionEvent actionEvent) {
+        // TODO update the window
+        if (viewAppointments) {
+            toggleViewButton.setText(LanguageManager.getLocalString("View_Appointments"));
+            appointmentTableView.setDisable(true);
+            appointmentTableView.setVisible(false);
+            customerTableView.setDisable(false);
+            customerTableView.setVisible(true);
+            appointmentByWeekRadio.setDisable(true);
+            appointmentByWeekRadio.setVisible(false);
+            appointmentByMonthRadio.setDisable(true);
+            appointmentByMonthRadio.setVisible(false);
+            viewAppointments = false;
+        }
+        else {
+            toggleViewButton.setText(LanguageManager.getLocalString("View_Customers"));
+            appointmentTableView.setDisable(false);
+            appointmentTableView.setVisible(true);
+            customerTableView.setDisable(true);
+            customerTableView.setVisible(false);
+            appointmentByWeekRadio.setDisable(false);
+            appointmentByWeekRadio.setVisible(true);
+            appointmentByMonthRadio.setDisable(false);
+            appointmentByMonthRadio.setVisible(true);
+            viewAppointments = true;
+        }
     }
 }
