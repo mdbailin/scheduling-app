@@ -33,11 +33,19 @@ public class Country extends TrackedDBObject {
         this.countryId = countryId;
         this.country = country;
     }
-    /**
-     * For testing
-     * */
-    public void printCountry() {
-        System.out.println(this.country);
+
+    public int getCountryId() {
+        return this.countryId;
     }
 
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
+    }
+    public String getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 }

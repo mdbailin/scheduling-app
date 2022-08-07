@@ -23,30 +23,30 @@
       </Group>
       <TableView fx:id="appointmentTableView" layoutX="4.0" layoutY="50.0" prefHeight="310.0" prefWidth="820.0">
         <columns>
-          <TableColumn prefWidth="117.0" text="Appointment_ID" />
-          <TableColumn prefWidth="47.0" text="Title" />
-            <TableColumn prefWidth="187.0" text="Description" />
-            <TableColumn prefWidth="61.0" text="Location" />
-            <TableColumn prefWidth="76.0" text="Contact" />
-            <TableColumn prefWidth="53.0" text="Type" />
-            <TableColumn prefWidth="57.0" text="Start" />
-            <TableColumn prefWidth="53.0" text="End" />
-            <TableColumn prefWidth="97.0" text="Customer_ID" />
-            <TableColumn prefWidth="73.0" text="User_ID" />
+          <TableColumn fx:id="appointmentIdCol_a" prefWidth="117.0" text="Appointment_ID" />
+          <TableColumn fx:id="titleCol_a" prefWidth="47.0" text="Title" />
+            <TableColumn fx:id="descriptionCol_a" prefWidth="187.0" text="Description" />
+            <TableColumn fx:id="locationCol_a" prefWidth="61.0" text="Location" />
+            <TableColumn fx:id="contactCol_a" prefWidth="76.0" text="Contact" />
+            <TableColumn fx:id="typeCol_a" prefWidth="53.0" text="Type" />
+            <TableColumn fx:id="startCol_a" prefWidth="57.0" text="Start" />
+            <TableColumn fx:id="endCol_a" prefWidth="53.0" text="End" />
+            <TableColumn fx:id="customerIdCol_a" prefWidth="97.0" text="Customer_ID" />
+            <TableColumn fx:id="userIdCol_a" prefWidth="73.0" text="User_ID" />
         </columns>
       </TableView>
       <TableView fx:id="customerTableView" disable="true" layoutX="4.0" layoutY="50.0" prefHeight="310.0" prefWidth="820.0" visible="false">
          <columns>
-            <TableColumn prefWidth="92.0" text="Customer_ID" />
-            <TableColumn prefWidth="155.0" text="Customer_Name" />
-            <TableColumn prefWidth="88.0" text="Address" />
-            <TableColumn prefWidth="77.0" text="Postal_Code" />
-            <TableColumn prefWidth="75.0" text="Phone" />
-            <TableColumn prefWidth="54.0" text="Create_Date" />
-            <TableColumn prefWidth="57.0" text="Created_By" />
-            <TableColumn prefWidth="67.0" text="Last_Update" />
-            <TableColumn prefWidth="83.0" text="Last_Updated_By" />
-            <TableColumn prefWidth="73.0" text="Division_ID" />
+            <TableColumn fx:id="customerIdCol_c" prefWidth="92.0" text="Customer_ID" />
+            <TableColumn fx:id="customerNameCol_c" prefWidth="155.0" text="Customer_Name" />
+            <TableColumn fx:id="addressCol_c" prefWidth="88.0" text="Address" />
+            <TableColumn fx:id="postalCodeCol_c" prefWidth="77.0" text="Postal_Code" />
+            <TableColumn fx:id="phoneCol_c" prefWidth="75.0" text="Phone" />
+            <TableColumn fx:id="createDateCol_c" prefWidth="54.0" text="Create_Date" />
+            <TableColumn fx:id="createdByCol_c" prefWidth="57.0" text="Created_By" />
+            <TableColumn fx:id="lastUpdateCol_c" prefWidth="67.0" text="Last_Update" />
+            <TableColumn fx:id="lastUpdatedByCol_c" prefWidth="83.0" text="Last_Updated_By" />
+            <TableColumn fx:id="divisionIdCol_c" prefWidth="73.0" text="Division_ID" />
          </columns>
       </TableView>
    </children>

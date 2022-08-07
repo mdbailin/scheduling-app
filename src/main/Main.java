@@ -45,19 +45,19 @@ public class Main extends Application {
         }
         System.out.println("\nAppointments:");
         for (Appointment a : aptList) {
-            a.printAppointment();
+            System.out.println(a.getAppointmentId());
         }
         System.out.println("\nUsers:");
         for (User u : usrList) {
-            u.printUsername();
+            System.out.println(u.getUsername());
         }
         System.out.println("\nContacts:");
         for (Contact c : conList) {
-            c.printName();
+            System.out.println(c.getContactName());
         }
         System.out.println("\nCustomers:");
         for (Customer c : custList) {
-            c.printName();
+            System.out.println(c.getCustomerName());
         }
         //Test area end
         DBConnector.closeConnection();

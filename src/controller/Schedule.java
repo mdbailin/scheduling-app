@@ -1,10 +1,14 @@
 package controller;
 
+import database.AppointmentDB;
+import database.CustomerDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import resources.LanguageManager;
 
+import java.sql.SQLException;
 import java.time.ZoneId;
 
 /**
@@ -55,13 +59,41 @@ public class Schedule {
      * Access to the customerTableView
      * */
     public TableView customerTableView;
+    // Access to Appointment columns
+    public TableColumn appointmentIdCol_a;
+    public TableColumn titleCol_a;
+    public TableColumn descriptionCol_a;
+    public TableColumn locationCol_a;
+    public TableColumn contactCol_a;
+    public TableColumn typeCol_a;
+    public TableColumn startCol_a;
+    public TableColumn endCol_a;
+    public TableColumn customerIdCol_a;
+    public TableColumn userIdCol_a;
+
+    // Access to Customer columns
+    public TableColumn customerIdCol_c;
+    public TableColumn customerNameCol_c;
+    public TableColumn addressCol_c;
+    public TableColumn postalCodeCol_c;
+    public TableColumn phoneCol_c;
+    public TableColumn createDateCol_c;
+    public TableColumn createdByCol_c;
+    public TableColumn lastUpdateCol_c;
+    public TableColumn lastUpdatedByCol_c;
+    public TableColumn divisionIdCol_c;
 
 
     /**
      * Initializes Schedule by translating all text and filling the TableView.
      * */
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
+        //Set the TableViews
+        appointmentTableView.setItems(AppointmentDB.getAllAppointments());
+        customerTableView.setItems(CustomerDB.getAllCustomers());
+
+        // Translate the window text
         addButton.setText(LanguageManager.getLocalString("Add"));
         updateButton.setText(LanguageManager.getLocalString("Update"));
         deleteButton.setText(LanguageManager.getLocalString("Delete"));
@@ -71,6 +103,28 @@ public class Schedule {
         toggleViewButton.setText(LanguageManager.getLocalString("View_Customers"));
         timeZoneDescLabel.setText(LanguageManager.getLocalString("Time_Zone"));
         timeZoneLabel.setText(ZoneId.systemDefault().toString());
+        // Initialize the Appointment TableView
+        appointmentIdCol_a.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        titleCol_a.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descriptionCol_a.setCellValueFactory(new PropertyValueFactory<>("description"));
+        locationCol_a.setCellValueFactory(new PropertyValueFactory<>("location"));
+        contactCol_a.setCellValueFactory(new PropertyValueFactory<>("type"));
+        typeCol_a.setCellValueFactory(new PropertyValueFactory<>("start"));
+        startCol_a.setCellValueFactory(new PropertyValueFactory<>("end"));
+        endCol_a.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerIdCol_a.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        userIdCol_a.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        // Initialize the Customer TableView
+        customerIdCol_c.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerNameCol_c.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        addressCol_c.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postalCodeCol_c.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        phoneCol_c.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        createDateCol_c.setCellValueFactory(new PropertyValueFactory<>("createDate"));
+        createdByCol_c.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
+        lastUpdateCol_c.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
+        lastUpdatedByCol_c.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
+        divisionIdCol_c.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
     }
     /**
      * Opens the AddAppointment view when the user presses the addAppointmentButton.
@@ -92,7 +146,6 @@ public class Schedule {
      * Allows the user to toggle between the Appointment TableView and the Customer TableView
      * */
     public void onToggleViewButton(ActionEvent actionEvent) {
-        // TODO update the window
         if (viewAppointments) {
             toggleViewButton.setText(LanguageManager.getLocalString("View_Appointments"));
             appointmentTableView.setDisable(true);
