@@ -41,7 +41,7 @@ public class Main extends Application {
 
         System.out.println("\nCountries:");
         for (Country c : ctryList) {
-            c.printCountry();
+            System.out.println(c.getCreateDate().toString());
         }
         System.out.println("\nAppointments:");
         for (Appointment a : aptList) {
@@ -70,6 +70,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
         primaryStage.setScene(new Scene(root, 350, 300));
         primaryStage.setTitle(LanguageManager.getLocalString("Login"));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
     /**

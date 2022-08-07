@@ -21,6 +21,9 @@ public class Contact {
     private String email;
     /**
      * Contact constructor.
+     * @param contactId Contact ID
+     * @param contactName Contact name
+     * @param email Contact email
      * */
     public Contact(int contactId, String contactName, String email) {
         this.contactId = contactId;

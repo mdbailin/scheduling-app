@@ -40,6 +40,16 @@ public class Customer extends TrackedDBObject {
     private int divisionId;
     /**
      * Customer constructor.
+     * @param customerId Customer ID
+     * @param customerName Customer name
+     * @param address Customer address
+     * @param postalCode Customer postal code
+     * @param phone Customer phone number
+     * @param createDate Customer creation date
+     * @param createdBy Individual who created the Customer
+     * @param lastUpdate When the Customer was last updated
+     * @param lastUpdatedBy Individual who last updated the Customer
+     * @param divisionId Division ID for the customer
      * */
     public Customer(int customerId, String customerName, String address, String postalCode, String phone,
                     LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy,

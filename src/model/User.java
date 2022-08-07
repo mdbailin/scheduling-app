@@ -25,6 +25,13 @@ public class User extends TrackedDBObject {
     private String password;
     /**
      * User constructor.
+     * @param userId User ID
+     * @param username User's username
+     * @param password User's password
+     * @param createDate User creation date
+     * @param createdBy Individual who created the User
+     * @param lastUpdate When the User was last updated
+     * @param lastUpdatedBy Individual who last updated the User
      * */
     public User(int userId, String username, String password, LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy) {
         super(createDate, createdBy, lastUpdate, lastUpdatedBy);

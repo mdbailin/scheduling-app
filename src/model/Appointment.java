@@ -60,6 +60,20 @@ public class Appointment extends TrackedDBObject {
     private int contactId;
     /**
      * Appointment constructor.
+     * @param appointmentId Appointment ID
+     * @param title Title of the Appointment
+     * @param description Description of the Appointment
+     * @param location Location of the Appointment
+     * @param type Type of Appointment
+     * @param start Start date and time for the Appointment
+     * @param end End date and time for the Appointment
+     * @param customerId Customer ID relevant to the Appointment
+     * @param userId User ID relevant to the Appointment
+     * @param contactId Contact ID relevant to the Appointment
+     * @param createDate Appointment creation date
+     * @param createdBy Individual who created the Appointment
+     * @param lastUpdate When the Appointment was last updated
+     * @param lastUpdatedBy Individual who last updated the Appointment
      */
     public Appointment(int appointmentId, String title, String description, String location, String type, LocalDateTime start,
                        LocalDateTime end, int customerId, int userId, int contactId, LocalDateTime createDate,

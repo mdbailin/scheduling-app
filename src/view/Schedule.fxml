@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Schedule">
+<AnchorPane prefHeight="400.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Schedule">
    <children>
-      <TableView layoutX="172.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0">
+      <Group>
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="400.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="828.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="400.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="828.0" />
+            <Button fx:id="addAppointmentButton" layoutX="24.0" layoutY="367.0" mnemonicParsing="false" onAction="#onAddAppointmentButton" text="Add" />
+            <Button fx:id="updateAppointmentButton" layoutX="118.0" layoutY="367.0" mnemonicParsing="false" onAction="#onUpdateAppointmentButton" text="Update" />
+            <Button fx:id="deleteAppointmentButton" layoutX="238.0" layoutY="367.0" mnemonicParsing="false" onAction="#onDeleteAppointmentButton" text="Delete" />
+            <RadioButton fx:id="appointmentByMonthRadio" layoutX="238.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by month" />
+            <RadioButton fx:id="appointmentByWeekRadio" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by week" />
+            <Label fx:id="timeZoneDescLabel" layoutX="637.0" layoutY="14.0" text="Time Zone" />
+            <Label fx:id="timeZoneLabel" layoutX="708.0" layoutY="14.0" text="Time Zone string" />
+         </children>
+      </Group>
+      <TableView fx:id="appointmentTableView" layoutX="3.0" layoutY="50.0" prefHeight="311.0" prefWidth="822.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="117.0" text="Appointment_ID" />
+          <TableColumn prefWidth="47.0" text="Title" />
+            <TableColumn prefWidth="187.0" text="Description" />
+            <TableColumn prefWidth="61.0" text="Location" />
+            <TableColumn prefWidth="76.0" text="Contact" />
+            <TableColumn prefWidth="53.0" text="Type" />
+            <TableColumn prefWidth="57.0" text="Start" />
+            <TableColumn prefWidth="53.0" text="End" />
+            <TableColumn prefWidth="97.0" text="Customer_ID" />
+            <TableColumn prefWidth="73.0" text="User_ID" />
         </columns>
+      </TableView>
+      <TableView fx:id="customerTableView" disable="true" layoutX="3.0" layoutY="51.0" prefHeight="311.0" prefWidth="822.0">
+         <columns>
+            <TableColumn prefWidth="92.0" text="Customer_ID" />
+            <TableColumn prefWidth="155.0" text="Customer_Name" />
+            <TableColumn prefWidth="88.0" text="Address" />
+            <TableColumn prefWidth="77.0" text="Postal_Code" />
+            <TableColumn prefWidth="75.0" text="Phone" />
+            <TableColumn prefWidth="54.0" text="Create_Date" />
+            <TableColumn prefWidth="57.0" text="Created_By" />
+            <TableColumn prefWidth="67.0" text="Last_Update" />
+            <TableColumn prefWidth="83.0" text="Last_Updated_By" />
+            <TableColumn prefWidth="73.0" text="Division_ID" />
+         </columns>
       </TableView>
    </children>
 </AnchorPane>
