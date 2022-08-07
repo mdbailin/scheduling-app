@@ -32,4 +32,10 @@ public class User extends TrackedDBObject {
         this.username = username;
         this.password = password;
     }
+    /**
+     * For testing
+     * */
+    public void printUsername() {
+        System.out.println(this.username);
+    }
 }

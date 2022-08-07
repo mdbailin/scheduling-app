@@ -27,4 +27,10 @@ public class Contact {
         this.contactName = contactName;
         this.email = email;
     }
+    /**
+     * For testing
+     * */
+    public void printName() {
+        System.out.println(this.contactName);
+    }
 }

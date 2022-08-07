@@ -78,4 +78,10 @@ public class Appointment extends TrackedDBObject {
         this.contactId = contactId;
 
     }
+    /**
+     * For testing
+     * */
+    public void printAppointment() {
+        System.out.println(this.title + " is at " + this.start.toString());
+    }
 }

@@ -34,10 +34,16 @@ public class Customer extends TrackedDBObject {
      * */
     private String phone;
     /**
+     * Division ID.
+     * Division_ID int
+     * */
+    private int divisionId;
+    /**
      * Customer constructor.
      * */
     public Customer(int customerId, String customerName, String address, String postalCode, String phone,
-                    LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy)
+                    LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy,
+                    int divisionId)
     {
         super(createDate, createdBy, lastUpdate, lastUpdatedBy);
         this.customerId = customerId;
@@ -45,5 +51,12 @@ public class Customer extends TrackedDBObject {
         this.address = address;
         this.postalCode = postalCode;
         this.phone = phone;
+        this.divisionId = divisionId;
+    }
+    /**
+     * For testing
+     * */
+    public void printName() {
+        System.out.println(this.customerName);
     }
 }
