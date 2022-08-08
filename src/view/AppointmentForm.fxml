@@ -24,18 +24,18 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Start date" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label text="Start time" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label text="End date" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Label text="End time" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label text="Title" />
-            <Label text="Description" GridPane.rowIndex="1" />
-            <Label text="Contact" GridPane.rowIndex="2" />
-            <Label text="Type" GridPane.rowIndex="3" />
-            <Label text="User ID" GridPane.rowIndex="4" />
-            <Label text="Customer ID" GridPane.rowIndex="5" />
-            <Label text="Location" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Appointment ID" GridPane.columnIndex="2" />
+            <Label fx:id="startDateLabel" text="Start date" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="startTimeLabel" text="Start time" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="endDateLabel" text="End date" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label fx:id="endTimeLabel" text="End time" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label fx:id="titleLabel" text="Title" />
+            <Label fx:id="descriptionLabel" text="Description" GridPane.rowIndex="1" />
+            <Label fx:id="contactLabel" text="Contact" GridPane.rowIndex="2" />
+            <Label fx:id="typeLabel" text="Type" GridPane.rowIndex="3" />
+            <Label fx:id="userIdLabel" text="User ID" GridPane.rowIndex="4" />
+            <Label fx:id="customerIdLabel" text="Customer ID" GridPane.rowIndex="5" />
+            <Label fx:id="locationLabel" text="Location" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="appointmentIdLabel" text="Appointment ID" GridPane.columnIndex="2" />
             <Spinner fx:id="startTimeSpinner" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Spinner fx:id="endTimeSpinner" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <DatePicker fx:id="startDatePicker" GridPane.columnIndex="3" GridPane.rowIndex="2" />

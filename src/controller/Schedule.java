@@ -4,14 +4,21 @@ import database.AppointmentDB;
 import database.CustomerDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
 import resources.LanguageManager;
+import utility.Alerter;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZoneId;
 
@@ -87,13 +94,41 @@ public class Schedule {
     public TableColumn lastUpdatedByCol_c;
     public TableColumn divisionIdCol_c;
     /**
+     * Access to the logOutButton.
+     * */
+    public Button logOutButton;
+    /**
+     * Login scene.
+     * */
+    Scene loginScene;
+    /**
+     * Login stage.
+     * */
+    Stage loginStage = new Stage();
+    /**
+     * AppointmentForm scene.
+     * */
+    Scene appointmentFormScene;
+    /**
+     * AppointmentForm stage.
+     * */
+    Stage appointmentFormStage = new Stage();
+    /**
+     * CustomerForm scene.
+     * */
+    Scene customerFormScene;
+    /**
+     * CustomerForm stage.
+     * */
+    Stage customerFormStage = new Stage();
+    /**
      * Stores the data of the selected Appointment.
      * */
-    public static Appointment selectedAppointment;
+    public static Appointment selectedAppointment = null;
     /**
      * Stores the data of the selected Customer.
      * */
-    public static Customer selectedCustomer;
+    public static Customer selectedCustomer = null;
 
 
     /**
@@ -115,6 +150,7 @@ public class Schedule {
         toggleViewButton.setText(LanguageManager.getLocalString("View_Customers"));
         timeZoneDescLabel.setText(LanguageManager.getLocalString("Time_Zone"));
         timeZoneLabel.setText(ZoneId.systemDefault().toString());
+        logOutButton.setText(LanguageManager.getLocalString("Log_Out"));
         // Initialize the Appointment TableView
         appointmentIdCol_a.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         titleCol_a.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -138,6 +174,10 @@ public class Schedule {
         lastUpdatedByCol_c.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
         divisionIdCol_c.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
     }
+    public void closeSchedule(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
     /**
      * Used to set the selectedAppointment.
      * */
@@ -153,12 +193,54 @@ public class Schedule {
     /**
      * Opens the AppointmentForm view when the user presses the addAppointmentButton.
      * */
-    public void onAddButton(ActionEvent actionEvent) {
+    public void onAddButton(ActionEvent actionEvent) throws IOException {
+        if (viewAppointments) {
+            FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/AppointmentForm.fxml"));
+            Parent root = loadSchedule.load();
+            appointmentFormScene = new Scene(root);
+            appointmentFormStage.setScene(appointmentFormScene);
+            appointmentFormStage.setTitle(LanguageManager.getLocalString("Add_Appointment"));
+            appointmentFormStage.setResizable(false);
+            appointmentFormStage.show();
+        }
+        else {
+            FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/CustomerForm.fxml"));
+            Parent root = loadSchedule.load();
+            customerFormScene = new Scene(root);
+            customerFormStage.setScene(customerFormScene);
+            customerFormStage.setTitle(LanguageManager.getLocalString("Add_Customer"));
+            customerFormStage.setResizable(false);
+            customerFormStage.show();
+        }
     }
     /**
      * Opens the UpdateAppointment view when the user presses the updateAppointmentButton.
      * */
-    public void onUpdateButton(ActionEvent actionEvent) {
+    public void onUpdateButton(ActionEvent actionEvent) throws IOException {
+        if (selectedCustomer != null) {
+            if (viewAppointments) {
+                FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/AppointmentForm.fxml"));
+                Parent root = loadSchedule.load();
+                appointmentFormScene = new Scene(root);
+                appointmentFormStage.setScene(appointmentFormScene);
+                appointmentFormStage.setTitle(LanguageManager.getLocalString("Update_Appointment"));
+                appointmentFormStage.setResizable(false);
+                appointmentFormStage.show();
+            }
+            else {
+                FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/CustomerForm.fxml"));
+                Parent root = loadSchedule.load();
+                customerFormScene = new Scene(root);
+                customerFormStage.setScene(customerFormScene);
+                customerFormStage.setTitle(LanguageManager.getLocalString("Update_Customer"));
+                customerFormStage.setResizable(false);
+                customerFormStage.show();
+            }
+        }
+        else {
+            Alerter.alert("Make_Selection");
+        }
+
     }
     /**
      * Deletes the selected appointment when the user presses the deleteAppointmentButton.
@@ -166,6 +248,15 @@ public class Schedule {
      * */
     public void onDeleteButton(ActionEvent actionEvent) {
         //TODO ensure customer appointments are deleted BEFORE the customer is deleted
+        if (viewAppointments) {
+            // TODO ask for confirmation
+            //  delete Appointment from the database
+        }
+        else {
+            // TODO ask for confirmation
+            //  delete Customer Appointments from the database
+            //  delete Customer
+        }
     }
     /**
      * Allows the user to toggle between the Appointment TableView and the Customer TableView
@@ -196,14 +287,31 @@ public class Schedule {
             viewAppointments = true;
         }
     }
-
+    /**
+     * Set the selectedAppointment to the correct item in the TableView.
+     * */
     public void onAppointmentTableViewClicked(MouseEvent mouseEvent) {
         setSelectedAppointment();
         System.out.println("Selected appointment ID: " + selectedAppointment.getAppointmentId());
     }
-
+    /**
+     * Set the selectedCustomer to the correct item in the TableView.
+     * */
     public void onCustomerTableViewClicked(MouseEvent mouseEvent) {
         setSelectedCustomer();
         System.out.println("Selected customer ID: " + selectedCustomer.getCustomerId());
+    }
+    /**
+     * Opens the Login screen and closes the Schedule.
+     * */
+    public void onLogOutButton(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
+        Parent root = loadSchedule.load();
+        loginScene = new Scene(root);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle(LanguageManager.getLocalString("Login"));
+        loginStage.setResizable(false);
+        loginStage.show();
+        closeSchedule(actionEvent);
     }
 }

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -70,6 +71,13 @@ public class Login {
         passwordLabel.setText(LanguageManager.getLocalString("Password"));
         loginButton.setText(LanguageManager.getLocalString("Login"));
     }
+    /**
+     * Closes the Login stage.
+     * */
+    public void closeLogin(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
 
     /**
      * Used to establish a connection and log the user into the database.
@@ -83,7 +91,9 @@ public class Login {
             scheduleScene = new Scene(root);
             scheduleStage.setScene(scheduleScene);
             scheduleStage.setTitle(LanguageManager.getLocalString("Schedule"));
+            scheduleStage.setResizable(false);
             scheduleStage.show();
+            closeLogin(actionEvent);
         }
         else {
             Alerter.alert("Login_Credentials");

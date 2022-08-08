@@ -10,14 +10,19 @@
       <Group>
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="400.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="828.0" />
-            <Button fx:id="addButton" layoutX="24.0" layoutY="367.0" mnemonicParsing="false" onAction="#onAddButton" text="Add" />
-            <Button fx:id="updateButton" layoutX="118.0" layoutY="367.0" mnemonicParsing="false" onAction="#onUpdateButton" text="Update" />
-            <Button fx:id="deleteButton" layoutX="238.0" layoutY="367.0" mnemonicParsing="false" onAction="#onDeleteButton" text="Delete" />
+            <HBox layoutX="20.0" layoutY="366.0" prefHeight="30.0" prefWidth="456.0" spacing="20.0">
+               <children>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButton" text="Add" />
+                  <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateButton" text="Update" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButton" text="Delete" />
+                  <ToggleButton fx:id="toggleViewButton" mnemonicParsing="false" onAction="#onToggleViewButton" text="View appointments" />
+               </children>
+            </HBox>
             <RadioButton fx:id="appointmentByMonthRadio" layoutX="238.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by month" />
             <RadioButton fx:id="appointmentByWeekRadio" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by week" />
             <Label fx:id="timeZoneDescLabel" layoutX="637.0" layoutY="14.0" text="Time Zone" />
             <Label fx:id="timeZoneLabel" layoutX="708.0" layoutY="14.0" text="Time Zone string" />
-            <ToggleButton fx:id="toggleViewButton" layoutX="664.0" layoutY="367.0" mnemonicParsing="false" onAction="#onToggleViewButton" text="View appointments" />
+            <Button fx:id="logOutButton" layoutX="720.0" layoutY="366.0" mnemonicParsing="false" onAction="#onLogOutButton" text="Log out" />
          </children>
       </Group>
       <TableView fx:id="appointmentTableView" layoutX="4.0" layoutY="50.0" onMouseClicked="#onAppointmentTableViewClicked" prefHeight="310.0" prefWidth="820.0">
