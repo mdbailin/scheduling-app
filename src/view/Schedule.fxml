@@ -9,7 +9,6 @@
    <children>
       <Group>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="400.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="828.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="400.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="828.0" />
             <Button fx:id="addButton" layoutX="24.0" layoutY="367.0" mnemonicParsing="false" onAction="#onAddButton" text="Add" />
             <Button fx:id="updateButton" layoutX="118.0" layoutY="367.0" mnemonicParsing="false" onAction="#onUpdateButton" text="Update" />
@@ -21,7 +20,7 @@
             <ToggleButton fx:id="toggleViewButton" layoutX="664.0" layoutY="367.0" mnemonicParsing="false" onAction="#onToggleViewButton" text="View appointments" />
          </children>
       </Group>
-      <TableView fx:id="appointmentTableView" layoutX="4.0" layoutY="50.0" prefHeight="310.0" prefWidth="820.0">
+      <TableView fx:id="appointmentTableView" layoutX="4.0" layoutY="50.0" onMouseClicked="#onAppointmentTableViewClicked" prefHeight="310.0" prefWidth="820.0">
         <columns>
           <TableColumn fx:id="appointmentIdCol_a" prefWidth="117.0" text="Appointment_ID" />
           <TableColumn fx:id="titleCol_a" prefWidth="47.0" text="Title" />
@@ -35,7 +34,7 @@
             <TableColumn fx:id="userIdCol_a" prefWidth="73.0" text="User_ID" />
         </columns>
       </TableView>
-      <TableView fx:id="customerTableView" disable="true" layoutX="4.0" layoutY="50.0" prefHeight="310.0" prefWidth="820.0" visible="false">
+      <TableView fx:id="customerTableView" disable="true" layoutX="4.0" layoutY="50.0" onMouseClicked="#onCustomerTableViewClicked" prefHeight="310.0" prefWidth="820.0" visible="false">
          <columns>
             <TableColumn fx:id="customerIdCol_c" prefWidth="92.0" text="Customer_ID" />
             <TableColumn fx:id="customerNameCol_c" prefWidth="155.0" text="Customer_Name" />

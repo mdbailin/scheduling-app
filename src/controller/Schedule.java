@@ -6,6 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import model.Appointment;
+import model.Customer;
 import resources.LanguageManager;
 
 import java.sql.SQLException;
@@ -82,6 +86,14 @@ public class Schedule {
     public TableColumn lastUpdateCol_c;
     public TableColumn lastUpdatedByCol_c;
     public TableColumn divisionIdCol_c;
+    /**
+     * Stores the data of the selected Appointment.
+     * */
+    public static Appointment selectedAppointment;
+    /**
+     * Stores the data of the selected Customer.
+     * */
+    public static Customer selectedCustomer;
 
 
     /**
@@ -127,7 +139,19 @@ public class Schedule {
         divisionIdCol_c.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
     }
     /**
-     * Opens the AddAppointment view when the user presses the addAppointmentButton.
+     * Used to set the selectedAppointment.
+     * */
+    public void setSelectedAppointment() {
+        selectedAppointment = (Appointment) appointmentTableView.getSelectionModel().getSelectedItem();
+    }
+    /**
+     * Used to set the selectedCustomer.
+     * */
+    public void setSelectedCustomer() {
+        selectedCustomer = (Customer) customerTableView.getSelectionModel().getSelectedItem();
+    }
+    /**
+     * Opens the AppointmentForm view when the user presses the addAppointmentButton.
      * */
     public void onAddButton(ActionEvent actionEvent) {
     }
@@ -141,6 +165,7 @@ public class Schedule {
      *
      * */
     public void onDeleteButton(ActionEvent actionEvent) {
+        //TODO ensure customer appointments are deleted BEFORE the customer is deleted
     }
     /**
      * Allows the user to toggle between the Appointment TableView and the Customer TableView
@@ -170,5 +195,15 @@ public class Schedule {
             appointmentByMonthRadio.setVisible(true);
             viewAppointments = true;
         }
+    }
+
+    public void onAppointmentTableViewClicked(MouseEvent mouseEvent) {
+        setSelectedAppointment();
+        System.out.println("Selected appointment ID: " + selectedAppointment.getAppointmentId());
+    }
+
+    public void onCustomerTableViewClicked(MouseEvent mouseEvent) {
+        setSelectedCustomer();
+        System.out.println("Selected customer ID: " + selectedCustomer.getCustomerId());
     }
 }

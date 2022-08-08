@@ -45,4 +45,14 @@ public class AppointmentDB {
         }
         return appointmentList;
     }
+    public static void removeAppointment(int appointmentId) throws SQLException {
+        try {
+            String sql = "DELETE FROM APPOINTMENTS WHERE Appointment_ID = " + appointmentId;
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            statement.execute();
+        }
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+    }
 }
