@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
 import model.User;
+import utility.LoginMonitor;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class UserDB {
+    /**
+     * Selects all users in the database.
+     * @return userList, an ObservableList of users.
+     * */
     public static ObservableList<User> getAllUsers() throws SQLException {
         ObservableList<User> userList = FXCollections.observableArrayList();
         try {
@@ -36,5 +41,26 @@ public class UserDB {
             sqlE.printStackTrace();
         }
         return userList;
+    }
+    /**
+     * Attempts to validate user credentials. Attempts are logged with the LoginMonitor.
+     * @return true if the desired user is validated. Returns false if either of the credentials are incorrect.
+     * */
+    public static boolean userLogin(String userToFind, String password) {
+        LocalDateTime time = LocalDateTime.now();
+        try {
+            String sql = "SELECT * FROM USERS WHERE USER_NAME = '" + userToFind + "' AND password = '" + password +"'";
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            ResultSet results = statement.executeQuery();
+            results.next();
+            if (results.getString("User_Name").equals(userToFind) && results.getString("Password").equals(password)) {
+                LoginMonitor.logAttempt(userToFind, "CORRECT_PASSWORD");
+                return true;
+            }
+        }
+        catch(SQLException sqlE) {
+            LoginMonitor.logAttempt(userToFind, password);
+        }
+        return false;
     }
 }

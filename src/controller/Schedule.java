@@ -151,6 +151,28 @@ public class Schedule {
         timeZoneDescLabel.setText(LanguageManager.getLocalString("Time_Zone"));
         timeZoneLabel.setText(ZoneId.systemDefault().toString());
         logOutButton.setText(LanguageManager.getLocalString("Log_Out"));
+        appointmentIdCol_a.setText(LanguageManager.getLocalString("Appointment_ID"));
+        titleCol_a.setText(LanguageManager.getLocalString("Title"));
+        // Translate Appointment cols
+        descriptionCol_a.setText(LanguageManager.getLocalString("Description"));
+        locationCol_a.setText(LanguageManager.getLocalString("Location"));
+        contactCol_a.setText(LanguageManager.getLocalString("Contact"));
+        typeCol_a.setText(LanguageManager.getLocalString("Type"));
+        startCol_a.setText(LanguageManager.getLocalString("Start"));
+        endCol_a.setText(LanguageManager.getLocalString("End"));
+        customerIdCol_a.setText(LanguageManager.getLocalString("Customer_ID"));
+        userIdCol_a.setText(LanguageManager.getLocalString("User_ID"));
+        // Translate Customer cols
+        customerIdCol_c.setText(LanguageManager.getLocalString("Customer_ID"));
+        customerNameCol_c.setText(LanguageManager.getLocalString("Customer_Name"));
+        addressCol_c.setText(LanguageManager.getLocalString("Address"));
+        postalCodeCol_c.setText(LanguageManager.getLocalString("Postal_Code"));
+        phoneCol_c.setText(LanguageManager.getLocalString("Phone"));
+        createDateCol_c.setText(LanguageManager.getLocalString("Create_Date"));
+        createdByCol_c.setText(LanguageManager.getLocalString("Created_By"));
+        lastUpdateCol_c.setText(LanguageManager.getLocalString("Last_Update"));
+        lastUpdatedByCol_c.setText(LanguageManager.getLocalString("Last_Updated_By"));
+        divisionIdCol_c.setText(LanguageManager.getLocalString("Division_ID"));
         // Initialize the Appointment TableView
         appointmentIdCol_a.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         titleCol_a.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -182,18 +204,22 @@ public class Schedule {
      * Used to set the selectedAppointment.
      * */
     public void setSelectedAppointment() {
+        selectedCustomer = null;
         selectedAppointment = (Appointment) appointmentTableView.getSelectionModel().getSelectedItem();
     }
     /**
      * Used to set the selectedCustomer.
      * */
     public void setSelectedCustomer() {
+        selectedAppointment = null;
         selectedCustomer = (Customer) customerTableView.getSelectionModel().getSelectedItem();
     }
     /**
      * Opens the AppointmentForm view when the user presses the addAppointmentButton.
      * */
     public void onAddButton(ActionEvent actionEvent) throws IOException {
+        selectedAppointment = null;
+        selectedCustomer = null;
         if (viewAppointments) {
             FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/AppointmentForm.fxml"));
             Parent root = loadSchedule.load();
@@ -292,14 +318,25 @@ public class Schedule {
      * */
     public void onAppointmentTableViewClicked(MouseEvent mouseEvent) {
         setSelectedAppointment();
-        System.out.println("Selected appointment ID: " + selectedAppointment.getAppointmentId());
+        if (selectedAppointment != null) {
+            System.out.println("Selected appointment ID: " + selectedAppointment.getAppointmentId());
+        }
+        else {
+            System.out.println("No appointment selected.");
+        }
     }
     /**
      * Set the selectedCustomer to the correct item in the TableView.
      * */
     public void onCustomerTableViewClicked(MouseEvent mouseEvent) {
         setSelectedCustomer();
-        System.out.println("Selected customer ID: " + selectedCustomer.getCustomerId());
+        if (selectedCustomer != null) {
+            System.out.println("Selected customer ID: " + selectedCustomer.getCustomerId());
+        }
+        else {
+            System.out.println("No customer selected.");
+        }
+
     }
     /**
      * Opens the Login screen and closes the Schedule.

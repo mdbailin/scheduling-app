@@ -1,5 +1,6 @@
 package controller;
 
+import database.UserDB;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.Main;
+import model.User;
 import resources.LanguageManager;
 import utility.Alerter;
 
@@ -59,7 +61,10 @@ public class Login {
      * Used to load a Scene for the Schedule view.
      * */
     Scene scheduleScene;
-
+    /**
+     * Used to check if the user credentials have been verified.
+     * */
+    private boolean access = false;
     /**
      * Initializes the Login view. This includes translating text on the Login view.
      * */
@@ -83,9 +88,10 @@ public class Login {
      * Used to establish a connection and log the user into the database.
      * */
     public void onLoginButton(ActionEvent actionEvent) throws IOException {
-        if (!usernameTextField.getText().equals("")  && !passwordField.getText().equals("")) {
-            Main.startConnection(usernameTextField.getText(), passwordField.getText());
-
+        if(UserDB.userLogin(usernameTextField.getText(), passwordField.getText())) {
+            access = true;
+        }
+        if (access) {
             FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Schedule.fxml"));
             Parent root = loadSchedule.load();
             scheduleScene = new Scene(root);

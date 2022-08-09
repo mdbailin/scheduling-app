@@ -20,8 +20,12 @@
             </HBox>
             <RadioButton fx:id="appointmentByMonthRadio" layoutX="238.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by month" />
             <RadioButton fx:id="appointmentByWeekRadio" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by week" />
-            <Label fx:id="timeZoneDescLabel" layoutX="637.0" layoutY="14.0" text="Time Zone" />
-            <Label fx:id="timeZoneLabel" layoutX="708.0" layoutY="14.0" text="Time Zone string" />
+            <HBox layoutX="596.0" layoutY="14.0" prefHeight="17.0" prefWidth="222.0" spacing="10.0">
+               <children>
+                  <Label fx:id="timeZoneDescLabel" text="Time Zone" />
+                  <Label fx:id="timeZoneLabel" text="Time Zone string" />
+               </children>
+            </HBox>
             <Button fx:id="logOutButton" layoutX="720.0" layoutY="366.0" mnemonicParsing="false" onAction="#onLogOutButton" text="Log out" />
          </children>
       </Group>

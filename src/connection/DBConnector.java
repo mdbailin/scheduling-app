@@ -34,11 +34,11 @@ public abstract class DBConnector {
     /**
      * Username for MySQL user on the provided virtual machine.
      * */
-    private static String username = "";
+    private static final String username = "sqlUser";
     /**
      * Password for MySQL user on the provided virtual machine.
      * */
-    private static String password = "";
+    private static final String password = "";
     /**
      * Connection interface.
      * */
@@ -47,10 +47,8 @@ public abstract class DBConnector {
     /**
      * Attempts to establish a connection. Prints either a success message or a detailed stack trace.
      * */
-    public static void openConnection(String usernameEntry, String passwordEntry)
+    public static void openConnection()
     {
-        setUsername(usernameEntry);
-        setPassword(passwordEntry);
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(jdbcUrl, username, password);
@@ -80,17 +78,7 @@ public abstract class DBConnector {
         }
         catch(Exception e){}
     }
-    /**
-     * Access to set the user's password.
-     * */
-    public static void setPassword(String passwordEntry) {
-        password = passwordEntry;
+    public static String getDBPassword() {
+        return password;
     }
-    /**
-     * Access to set the username.
-     * */
-    public static void setUsername(String usernameEntry) {
-        username = usernameEntry;
-    }
-
 }

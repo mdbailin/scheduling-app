@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10cdcf52-3518-4cef-b45b-2fbcf3beb717" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/utility/LoginMonitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/AppointmentForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AppointmentForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/CustomerForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/connection/DBConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/connection/DBConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/UserDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/UserDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/lang_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/resources/lang_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/lang_fr.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AppointmentForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AppointmentForm.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/CustomerForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CustomerForm.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Schedule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Schedule.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +22,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -103,6 +102,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLException" package="java.sql" />
+          <option name="timeStamp" value="2" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

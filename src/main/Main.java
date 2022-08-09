@@ -26,6 +26,7 @@ public class Main extends Application {
      * The entry point for the program.
      * */
     public static void main(String[] args) throws SQLException {
+        DBConnector.openConnection();
         launch(args);
         // Test area
         ObservableList<Appointment> aptList = FXCollections.observableArrayList();
@@ -73,13 +74,5 @@ public class Main extends Application {
         primaryStage.setTitle(LanguageManager.getLocalString("Login"));
         primaryStage.setResizable(false);
         primaryStage.show();
-    }
-    /**
-     * Connects the user to the database with openConnection() from the DBConnector class.
-     * @param username the username used to access the database
-     * @param password the password used to access the database
-     * */
-    public static void startConnection(String username, String password) {
-        DBConnector.openConnection(username, password);
     }
 }
