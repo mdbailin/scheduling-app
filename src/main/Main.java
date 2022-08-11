@@ -2,6 +2,7 @@ package main;
 
 import connection.DBConnector;
 import controller.Login;
+import model.User;
 import database.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import static java.util.Objects.hash;
 
 /**
  * Contains the entry point for the program.

@@ -1,5 +1,8 @@
 package model;
 
+import database.AppointmentDB;
+
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -91,6 +94,12 @@ public class Appointment extends TrackedDBObject {
         this.userId = userId;
         this.contactId = contactId;
 
+    }
+    /**
+     * Appointment default constructor.
+     * */
+    public Appointment() {
+        this(-1, null, null, null, null, null, null, -1, -1, -1, null, null, null, null);
     }
 
     public int getAppointmentId() {

@@ -88,22 +88,23 @@ public class Login {
      * Used to establish a connection and log the user into the database.
      * */
     public void onLoginButton(ActionEvent actionEvent) throws IOException {
-        if(UserDB.userLogin(usernameTextField.getText(), passwordField.getText())) {
-            access = true;
-        }
-        if (access) {
-            FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Schedule.fxml"));
-            Parent root = loadSchedule.load();
-            scheduleScene = new Scene(root);
-            scheduleStage.setScene(scheduleScene);
-            scheduleStage.setTitle(LanguageManager.getLocalString("Schedule"));
-            scheduleStage.setResizable(false);
-            scheduleStage.show();
-            closeLogin(actionEvent);
+        if (usernameTextField.getText().equals("") || passwordField.getText().equals("")) {
+            Alerter.alert("Missing_Credentials", "Message");
         }
         else {
-            Alerter.alert("Login_Credentials");
+            if(UserDB.userLogin(usernameTextField.getText(), passwordField.getText())) {
+                access = true;
+            }
+            if (access) {
+                FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Schedule.fxml"));
+                Parent root = loadSchedule.load();
+                scheduleScene = new Scene(root);
+                scheduleStage.setScene(scheduleScene);
+                scheduleStage.setTitle(LanguageManager.getLocalString("Schedule"));
+                scheduleStage.setResizable(false);
+                scheduleStage.show();
+                closeLogin(actionEvent);
+            }
         }
-
     }
 }

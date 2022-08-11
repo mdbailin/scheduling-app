@@ -137,8 +137,7 @@ public class Schedule {
     @FXML
     private void initialize() throws SQLException {
         //Set the TableViews
-        appointmentTableView.setItems(AppointmentDB.getAllAppointments());
-        customerTableView.setItems(CustomerDB.getAllCustomers());
+        refresh();
 
         // Translate the window text
         addButton.setText(LanguageManager.getLocalString("Add"));
@@ -264,7 +263,7 @@ public class Schedule {
             }
         }
         else {
-            Alerter.alert("Make_Selection");
+            Alerter.alert("Make_Selection", "Message");
         }
 
     }
@@ -272,11 +271,11 @@ public class Schedule {
      * Deletes the selected appointment when the user presses the deleteAppointmentButton.
      *
      * */
-    public void onDeleteButton(ActionEvent actionEvent) {
+    public void onDeleteButton(ActionEvent actionEvent) throws SQLException {
         //TODO ensure customer appointments are deleted BEFORE the customer is deleted
         if (viewAppointments) {
-            // TODO ask for confirmation
-            //  delete Appointment from the database
+            AppointmentDB.removeAppointment(selectedAppointment.getAppointmentId());
+            refresh();
         }
         else {
             // TODO ask for confirmation
@@ -287,7 +286,7 @@ public class Schedule {
     /**
      * Allows the user to toggle between the Appointment TableView and the Customer TableView
      * */
-    public void onToggleViewButton(ActionEvent actionEvent) {
+    public void onToggleViewButton(ActionEvent actionEvent) throws SQLException {
         if (viewAppointments) {
             toggleViewButton.setText(LanguageManager.getLocalString("View_Appointments"));
             appointmentTableView.setDisable(true);
@@ -299,6 +298,7 @@ public class Schedule {
             appointmentByMonthRadio.setDisable(true);
             appointmentByMonthRadio.setVisible(false);
             viewAppointments = false;
+            refresh();
         }
         else {
             toggleViewButton.setText(LanguageManager.getLocalString("View_Customers"));
@@ -350,5 +350,12 @@ public class Schedule {
         loginStage.setResizable(false);
         loginStage.show();
         closeSchedule(actionEvent);
+    }
+    /**
+     * Refresh TableViews.
+     * */
+    public void refresh() throws SQLException {
+        appointmentTableView.setItems(AppointmentDB.getAllAppointments());
+        customerTableView.setItems(CustomerDB.getAllCustomers());
     }
 }

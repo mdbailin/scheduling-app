@@ -3,8 +3,9 @@ package database;
 import connection.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import model.Appointment;
-import model.Country;
+import utility.Alerter;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,13 +46,74 @@ public class AppointmentDB {
         }
         return appointmentList;
     }
-    public static void removeAppointment(int appointmentId) throws SQLException {
+    /**
+     * Queries the database to check for the next valid Appointment_ID.
+     * @return nextId the integer value of the current highest number ID incremented by 1.
+     * Returns -1 if there is an error.
+     * */
+    public static int nextAppId() throws SQLException {
+        int nextId = -1;
         try {
-            String sql = "DELETE FROM APPOINTMENTS WHERE Appointment_ID = " + appointmentId;
+            String sql = "select max(Appointment_ID) as max_app_id from appointments";
             PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()) {
+                nextId = result.getInt("max_app_id") + 1;
+            }
+        }
+        catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+        return nextId;
+    }
+    /**
+     * Attempts to remove an appointment.
+     * @param appointmentId The Appointment_ID for the Appointment to remove.
+     * */
+    public static void removeAppointment(int appointmentId) throws SQLException {
+        if (Alerter.confirm("Delete_Appointment")) {
+            try {
+                String sql = "DELETE FROM APPOINTMENTS WHERE Appointment_ID = " + appointmentId;
+                PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+                statement.execute();
+            }
+            catch(SQLException sqlE) {
+                sqlE.printStackTrace();
+            }
+        }
+        else {
+            Alerter.alert("The Appointment was not deleted", "Message");
+        }
+    }
+    /**
+     * Attempts to add an appointment to the database.
+     * @param appointment The appointment that is meant to be added to the database
+     * */
+    public static void sendAppointment(Appointment appointment) throws SQLException {
+        try {
+            String sql = "INSERT INTO APPOINTMENTS (Appointment_ID, Title, Description, Location, Type, Start, End, " +
+                    "Customer_ID, Create_Date, Created_By, Last_Update, Last_Updated_By, User_ID, Contact_ID) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+
+            statement.setInt(1, appointment.getAppointmentId());
+            statement.setString(2, appointment.getTitle());
+            statement.setString(3, appointment.getDescription());
+            statement.setString(4, appointment.getLocation());
+            statement.setString(5, appointment.getType());
+            statement.setTimestamp(6, Timestamp.valueOf(appointment.getStart()));
+            statement.setTimestamp(7, Timestamp.valueOf(appointment.getEnd()));
+            statement.setInt(8, appointment.getCustomerId());
+            statement.setTimestamp(9, Timestamp.valueOf(appointment.getCreateDate()));
+            statement.setString(10, "admin");
+            statement.setTimestamp(11, appointment.getLastUpdate());
+            statement.setString(12, "admin");
+            statement.setInt(13, appointment.getUserId());
+            statement.setInt(14, appointment.getContactId());
             statement.execute();
         }
-        catch(SQLException sqlE) {
+        catch (SQLException sqlE) {
             sqlE.printStackTrace();
         }
     }

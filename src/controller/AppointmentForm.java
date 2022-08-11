@@ -1,11 +1,17 @@
 package controller;
 
+import database.AppointmentDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import model.Appointment;
 import resources.LanguageManager;
 
-import java.time.ZoneId;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class AppointmentForm {
     public Spinner startTimeSpinner;
@@ -36,7 +42,7 @@ public class AppointmentForm {
     public Label appointmentIdLabel;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
         // TODO If the selected Appointment from the Schedule is not null,
         //  i.e. the user has pressed the update button, prepare the form with the selected
         //  object's data.
@@ -54,12 +60,36 @@ public class AppointmentForm {
         appointmentIdLabel.setText(LanguageManager.getLocalString("Appointment_ID"));
         saveButton.setText(LanguageManager.getLocalString("Save"));
         cancelButton.setText(LanguageManager.getLocalString("Cancel"));
+        appointmentIdField.setText(String.valueOf(AppointmentDB.nextAppId()));
     }
 
-    public void onSaveButton(ActionEvent actionEvent) {
+    public void onSaveButton(ActionEvent actionEvent) throws SQLException {
+        addAppointment();
     }
-
+    /**
+     * Closes the AppointmentForm without saving anything to the database.
+     * */
     public void onCancelButton(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+    public void addAppointment() throws SQLException {
+        int appointmentId = AppointmentDB.nextAppId();
+        String title = titleField.getText();
+        String description = descriptionField.getText();
+        String location = locationField.getText();
+        String type = typeField.getText();
+        LocalDateTime start = LocalDateTime.now(); // Get this from the start date and time UI objects
+        LocalDateTime end = LocalDateTime.now(); // Get this from the end date and time UI objects
+        int customerId = 1; // Must exist in DB (1 or 2 right now)
+        int userId = Integer.parseInt(userIdField.getText()); // Validate before Integer.valueOf()
+        int contactId = 1; // Get this from the combo box
+        LocalDateTime createDate = LocalDateTime.now();
+        String createdBy = "admin";
+        Timestamp lastUpdate = Timestamp.valueOf(LocalDateTime.now());
+        String lastUpdatedBy = "admin";
+        Appointment a = new Appointment(appointmentId, title, description, location, type, start, end, customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
+        AppointmentDB.sendAppointment(a);
     }
 }
 // Business hours 0800 - 2200

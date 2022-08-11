@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
 import model.User;
+import resources.LanguageManager;
+import utility.Alerter;
 import utility.LoginMonitor;
 
 import java.sql.PreparedStatement;
@@ -53,7 +55,8 @@ public class UserDB {
             PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
             ResultSet results = statement.executeQuery();
             results.next();
-            if (results.getString("User_Name").equals(userToFind) && results.getString("Password").equals(password)) {
+            if (results.getString("User_Name").equals(userToFind) &&
+                    results.getString("Password").equals(password)) {
                 LoginMonitor.logAttempt(userToFind, "CORRECT_PASSWORD");
                 return true;
             }
@@ -61,6 +64,7 @@ public class UserDB {
         catch(SQLException sqlE) {
             LoginMonitor.logAttempt(userToFind, password);
         }
+        Alerter.alert("Incorrect_Credentials", "Message");
         return false;
     }
 }
