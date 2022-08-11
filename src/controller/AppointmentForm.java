@@ -60,11 +60,36 @@ public class AppointmentForm {
         appointmentIdLabel.setText(LanguageManager.getLocalString("Appointment_ID"));
         saveButton.setText(LanguageManager.getLocalString("Save"));
         cancelButton.setText(LanguageManager.getLocalString("Cancel"));
-        appointmentIdField.setText(String.valueOf(AppointmentDB.nextAppId()));
+        if (Schedule.selectedAppointment != null) {
+            // start date
+            // start time
+            // end date
+            // end time
+            titleField.setText(Schedule.selectedAppointment.getTitle());
+            descriptionField.setText(Schedule.selectedAppointment.getDescription());
+            // set contact
+            typeField.setText(Schedule.selectedAppointment.getType());
+            userIdField.setText(String.valueOf(Schedule.selectedAppointment.getUserId()));
+            customerIdField.setText(String.valueOf(Schedule.selectedAppointment.getCustomerId()));
+            locationField.setText(Schedule.selectedAppointment.getLocation());
+            appointmentIdField.setText(String.valueOf(Schedule.selectedAppointment.getAppointmentId()));
+        }
+        else {
+            try {
+                appointmentIdField.setText(String.valueOf(AppointmentDB.nextAppId()));
+            }
+            catch(SQLException sqlE){sqlE.printStackTrace();}
+        }
+
     }
 
     public void onSaveButton(ActionEvent actionEvent) throws SQLException {
-        addAppointment();
+        if (Schedule.selectedAppointment != null) {
+            AppointmentDB.modifyAppointment(createAppointment());
+        }
+        else {
+            addAppointment();
+        }
     }
     /**
      * Closes the AppointmentForm without saving anything to the database.
@@ -74,7 +99,10 @@ public class AppointmentForm {
         stage.close();
     }
     public void addAppointment() throws SQLException {
-        int appointmentId = AppointmentDB.nextAppId();
+        AppointmentDB.sendAppointment(createAppointment());
+    }
+    public Appointment createAppointment() {
+        int appointmentId = Integer.parseInt(appointmentIdField.getText());
         String title = titleField.getText();
         String description = descriptionField.getText();
         String location = locationField.getText();
@@ -88,8 +116,7 @@ public class AppointmentForm {
         String createdBy = "admin";
         Timestamp lastUpdate = Timestamp.valueOf(LocalDateTime.now());
         String lastUpdatedBy = "admin";
-        Appointment a = new Appointment(appointmentId, title, description, location, type, start, end, customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
-        AppointmentDB.sendAppointment(a);
+        return new Appointment(appointmentId, title, description, location, type, start, end, customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
     }
 }
 // Business hours 0800 - 2200

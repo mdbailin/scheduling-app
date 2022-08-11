@@ -9,9 +9,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Customer;
 import resources.LanguageManager;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class CustomerForm {
     public TextField customerIdField;
@@ -33,6 +36,7 @@ public class CustomerForm {
 
     @FXML
     private void initialize() throws SQLException {
+        System.out.println("Current selected customer: " + Schedule.selectedCustomer.getCustomerName());
         // TODO If the selected Customer from the Schedule is not null,
         //  i.e. the user has pressed the update button, prepare the form with the selected
         //  object's data.
@@ -46,6 +50,12 @@ public class CustomerForm {
         cancelButton.setText(LanguageManager.getLocalString("Cancel"));
         if (Schedule.selectedCustomer != null) {
             customerIdField.setText(String.valueOf(Schedule.selectedCustomer.getCustomerId()));
+            nameField.setText(Schedule.selectedCustomer.getCustomerName());
+            addressField.setText(Schedule.selectedCustomer.getAddress());
+            postalCodeField.setText(Schedule.selectedCustomer.getPostalCode());
+            phoneField.setText(Schedule.selectedCustomer.getPhone());
+            // get country info
+            // get state info
         }
         else {
             try {
@@ -56,11 +66,21 @@ public class CustomerForm {
             }
         }
     }
+    /**
+     * Writes the customer object to the database.
+     * @param actionEvent The button press.
+     * */
     public void onSaveButton(ActionEvent actionEvent) throws SQLException {
-        addCustomer();
+        if (Schedule.selectedCustomer != null) {
+            CustomerDB.modifyCustomer(createCustomer());
+        }
+        else {
+            addCustomer();
+        }
     }
     /**
      * Closes the CustomerForm without saving anything to the database.
+     * @param actionEvent The button press.
      * */
     public void onCancelButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -68,9 +88,23 @@ public class CustomerForm {
     }
 
     public void addCustomer() throws SQLException {
-        // TODO collect customer data
-        //  instance customer
-        //  send customer data to db
-
+        CustomerDB.sendCustomer(createCustomer());
+    }
+    /**
+     * Creates a customer object with values from all fields.
+     * @return Customer object with values from all fields.
+     * */
+    public Customer createCustomer() {
+        int customerId = Integer.parseInt(customerIdField.getText());
+        String name = nameField.getText();
+        String address = addressField.getText();
+        String postalCode = postalCodeField.getText();
+        String phone = phoneField.getText();
+        LocalDateTime createDate = LocalDateTime.now();
+        String createdBy = "admin";
+        Timestamp lastUpdate = Timestamp.valueOf(createDate);
+        String lastUpdatedBy = "admin";
+        int divisionId = 1; // TODO get this from the State selector.
+        return new Customer(customerId, name, address, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdatedBy, divisionId);
     }
 }

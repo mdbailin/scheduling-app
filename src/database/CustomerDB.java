@@ -1,6 +1,7 @@
 package database;
 
 import connection.DBConnector;
+import controller.Schedule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
@@ -108,5 +109,29 @@ public class CustomerDB {
         catch(SQLException sqlE) {
             sqlE.printStackTrace();
         }
+    }
+    /**
+     * Attempts to modify an existing Customer. The modification is made at the Customer_ID of the customer parameter.
+     * @param customer The customer which the user desires to modify.
+     * */
+    public static void modifyCustomer(Customer customer) throws SQLException {
+        try {
+            String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, " +
+                    "Create_Date = ?, Created_By = ?, Last_Update = ?, Last_Updated_By = ?, Division_ID = ? " +
+                    "WHERE Customer_ID =" + customer.getCustomerId();
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+
+            statement.setString(1, customer.getCustomerName());
+            statement.setString(2, customer.getAddress());
+            statement.setString(3, customer.getPostalCode());
+            statement.setString(4, customer.getPhone());
+            statement.setTimestamp(5, Timestamp.valueOf(customer.getCreateDate()));
+            statement.setString(6, "admin");
+            statement.setTimestamp(7, customer.getLastUpdate());
+            statement.setString(8, "admin");
+            statement.setInt(9, customer.getDivisionId());
+            statement.execute();
+        }
+        catch(SQLException sqlE){sqlE.printStackTrace();}
     }
 }

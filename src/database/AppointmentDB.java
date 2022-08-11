@@ -117,4 +117,34 @@ public class AppointmentDB {
             sqlE.printStackTrace();
         }
     }
+    /**
+     * Attempts to modify an Appointment. The modification is made at the Appointment_ID of the appointment parameter.
+     * @param appointment The Appointment which the user desires to modify.
+     * */
+    public static void modifyAppointment(Appointment appointment) {
+        try {
+            String sql = "UPDATE APPOINTMENTS SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, " +
+                    "End = ?, Customer_ID = ?, Create_Date = ?, Created_By = ?, Last_Update = ?, Last_Updated_By = ?, " +
+                    "User_ID = ?, Contact_ID = ? WHERE Appointment_ID = " + appointment.getAppointmentId();
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+
+            statement.setString(1, appointment.getTitle());
+            statement.setString(2, appointment.getDescription());
+            statement.setString(3, appointment.getLocation());
+            statement.setString(4, appointment.getType());
+            statement.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
+            statement.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
+            statement.setInt(7, appointment.getCustomerId());
+            statement.setTimestamp(8, Timestamp.valueOf(appointment.getCreateDate()));
+            statement.setString(9, "admin");
+            statement.setTimestamp(10, appointment.getLastUpdate());
+            statement.setString(11, "admin");
+            statement.setInt(12, appointment.getUserId());
+            statement.setInt(13, appointment.getContactId());
+            statement.execute();
+        }
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+    }
 }

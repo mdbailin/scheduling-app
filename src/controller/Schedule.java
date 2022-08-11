@@ -242,7 +242,7 @@ public class Schedule {
      * Opens the UpdateAppointment view when the user presses the updateAppointmentButton.
      * */
     public void onUpdateButton(ActionEvent actionEvent) throws IOException {
-        if (selectedCustomer != null) {
+        if (selectedAppointment != null || selectedCustomer != null) {
             if (viewAppointments) {
                 FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/AppointmentForm.fxml"));
                 Parent root = loadSchedule.load();
@@ -281,6 +281,7 @@ public class Schedule {
             // TODO ask for confirmation
             //  delete Customer Appointments from the database
             //  delete Customer
+            CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
         }
     }
     /**
