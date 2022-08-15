@@ -4,13 +4,11 @@ import database.CustomerDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Customer;
 import resources.LanguageManager;
+import utility.Validator;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -36,7 +34,6 @@ public class CustomerForm {
 
     @FXML
     private void initialize() throws SQLException {
-        System.out.println("Current selected customer: " + Schedule.selectedCustomer.getCustomerName());
         // TODO If the selected Customer from the Schedule is not null,
         //  i.e. the user has pressed the update button, prepare the form with the selected
         //  object's data.
@@ -71,11 +68,15 @@ public class CustomerForm {
      * @param actionEvent The button press.
      * */
     public void onSaveButton(ActionEvent actionEvent) throws SQLException {
-        if (Schedule.selectedCustomer != null) {
-            CustomerDB.modifyCustomer(createCustomer());
-        }
-        else {
-            addCustomer();
+        if (validateFields()) {
+            if (Schedule.selectedCustomer != null) {
+                CustomerDB.modifyCustomer(createCustomer());
+            }
+            else {
+                addCustomer();
+            }
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.close();
         }
     }
     /**
@@ -106,5 +107,18 @@ public class CustomerForm {
         String lastUpdatedBy = "admin";
         int divisionId = 1; // TODO get this from the State selector.
         return new Customer(customerId, name, address, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdatedBy, divisionId);
+    }
+    public boolean validateFields() {
+        boolean nameInput = Validator.isName(nameField.getText());
+        boolean addressInput = Validator.isAddress(addressField.getText());
+        boolean postalInput = Validator.isPostalCode(postalCodeField.getText());
+        boolean phoneInput = Validator.isPhone(phoneField.getText());
+        boolean[] inputs = {nameInput, addressInput, postalInput, phoneInput};
+        for (boolean b : inputs) {
+            if (!b) {
+                return false;
+            }
+        }
+        return true;
     }
 }

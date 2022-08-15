@@ -2,6 +2,10 @@ package controller;
 
 import database.AppointmentDB;
 import database.CustomerDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +24,10 @@ import utility.Alerter;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Comparator;
 
 /**
  * Controller for the Schedule view.
@@ -122,6 +129,10 @@ public class Schedule {
      * */
     Stage customerFormStage = new Stage();
     /**
+     * Toggle group to allow toggling of radio buttons.
+     * */
+    static ToggleGroup radioToggle = new ToggleGroup();
+    /**
      * Stores the data of the selected Appointment.
      * */
     public static Appointment selectedAppointment = null;
@@ -129,6 +140,10 @@ public class Schedule {
      * Stores the data of the selected Customer.
      * */
     public static Customer selectedCustomer = null;
+    public static LocalDateTime selectedDate = null;
+    public static boolean monthsort = true;
+    public ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+    public ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
 
     /**
@@ -136,8 +151,12 @@ public class Schedule {
      * */
     @FXML
     private void initialize() throws SQLException {
+        // Set up the toggle group
+        appointmentByMonthRadio.setToggleGroup(radioToggle);
+        appointmentByWeekRadio.setToggleGroup(radioToggle);
+
         //Set the TableViews
-        refresh();
+        setUpTables();
 
         // Translate the window text
         addButton.setText(LanguageManager.getLocalString("Add"));
@@ -205,12 +224,16 @@ public class Schedule {
     public void setSelectedAppointment() {
         selectedCustomer = null;
         selectedAppointment = (Appointment) appointmentTableView.getSelectionModel().getSelectedItem();
+        if (selectedDate != null) {
+            selectedDate = selectedAppointment.getStart();
+        }
     }
     /**
      * Used to set the selectedCustomer.
      * */
     public void setSelectedCustomer() {
         selectedAppointment = null;
+        selectedDate = null;
         selectedCustomer = (Customer) customerTableView.getSelectionModel().getSelectedItem();
     }
     /**
@@ -226,7 +249,8 @@ public class Schedule {
             appointmentFormStage.setScene(appointmentFormScene);
             appointmentFormStage.setTitle(LanguageManager.getLocalString("Add_Appointment"));
             appointmentFormStage.setResizable(false);
-            appointmentFormStage.show();
+            appointmentFormStage.showAndWait();
+            setUpTables();
         }
         else {
             FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/CustomerForm.fxml"));
@@ -235,13 +259,14 @@ public class Schedule {
             customerFormStage.setScene(customerFormScene);
             customerFormStage.setTitle(LanguageManager.getLocalString("Add_Customer"));
             customerFormStage.setResizable(false);
-            customerFormStage.show();
+            customerFormStage.showAndWait();
+            setUpTables();
         }
     }
     /**
      * Opens the UpdateAppointment view when the user presses the updateAppointmentButton.
      * */
-    public void onUpdateButton(ActionEvent actionEvent) throws IOException {
+    public void onUpdateButton(ActionEvent actionEvent) throws IOException, SQLException {
         if (selectedAppointment != null || selectedCustomer != null) {
             if (viewAppointments) {
                 FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/AppointmentForm.fxml"));
@@ -250,7 +275,8 @@ public class Schedule {
                 appointmentFormStage.setScene(appointmentFormScene);
                 appointmentFormStage.setTitle(LanguageManager.getLocalString("Update_Appointment"));
                 appointmentFormStage.setResizable(false);
-                appointmentFormStage.show();
+                appointmentFormStage.showAndWait();
+                setUpTables();
             }
             else {
                 FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/CustomerForm.fxml"));
@@ -259,7 +285,8 @@ public class Schedule {
                 customerFormStage.setScene(customerFormScene);
                 customerFormStage.setTitle(LanguageManager.getLocalString("Update_Customer"));
                 customerFormStage.setResizable(false);
-                customerFormStage.show();
+                customerFormStage.showAndWait();
+                setUpTables();
             }
         }
         else {
@@ -275,14 +302,19 @@ public class Schedule {
         //TODO ensure customer appointments are deleted BEFORE the customer is deleted
         if (viewAppointments) {
             AppointmentDB.removeAppointment(selectedAppointment.getAppointmentId());
-            refresh();
         }
         else {
-            // TODO ask for confirmation
-            //  delete Customer Appointments from the database
-            //  delete Customer
-            CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
+            if (Alerter.confirm("Delete_Customer")) {
+                AppointmentDB.removeCustomerAppointments(AppointmentDB.getAllAppointments(selectedCustomer.getCustomerId()), selectedCustomer.getCustomerId());
+                CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
+            }
+            else {
+                System.out.println("Customer not deleted");
+            }
         }
+        setUpTables();
+        selectedCustomer = null;
+        selectedAppointment = null;
     }
     /**
      * Allows the user to toggle between the Appointment TableView and the Customer TableView
@@ -299,7 +331,7 @@ public class Schedule {
             appointmentByMonthRadio.setDisable(true);
             appointmentByMonthRadio.setVisible(false);
             viewAppointments = false;
-            refresh();
+            setUpTables();
         }
         else {
             toggleViewButton.setText(LanguageManager.getLocalString("View_Customers"));
@@ -312,6 +344,7 @@ public class Schedule {
             appointmentByMonthRadio.setDisable(false);
             appointmentByMonthRadio.setVisible(true);
             viewAppointments = true;
+            setUpTables();
         }
     }
     /**
@@ -353,10 +386,28 @@ public class Schedule {
         closeSchedule(actionEvent);
     }
     /**
-     * Refresh TableViews.
+     * Set up TableViews.
      * */
-    public void refresh() throws SQLException {
-        appointmentTableView.setItems(AppointmentDB.getAllAppointments());
-        customerTableView.setItems(CustomerDB.getAllCustomers());
+    public void setUpTables() {
+        try {
+            customerList = CustomerDB.getAllCustomers();
+            appointmentList = AppointmentDB.getAllAppointments();
+        }
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+        customerTableView.setItems(customerList);
+        appointmentTableView.setItems(appointmentList);
+    }
+    public void toggle() {
+        System.out.println("Sorted.");
+    }
+
+    public void onMonthToggle(ActionEvent actionEvent) {
+        toggle();
+    }
+
+    public void onWeekToggle(ActionEvent actionEvent) {
+        toggle();
     }
 }

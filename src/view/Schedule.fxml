@@ -18,8 +18,8 @@
                   <ToggleButton fx:id="toggleViewButton" mnemonicParsing="false" onAction="#onToggleViewButton" text="View appointments" />
                </children>
             </HBox>
-            <RadioButton fx:id="appointmentByMonthRadio" layoutX="238.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by month" />
-            <RadioButton fx:id="appointmentByWeekRadio" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" text="Appointments by week" />
+            <RadioButton fx:id="appointmentByMonthRadio" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#onMonthToggle" selected="true" text="Appointments by month" />
+            <RadioButton fx:id="appointmentByWeekRadio" layoutX="238.0" layoutY="14.0" mnemonicParsing="false" onAction="#onWeekToggle" text="Appointments by week" />
             <HBox layoutX="596.0" layoutY="14.0" prefHeight="17.0" prefWidth="222.0" spacing="10.0">
                <children>
                   <Label fx:id="timeZoneDescLabel" text="Time Zone" />

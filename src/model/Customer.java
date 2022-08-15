@@ -63,12 +63,6 @@ public class Customer extends TrackedDBObject {
         this.phone = phone;
         this.divisionId = divisionId;
     }
-    /**
-     * For testing
-     * */
-    public void printName() {
-        System.out.println(this.customerName);
-    }
 
     public int getCustomerId() {
         return this.customerId;

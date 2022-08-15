@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10cdcf52-3518-4cef-b45b-2fbcf3beb717" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/utility/TimeManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utility/Validator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/AppointmentForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AppointmentForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/CustomerForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Schedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/AppointmentDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/AppointmentDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/CustomerDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/CustomerDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/CustomerForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CustomerForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Contact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utility/LoginMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/LoginMonitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Schedule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Schedule.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

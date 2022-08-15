@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 
-public class LoginMonitor {
+public abstract class LoginMonitor {
     /**
      * Store username and password values for login attempts.
      * */

@@ -30,17 +30,9 @@ public class Contact {
         this.contactName = contactName;
         this.email = email;
     }
-    /**
-     * For testing
-     * */
-    public void printName() {
-        System.out.println(this.contactName);
-    }
-
     public int getContactId() {
         return this.contactId;
     }
-
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }

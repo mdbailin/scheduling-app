@@ -8,10 +8,15 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointment;
 import resources.LanguageManager;
+import utility.TimeManager;
+import utility.Validator;
 
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AppointmentForm {
     public Spinner startTimeSpinner;
@@ -43,9 +48,6 @@ public class AppointmentForm {
 
     @FXML
     private void initialize() throws SQLException {
-        // TODO If the selected Appointment from the Schedule is not null,
-        //  i.e. the user has pressed the update button, prepare the form with the selected
-        //  object's data.
         startDateLabel.setText(LanguageManager.getLocalString("Start_Date"));
         startTimeLabel.setText(LanguageManager.getLocalString("Start_Time"));
         endDateLabel.setText(LanguageManager.getLocalString("End_Date"));
@@ -84,11 +86,15 @@ public class AppointmentForm {
     }
 
     public void onSaveButton(ActionEvent actionEvent) throws SQLException {
-        if (Schedule.selectedAppointment != null) {
-            AppointmentDB.modifyAppointment(createAppointment());
-        }
-        else {
-            addAppointment();
+        if (validateFields()) {
+            if (Schedule.selectedAppointment != null) {
+                AppointmentDB.modifyAppointment(createAppointment());
+            }
+            else {
+                addAppointment();
+            }
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.close();
         }
     }
     /**
@@ -107,16 +113,50 @@ public class AppointmentForm {
         String description = descriptionField.getText();
         String location = locationField.getText();
         String type = typeField.getText();
-        LocalDateTime start = LocalDateTime.now(); // Get this from the start date and time UI objects
-        LocalDateTime end = LocalDateTime.now(); // Get this from the end date and time UI objects
+        LocalDateTime start = readDatePicker(0);
+        LocalDateTime end = readDatePicker(1);
         int customerId = 1; // Must exist in DB (1 or 2 right now)
-        int userId = Integer.parseInt(userIdField.getText()); // Validate before Integer.valueOf()
+        int userId = Integer.parseInt(userIdField.getText());
         int contactId = 1; // Get this from the combo box
         LocalDateTime createDate = LocalDateTime.now();
         String createdBy = "admin";
         Timestamp lastUpdate = Timestamp.valueOf(LocalDateTime.now());
         String lastUpdatedBy = "admin";
         return new Appointment(appointmentId, title, description, location, type, start, end, customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
+    }
+    /**
+     * Used to call validation methods on the Appointment form fields.
+     * @return true if all inputs are validated, false if they are not.
+     * */
+    public boolean validateFields() {
+        boolean titleInput = Validator.isVarcharFifty("Title", titleField.getText());
+        boolean descriptionInput = Validator.isVarcharFifty("Description", descriptionField.getText());
+        boolean locationInput = Validator.isVarcharFifty("Location", locationField.getText());
+        boolean typeInput = Validator.isVarcharFifty("Type", typeField.getText());
+        boolean[] inputs = {titleInput, descriptionInput, locationInput, typeInput};
+        for (boolean b : inputs) {
+            if (!b) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
+     * Uses TimeManager to combine time and date components.
+     * @param picker is either 0 for Start or 1 for End.
+     * @return LocalDateTime created from combining the date and time picker values.
+     * */
+    private LocalDateTime readDatePicker(int picker) {
+        if (picker == 0) {
+            LocalDate date = startDatePicker.getValue();
+            LocalTime time = LocalTime.now(); //from startTime
+            return TimeManager.combineDateTime(date, time);
+        }
+        else {
+            LocalDate date = endDatePicker.getValue();
+            LocalTime time = LocalTime.now(); //from endTime
+            return TimeManager.combineDateTime(date, time);
+        }
     }
 }
 // Business hours 0800 - 2200

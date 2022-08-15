@@ -88,26 +88,28 @@ public class CustomerDB {
      * Attempts to add a Customer to the database.
      * */
     public static void sendCustomer(Customer customer) throws SQLException {
-        try {
-            String sql = "INSERT INTO CUSTOMERS (Customer_ID, Customer_Name, Address, Postal_Code, Phone, " +
-                    "Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) " +
-                    "VALUES (?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+        if (customer != null) {
+            try {
+                String sql = "INSERT INTO CUSTOMERS (Customer_ID, Customer_Name, Address, Postal_Code, Phone, " +
+                        "Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
 
-            statement.setInt(1, customer.getCustomerId());
-            statement.setString(2, customer.getCustomerName());
-            statement.setString(3, customer.getAddress());
-            statement.setString(4, customer.getPostalCode());
-            statement.setString(5, customer.getPhone());
-            statement.setTimestamp(6, Timestamp.valueOf(customer.getCreateDate()));
-            statement.setString(7, "admin");
-            statement.setTimestamp(8, customer.getLastUpdate());
-            statement.setString(9, "admin");
-            statement.setInt(10, customer.getDivisionId());
-            statement.execute();
-        }
-        catch(SQLException sqlE) {
-            sqlE.printStackTrace();
+                statement.setInt(1, customer.getCustomerId());
+                statement.setString(2, customer.getCustomerName());
+                statement.setString(3, customer.getAddress());
+                statement.setString(4, customer.getPostalCode());
+                statement.setString(5, customer.getPhone());
+                statement.setTimestamp(6, Timestamp.valueOf(customer.getCreateDate()));
+                statement.setString(7, "admin");
+                statement.setTimestamp(8, customer.getLastUpdate());
+                statement.setString(9, "admin");
+                statement.setInt(10, customer.getDivisionId());
+                statement.execute();
+            }
+            catch(SQLException sqlE) {
+                sqlE.printStackTrace();
+            }
         }
     }
     /**
