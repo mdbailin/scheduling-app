@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Schedule">
+<AnchorPane prefHeight="480.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Schedule">
    <children>
       <Group>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="400.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="828.0" />
-            <HBox layoutX="20.0" layoutY="366.0" prefHeight="30.0" prefWidth="456.0" spacing="20.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="480.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="960.0" />
+            <HBox layoutX="20.0" layoutY="433.0" prefHeight="30.0" prefWidth="456.0" spacing="20.0">
                <children>
                   <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButton" text="Add" />
                   <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateButton" text="Update" />
@@ -26,35 +26,35 @@
                   <Label fx:id="timeZoneLabel" text="Time Zone string" />
                </children>
             </HBox>
-            <Button fx:id="logOutButton" layoutX="720.0" layoutY="366.0" mnemonicParsing="false" onAction="#onLogOutButton" text="Log out" />
+            <Button fx:id="logOutButton" layoutX="870.0" layoutY="433.0" mnemonicParsing="false" onAction="#onLogOutButton" text="Log out" />
          </children>
       </Group>
-      <TableView fx:id="appointmentTableView" layoutX="4.0" layoutY="50.0" onMouseClicked="#onAppointmentTableViewClicked" prefHeight="310.0" prefWidth="820.0">
+      <TableView fx:id="appointmentTableView" layoutX="4.0" layoutY="50.0" onMouseClicked="#onAppointmentTableViewClicked" prefHeight="365.0" prefWidth="952.0">
         <columns>
           <TableColumn fx:id="appointmentIdCol_a" prefWidth="117.0" text="Appointment_ID" />
-          <TableColumn fx:id="titleCol_a" prefWidth="47.0" text="Title" />
-            <TableColumn fx:id="descriptionCol_a" prefWidth="187.0" text="Description" />
-            <TableColumn fx:id="locationCol_a" prefWidth="61.0" text="Location" />
-            <TableColumn fx:id="contactCol_a" prefWidth="76.0" text="Contact" />
-            <TableColumn fx:id="typeCol_a" prefWidth="53.0" text="Type" />
-            <TableColumn fx:id="startCol_a" prefWidth="57.0" text="Start" />
-            <TableColumn fx:id="endCol_a" prefWidth="53.0" text="End" />
-            <TableColumn fx:id="customerIdCol_a" prefWidth="97.0" text="Customer_ID" />
-            <TableColumn fx:id="userIdCol_a" prefWidth="73.0" text="User_ID" />
+          <TableColumn fx:id="titleCol_a" prefWidth="94.0" text="Title" visible="false" />
+            <TableColumn fx:id="descriptionCol_a" prefWidth="140.0" text="Description" />
+            <TableColumn fx:id="locationCol_a" prefWidth="76.0" text="Location" />
+            <TableColumn fx:id="contactCol_a" prefWidth="85.0" text="Contact" />
+            <TableColumn fx:id="typeCol_a" prefWidth="59.0" text="Type" />
+            <TableColumn fx:id="startCol_a" prefWidth="122.0" text="Start" />
+            <TableColumn fx:id="endCol_a" prefWidth="146.0" text="End" />
+            <TableColumn fx:id="customerIdCol_a" prefWidth="96.0" text="Customer_ID" />
+            <TableColumn fx:id="userIdCol_a" prefWidth="110.0" text="User_ID" />
         </columns>
       </TableView>
-      <TableView fx:id="customerTableView" disable="true" layoutX="4.0" layoutY="50.0" onMouseClicked="#onCustomerTableViewClicked" prefHeight="310.0" prefWidth="820.0" visible="false">
+      <TableView fx:id="customerTableView" disable="true" layoutX="4.0" layoutY="50.0" onMouseClicked="#onCustomerTableViewClicked" prefHeight="365.0" prefWidth="952.0" visible="false">
          <columns>
-            <TableColumn fx:id="customerIdCol_c" prefWidth="92.0" text="Customer_ID" />
-            <TableColumn fx:id="customerNameCol_c" prefWidth="155.0" text="Customer_Name" />
-            <TableColumn fx:id="addressCol_c" prefWidth="88.0" text="Address" />
-            <TableColumn fx:id="postalCodeCol_c" prefWidth="77.0" text="Postal_Code" />
-            <TableColumn fx:id="phoneCol_c" prefWidth="75.0" text="Phone" />
-            <TableColumn fx:id="createDateCol_c" prefWidth="54.0" text="Create_Date" />
-            <TableColumn fx:id="createdByCol_c" prefWidth="57.0" text="Created_By" />
-            <TableColumn fx:id="lastUpdateCol_c" prefWidth="67.0" text="Last_Update" />
-            <TableColumn fx:id="lastUpdatedByCol_c" prefWidth="83.0" text="Last_Updated_By" />
-            <TableColumn fx:id="divisionIdCol_c" prefWidth="73.0" text="Division_ID" />
+            <TableColumn fx:id="customerIdCol_c" text="Customer_ID" />
+            <TableColumn fx:id="customerNameCol_c" prefWidth="130.0" text="Customer_Name" />
+            <TableColumn fx:id="addressCol_c" prefWidth="160.0" text="Address" />
+            <TableColumn fx:id="postalCodeCol_c" prefWidth="91.0" text="Postal_Code" />
+            <TableColumn fx:id="phoneCol_c" prefWidth="98.0" text="Phone" />
+            <TableColumn fx:id="createDateCol_c" text="Create_Date" />
+            <TableColumn fx:id="createdByCol_c" minWidth="0.0" prefWidth="61.0" text="Created_By" />
+            <TableColumn fx:id="lastUpdateCol_c" prefWidth="65.0" text="Last_Update" />
+            <TableColumn fx:id="lastUpdatedByCol_c" prefWidth="103.0" text="Last_Updated_By" />
+            <TableColumn fx:id="divisionIdCol_c" prefWidth="83.0" text="Division_ID" />
          </columns>
       </TableView>
    </children>

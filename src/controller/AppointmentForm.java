@@ -1,12 +1,16 @@
 package controller;
 
 import database.AppointmentDB;
+import database.ContactDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Contact;
 import resources.LanguageManager;
 import utility.TimeManager;
 import utility.Validator;
@@ -19,15 +23,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class AppointmentForm {
-    public Spinner startTimeSpinner;
-    public Spinner endTimeSpinner;
+    public Spinner<LocalTime> startTimeSpinner;
+    public Spinner<LocalTime> endTimeSpinner;
     public DatePicker startDatePicker;
     public DatePicker endDatePicker;
     public TextField appointmentIdField;
     public TextField locationField;
     public TextField titleField;
     public TextField descriptionField;
-    public ComboBox contactComboBox;
+    public ComboBox<String> contactComboBox;
     public TextField typeField;
     public TextField userIdField;
     public TextField customerIdField;
@@ -48,6 +52,18 @@ public class AppointmentForm {
 
     @FXML
     private void initialize() throws SQLException {
+        // Initialize spinners
+        ObservableList<LocalTime> businessHours = FXCollections.observableArrayList(); // Business hours 0800 - 2200 EST
+        for (int i = 8; i <= 22; i++) {
+            businessHours.add(TimeManager.createLocalTime(i));
+        }
+        SpinnerValueFactory<LocalTime> startTimeValueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<LocalTime>(businessHours);
+        SpinnerValueFactory<LocalTime> endTimeValueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<LocalTime>(businessHours);
+        startTimeSpinner.setValueFactory(startTimeValueFactory);
+        endTimeSpinner.setValueFactory(endTimeValueFactory);
+        // Initialize contactComboBox
+        contactComboBox.setItems(ContactDB.getAllContactNames());
+
         startDateLabel.setText(LanguageManager.getLocalString("Start_Date"));
         startTimeLabel.setText(LanguageManager.getLocalString("Start_Time"));
         endDateLabel.setText(LanguageManager.getLocalString("End_Date"));
@@ -63,13 +79,19 @@ public class AppointmentForm {
         saveButton.setText(LanguageManager.getLocalString("Save"));
         cancelButton.setText(LanguageManager.getLocalString("Cancel"));
         if (Schedule.selectedAppointment != null) {
-            // start date
-            // start time
-            // end date
-            // end time
+            // Set date and time
+            LocalDate startDate = Schedule.selectedAppointment.getStart().toLocalDate();
+            LocalTime startTime = Schedule.selectedAppointment.getStart().toLocalTime();
+            startDatePicker.setValue(startDate);
+            startTimeValueFactory.setValue(startTime);
+            LocalDate endDate = Schedule.selectedAppointment.getEnd().toLocalDate();
+            LocalTime endTime = Schedule.selectedAppointment.getEnd().toLocalTime();
+            endDatePicker.setValue(endDate);
+            endTimeValueFactory.setValue(endTime);
+            contactComboBox.getSelectionModel().selectFirst();
+            contactComboBox.getSelectionModel().select(Schedule.selectedAppointment.getContactId() - 1);
             titleField.setText(Schedule.selectedAppointment.getTitle());
             descriptionField.setText(Schedule.selectedAppointment.getDescription());
-            // set contact
             typeField.setText(Schedule.selectedAppointment.getType());
             userIdField.setText(String.valueOf(Schedule.selectedAppointment.getUserId()));
             customerIdField.setText(String.valueOf(Schedule.selectedAppointment.getCustomerId()));
@@ -77,6 +99,7 @@ public class AppointmentForm {
             appointmentIdField.setText(String.valueOf(Schedule.selectedAppointment.getAppointmentId()));
         }
         else {
+            contactComboBox.getSelectionModel().selectFirst();
             try {
                 appointmentIdField.setText(String.valueOf(AppointmentDB.nextAppId()));
             }
@@ -102,6 +125,7 @@ public class AppointmentForm {
      * */
     public void onCancelButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Schedule.selectedAppointment = null;
         stage.close();
     }
     public void addAppointment() throws SQLException {
@@ -117,7 +141,7 @@ public class AppointmentForm {
         LocalDateTime end = readDatePicker(1);
         int customerId = 1; // Must exist in DB (1 or 2 right now)
         int userId = Integer.parseInt(userIdField.getText());
-        int contactId = 1; // Get this from the combo box
+        int contactId = contactComboBox.getSelectionModel().getSelectedIndex() + 1;
         LocalDateTime createDate = LocalDateTime.now();
         String createdBy = "admin";
         Timestamp lastUpdate = Timestamp.valueOf(LocalDateTime.now());
@@ -128,12 +152,17 @@ public class AppointmentForm {
      * Used to call validation methods on the Appointment form fields.
      * @return true if all inputs are validated, false if they are not.
      * */
-    public boolean validateFields() {
+    public boolean validateFields() throws SQLException {
         boolean titleInput = Validator.isVarcharFifty("Title", titleField.getText());
         boolean descriptionInput = Validator.isVarcharFifty("Description", descriptionField.getText());
         boolean locationInput = Validator.isVarcharFifty("Location", locationField.getText());
         boolean typeInput = Validator.isVarcharFifty("Type", typeField.getText());
-        boolean[] inputs = {titleInput, descriptionInput, locationInput, typeInput};
+        boolean userIdInputInt = Validator.isInt(userIdField.getText());
+        boolean userIdInput = false;
+        if (userIdInputInt) {
+             userIdInput = Validator.isUserId(Integer.parseInt(userIdField.getText()));
+        }
+        boolean[] inputs = {titleInput, descriptionInput, locationInput, typeInput, userIdInputInt, userIdInput};
         for (boolean b : inputs) {
             if (!b) {
                 return false;
@@ -147,16 +176,16 @@ public class AppointmentForm {
      * @return LocalDateTime created from combining the date and time picker values.
      * */
     private LocalDateTime readDatePicker(int picker) {
+        LocalDate date;
+        LocalTime time;
         if (picker == 0) {
-            LocalDate date = startDatePicker.getValue();
-            LocalTime time = LocalTime.now(); //from startTime
-            return TimeManager.combineDateTime(date, time);
+            date = startDatePicker.getValue();
+            time = startTimeSpinner.getValue();
         }
         else {
-            LocalDate date = endDatePicker.getValue();
-            LocalTime time = LocalTime.now(); //from endTime
-            return TimeManager.combineDateTime(date, time);
+            date = endDatePicker.getValue();
+            time = endTimeSpinner.getValue();
         }
+        return TimeManager.combineDateTime(date, time);
     }
 }
-// Business hours 0800 - 2200

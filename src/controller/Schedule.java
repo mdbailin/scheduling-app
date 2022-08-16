@@ -196,12 +196,12 @@ public class Schedule {
         titleCol_a.setCellValueFactory(new PropertyValueFactory<>("title"));
         descriptionCol_a.setCellValueFactory(new PropertyValueFactory<>("description"));
         locationCol_a.setCellValueFactory(new PropertyValueFactory<>("location"));
-        contactCol_a.setCellValueFactory(new PropertyValueFactory<>("type"));
-        typeCol_a.setCellValueFactory(new PropertyValueFactory<>("start"));
-        startCol_a.setCellValueFactory(new PropertyValueFactory<>("end"));
-        endCol_a.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-        customerIdCol_a.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        userIdCol_a.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        typeCol_a.setCellValueFactory(new PropertyValueFactory<>("type"));
+        startCol_a.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endCol_a.setCellValueFactory(new PropertyValueFactory<>("end"));
+        customerIdCol_a.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        userIdCol_a.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        contactCol_a.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         // Initialize the Customer TableView
         customerIdCol_c.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol_c.setCellValueFactory(new PropertyValueFactory<>("customerName"));

@@ -36,4 +36,21 @@ public class CountryDB {
         }
         return countryList;
     }
+    public static ObservableList<String> getAllCountryNames() throws SQLException {
+        ObservableList<String> countryList = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM COUNTRIES";
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            ResultSet results = statement.executeQuery();
+
+            while (results.next()) {
+                String country = results.getString("Country");
+                countryList.add(country);
+            }
+        }
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+        return countryList;
+    }
 }

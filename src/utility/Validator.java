@@ -1,7 +1,18 @@
 package utility;
 
+import database.AppointmentDB;
+import database.UserDB;
+import exceptions.AppointmentOverlapException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import model.Appointment;
+import model.User;
 
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -159,6 +170,56 @@ public abstract class Validator {
      * Validates Date and Time entries.
      * */
     public static boolean isDateTime() {
+        return true;
+    }
+    /**
+     * Validates input against a list of User's and their User_ID's.
+     * @param validate The String value to be validated.
+     * @return true if the input is validated, false if it is not.
+     * */
+    public static boolean isUserId(int validate) throws SQLException {
+        ObservableList<User> users = FXCollections.observableArrayList();
+        List<Integer> ids = new ArrayList<>();
+        try {
+            users = UserDB.getAllUsers();
+        }
+        catch (SQLException sqlE) {}
+        for (User u : users) {
+            ids.add(u.getUserId());
+        }
+        if (ids.contains(validate)) {
+            return true;
+        }
+        Alerter.alert("User_ID entry does not exist in the database.", "Invalid entry");
+        return false;
+    }
+    /**
+     * Checks if the input is an integer.
+     * @param validate The String value to be validated.
+     * @return true if the input is validated, false if it is not.
+     * */
+    public static boolean isInt(String validate) {
+        try {
+            Integer.parseInt(validate);
+        }
+        catch (NumberFormatException nfe) {
+            Alerter.alert("User_ID must be an integer.", "Invalid entry");
+            return false;
+        }
+        return true;
+    }
+    public static boolean isDateAvailable(LocalDateTime start, LocalDateTime end) throws AppointmentOverlapException {
+        ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+        try {
+            allAppointments = AppointmentDB.getAllAppointments();
+        }
+        catch (SQLException sqlE) {}
+        for (Appointment a : allAppointments) {
+            if (a.getStart() == start || a.getEnd() == end) {
+                Alerter.alert("Please check date and time entries; overlap detected.", "Invalid entry");
+                throw new AppointmentOverlapException(new RuntimeException());
+            }
+        }
         return true;
     }
 }
