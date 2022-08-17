@@ -1,12 +1,14 @@
 package utility;
 
 import database.AppointmentDB;
+import database.CustomerDB;
 import database.UserDB;
 import exceptions.AppointmentOverlapException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import model.Appointment;
+import model.Customer;
 import model.User;
 
 import java.sql.SQLException;
@@ -194,6 +196,27 @@ public abstract class Validator {
         return false;
     }
     /**
+     * Validates input against a list of Customers' and their Customer_ID's.
+     * @param validate The String value to be validated.
+     * @return true if the input is validated, false if it is not.
+     * */
+    public static boolean isCustomerId(int validate) throws SQLException {
+        ObservableList<Customer> customers = FXCollections.observableArrayList();
+        List<Integer> ids = new ArrayList<>();
+        try {
+            customers = CustomerDB.getAllCustomers();
+        }
+        catch (SQLException sqlE) {}
+        for (Customer c : customers) {
+            ids.add(c.getCustomerId());
+        }
+        if (ids.contains(validate)) {
+            return true;
+        }
+        Alerter.alert("Customer_ID entry does not exist in the database.", "Invalid entry");
+        return false;
+    }
+    /**
      * Checks if the input is an integer.
      * @param validate The String value to be validated.
      * @return true if the input is validated, false if it is not.
@@ -208,18 +231,36 @@ public abstract class Validator {
         }
         return true;
     }
-    public static boolean isDateAvailable(LocalDateTime start, LocalDateTime end) throws AppointmentOverlapException {
+    /**
+     * Checks to see if the time and date is available for an appointment.
+     * TODO check if dates are between start and end
+     *     Check if dates are on start or end time
+     * */
+    public static boolean isDateAvailable(LocalDateTime start, LocalDateTime end, int id) throws AppointmentOverlapException {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
         try {
-            allAppointments = AppointmentDB.getAllAppointments();
+            allAppointments = AppointmentDB.getAllAppointmentsExcept(id);
         }
         catch (SQLException sqlE) {}
         for (Appointment a : allAppointments) {
-            if (a.getStart() == start || a.getEnd() == end) {
+            if (a.getStart().isEqual(start) || a.getEnd().isEqual(end) || a.getStart().isEqual(end) || a.getEnd().isEqual(start)) {
                 Alerter.alert("Please check date and time entries; overlap detected.", "Invalid entry");
                 throw new AppointmentOverlapException(new RuntimeException());
             }
         }
         return true;
+    }
+    /**
+     * Checks if the start date and time is before the end date and time.
+     * @param startTime The date and time the appointment starts.
+     * @param endTime the date and time the appointment ends.
+     * @return true if the times are validated, false if they are not validated.
+     * */
+    public static boolean isTimeValid(LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime.isBefore(endTime)) {
+            return true;
+        }
+        Alerter.alert("Start and end times are incompatible.", "Schedule Error");
+        return false;
     }
 }

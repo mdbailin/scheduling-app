@@ -299,27 +299,35 @@ public class Schedule {
      *
      * */
     public void onDeleteButton(ActionEvent actionEvent) throws SQLException {
-        //TODO ensure customer appointments are deleted BEFORE the customer is deleted
-        if (viewAppointments) {
-            AppointmentDB.removeAppointment(selectedAppointment.getAppointmentId());
-        }
-        else {
-            if (Alerter.confirm("Delete_Customer")) {
-                AppointmentDB.removeCustomerAppointments(AppointmentDB.getAllAppointments(selectedCustomer.getCustomerId()), selectedCustomer.getCustomerId());
-                CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
+        if (selectedAppointment != null || selectedCustomer != null) {
+            if (viewAppointments) {
+                if (Alerter.confirm("Delete_Appointment")) {
+                    AppointmentDB.removeAppointment(selectedAppointment.getAppointmentId());
+                }
             }
             else {
-                System.out.println("Customer not deleted");
+                if (Alerter.confirm("Delete_Customer")) {
+                    AppointmentDB.removeCustomerAppointments(AppointmentDB.getAllAppointments(selectedCustomer.getCustomerId()), selectedCustomer.getCustomerId());
+                    CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
+                }
+                else {
+                    System.out.println("Customer not deleted");
+                }
             }
+            setUpTables();
+            selectedCustomer = null;
+            selectedAppointment = null;
         }
-        setUpTables();
-        selectedCustomer = null;
-        selectedAppointment = null;
+        else {
+            Alerter.alert("Please make a selection to delete.", "Delete Error");
+        }
     }
     /**
      * Allows the user to toggle between the Appointment TableView and the Customer TableView
      * */
     public void onToggleViewButton(ActionEvent actionEvent) throws SQLException {
+        selectedCustomer = null;
+        selectedAppointment = null;
         if (viewAppointments) {
             toggleViewButton.setText(LanguageManager.getLocalString("View_Appointments"));
             appointmentTableView.setDisable(true);

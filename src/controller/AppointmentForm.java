@@ -139,7 +139,7 @@ public class AppointmentForm {
         String type = typeField.getText();
         LocalDateTime start = readDatePicker(0);
         LocalDateTime end = readDatePicker(1);
-        int customerId = 1; // Must exist in DB (1 or 2 right now)
+        int customerId = Integer.parseInt(customerIdField.getText());
         int userId = Integer.parseInt(userIdField.getText());
         int contactId = contactComboBox.getSelectionModel().getSelectedIndex() + 1;
         LocalDateTime createDate = LocalDateTime.now();
@@ -162,7 +162,17 @@ public class AppointmentForm {
         if (userIdInputInt) {
              userIdInput = Validator.isUserId(Integer.parseInt(userIdField.getText()));
         }
-        boolean[] inputs = {titleInput, descriptionInput, locationInput, typeInput, userIdInputInt, userIdInput};
+        boolean customerIdInputInt = Validator.isInt(customerIdField.getText());
+        boolean customerIdInput = false;
+        if (customerIdInputInt) {
+            customerIdInput = Validator.isCustomerId(Integer.parseInt(customerIdField.getText()));
+        }
+        boolean datesInput = Validator.isTimeValid(readDatePicker(0), readDatePicker(1));
+        boolean dateAvailable = false;
+        if (customerIdInput) {
+            dateAvailable = Validator.isDateAvailable(readDatePicker(0), readDatePicker(1), Integer.parseInt(customerIdField.getText()));
+        }
+        boolean[] inputs = {titleInput, descriptionInput, locationInput, typeInput, userIdInputInt, userIdInput, customerIdInputInt, customerIdInput, datesInput, dateAvailable};
         for (boolean b : inputs) {
             if (!b) {
                 return false;

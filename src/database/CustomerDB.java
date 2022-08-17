@@ -70,18 +70,13 @@ public class CustomerDB {
      * @param customerId The User_ID for the user to be removed.
      * */
     public static void removeCustomer(int customerId) {
-        if (Alerter.confirm("Delete_Customer")) {
-            try {
-                String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = " + customerId;
-                PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
-                statement.execute();
-            }
-            catch(SQLException sqlE) {
-                sqlE.printStackTrace();
-            }
+        try {
+            String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = " + customerId;
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            statement.execute();
         }
-        else {
-            Alerter.alert("The Customer was not deleted", "Message");
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
         }
     }
     /**

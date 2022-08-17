@@ -51,13 +51,49 @@ public class AppointmentDB {
         return appointmentList;
     }
     /**
+     * Attempts to retrieve all Appointments except appointments that match the Appointment_ID specified.
+     * @return ObservableList containing the desired appointments.
+     * */
+    public static ObservableList<Appointment> getAllAppointmentsExcept(int id) throws SQLException {
+        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM APPOINTMENTS WHERE Appointment_ID != " + id;
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            ResultSet results = statement.executeQuery();
+
+            while (results.next()) {
+                int appointmentId = results.getInt("Appointment_ID");
+                String title = results.getString("Title");
+                String description = results.getString("Description");
+                String location = results.getString("Location");
+                String type = results.getString("Type");
+                LocalDateTime start = results.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
+                String createdBy = results.getString("Created_By");
+                LocalDateTime createDate = results.getTimestamp("Create_Date").toLocalDateTime();
+                Timestamp lastUpdate = results.getTimestamp("Last_Update");
+                String lastUpdatedBy = results.getString("Last_Updated_By");
+                int customerId = results.getInt("Customer_ID");
+                int userId = results.getInt("User_ID");
+                int contactId = results.getInt("Contact_ID");
+                Appointment a = new Appointment(appointmentId, title, description, location, type, start, end,
+                        customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
+                appointmentList.add(a);
+            }
+        }
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+        return appointmentList;
+    }
+    /**
      * Attempts to retrieve all Appointments that contain a particular Customer_ID.
      * @return ObservableList containing all Appointments containing a particular Customer_ID.
      * */
     public static ObservableList<Appointment> getAllAppointments(int id) throws SQLException {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM APPOINTMENTS =" + id;
+            String sql = "SELECT * FROM APPOINTMENTS WHERE Customer_ID = " + id;
             PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
             ResultSet results = statement.executeQuery();
 
@@ -132,7 +168,7 @@ public class AppointmentDB {
     public static int nextAppId() throws SQLException {
         int nextId = -1;
         try {
-            String sql = "select max(Appointment_ID) as max_app_id from appointments";
+            String sql = "SELECT MAX(Appointment_ID) AS max_app_id FROM APPOINTMENTS";
             PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
             ResultSet result = statement.executeQuery();
 
@@ -150,18 +186,13 @@ public class AppointmentDB {
      * @param appointmentId The Appointment_ID for the Appointment to remove.
      * */
     public static void removeAppointment(int appointmentId) throws SQLException {
-        if (Alerter.confirm("Delete_Appointment")) {
-            try {
-                String sql = "DELETE FROM APPOINTMENTS WHERE Appointment_ID = " + appointmentId;
-                PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
-                statement.execute();
-            }
-            catch(SQLException sqlE) {
-                sqlE.printStackTrace();
-            }
+        try {
+            String sql = "DELETE FROM APPOINTMENTS WHERE Appointment_ID = " + appointmentId;
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            statement.execute();
         }
-        else {
-            Alerter.alert("The Appointment was not deleted", "Message");
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
         }
     }
     /**
@@ -233,16 +264,16 @@ public class AppointmentDB {
             for (Appointment a : appointments) {
                 removeAppointment(a.getCustomerId());
             }
-            if (success) {
-                Alerter.alert("Removal successful!", "Success!");
-            }
-            else {
-                Alerter.alert("Removal unsuccessful.", "Error!");
-            }
-
+            success = true;
         }
         catch(SQLException sqlE) {
             sqlE.printStackTrace();
+        }
+        if (success) {
+            Alerter.alert("Removal successful!", "Success!");
+        }
+        else {
+            Alerter.alert("Removal unsuccessful.", "Error!");
         }
     }
 }
