@@ -33,7 +33,9 @@ public class CustomerForm {
     public Label phoneLabel;
     public Label countryLabel;
     public Label stateLabel;
-
+    /**
+     * Initializes the CustomerForm.
+     * */
     @FXML
     private void initialize() throws SQLException {
         // Initialize Country and State lists

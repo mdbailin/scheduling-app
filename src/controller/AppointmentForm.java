@@ -21,7 +21,9 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
+/**
+ * AppointmentForm is the controller for the AppointmentForm view. It is responsible for adding and modifying Appointments.
+ * */
 public class AppointmentForm {
     public Spinner<LocalTime> startTimeSpinner;
     public Spinner<LocalTime> endTimeSpinner;
@@ -50,6 +52,10 @@ public class AppointmentForm {
     public Label locationLabel;
     public Label appointmentIdLabel;
 
+    /**
+     * Initializes the AppointmentForm by preparing all GUI objects. Checks if there is a selected Appointment, and
+     * fills fields appropriately.
+     * */
     @FXML
     private void initialize() throws SQLException {
         // Initialize spinners
@@ -107,7 +113,10 @@ public class AppointmentForm {
         }
 
     }
-
+    /**
+     * Saves or modifies an Appointment, then closes the window.
+     * @param actionEvent generated from clicking the button.
+     * */
     public void onSaveButton(ActionEvent actionEvent) throws SQLException {
         if (validateFields()) {
             if (Schedule.selectedAppointment != null) {
@@ -128,9 +137,17 @@ public class AppointmentForm {
         Schedule.selectedAppointment = null;
         stage.close();
     }
+    /**
+     * Creates and adds an appointment to the database.
+     * */
     public void addAppointment() throws SQLException {
         AppointmentDB.sendAppointment(createAppointment());
     }
+    /**
+     * Creates an Appointment object from the AppointmentForm fields.
+     * Must be called after validation.
+     * @return Appointment created from AppointmentForm fields.
+     * */
     public Appointment createAppointment() {
         int appointmentId = Integer.parseInt(appointmentIdField.getText());
         String title = titleField.getText();
@@ -170,7 +187,7 @@ public class AppointmentForm {
         boolean datesInput = Validator.isTimeValid(readDatePicker(0), readDatePicker(1));
         boolean dateAvailable = false;
         if (customerIdInput) {
-            dateAvailable = Validator.isDateAvailable(readDatePicker(0), readDatePicker(1), Integer.parseInt(customerIdField.getText()));
+            dateAvailable = Validator.isDateAvailable(readDatePicker(0), readDatePicker(1), Integer.parseInt(appointmentIdField.getText()));
         }
         boolean[] inputs = {titleInput, descriptionInput, locationInput, typeInput, userIdInputInt, userIdInput, customerIdInputInt, customerIdInput, datesInput, dateAvailable};
         for (boolean b : inputs) {
