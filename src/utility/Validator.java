@@ -14,6 +14,7 @@ import resources.LanguageManager;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -255,13 +256,13 @@ public abstract class Validator {
      * @throws AppointmentOverlapException if overlap is detected.
      * @return true if the date is available to book.
      */
-    public static boolean isDateAvailable(LocalDateTime start, LocalDateTime end, int id) throws AppointmentOverlapException {
+    public static boolean isDateAvailable(ZonedDateTime start, ZonedDateTime end, int id) throws AppointmentOverlapException {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
         try {
             allAppointments = AppointmentDB.getAllAppointmentsExcept(id);
         } catch (SQLException sqlE) {}
         for (Appointment a : allAppointments) {
-            if (isBetween(start, end, a.getStart(), a.getEnd())) {
+            if (isBetween(TimeManager.EST(start), TimeManager.EST(end), TimeManager.EST(a.getStart()), TimeManager.EST(a.getEnd()))) {
                 Alerter.alert(LanguageManager.getLocalString("Check_Date") + "\n" +
                         LanguageManager.getLocalString("Overlap") + a.getTitle() + ".", "Invalid_Entry");
                 throw new AppointmentOverlapException(new RuntimeException());
@@ -277,11 +278,18 @@ public abstract class Validator {
      * @param endTime   the date and time the appointment ends.
      * @return true if the times are validated, false if they are not validated.
      */
-    public static boolean isTimeValid(LocalDateTime startTime, LocalDateTime endTime) {
+    public static boolean isTimeValid(ZonedDateTime startTime, ZonedDateTime endTime) {
         if (startTime.isBefore(endTime)) {
-            return true;
+            if (TimeManager.EST(startTime).getHour() >= 8 && TimeManager.EST(endTime).getHour() <= 22) {
+                return true;
+            }
+            else {
+                Alerter.alert("Please schedule the appointment between 0800 and 2200 EST.", "Schedule Error");
+            }
         }
-        Alerter.alert("Start and end times are incompatible.", "Schedule Error");
+        else {
+            Alerter.alert("Start and end times are incompatible.", "Schedule Error");
+        }
         return false;
     }
 
@@ -294,7 +302,7 @@ public abstract class Validator {
      * @param end2   End date to be compared.
      * @return true if the dates to be added are between any existing dates.
      */
-    public static boolean isBetween(LocalDateTime start, LocalDateTime end, LocalDateTime start2, LocalDateTime end2) {
+    public static boolean isBetween(ZonedDateTime start, ZonedDateTime end, ZonedDateTime start2, ZonedDateTime end2) {
         if (start.isAfter(start2) && start.isBefore(end2)) {
             return true;
         }

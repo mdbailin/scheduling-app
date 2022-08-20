@@ -7,9 +7,10 @@ import javafx.collections.ObservableList;
 import model.Customer;
 import model.User;
 import utility.Alerter;
+import utility.TimeManager;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class CustomerDB {
     /**
@@ -29,7 +30,7 @@ public class CustomerDB {
                 String address = results.getString("Address");
                 String postalCode = results.getString("Postal_Code");
                 String phone = results.getString("Phone");
-                LocalDateTime createDate = results.getTimestamp("Create_Date").toLocalDateTime();
+                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
                 String createdBy = results.getString("Created_By");
                 Timestamp lastUpdate = results.getTimestamp("Last_Update");
                 String lastUpdatedBy = results.getString("Last_Updated_By");
@@ -95,7 +96,7 @@ public class CustomerDB {
                 statement.setString(3, customer.getAddress());
                 statement.setString(4, customer.getPostalCode());
                 statement.setString(5, customer.getPhone());
-                statement.setTimestamp(6, Timestamp.valueOf(customer.getCreateDate()));
+                statement.setTimestamp(6, Timestamp.valueOf(customer.getCreateDate().toString()));
                 statement.setString(7, "admin");
                 statement.setTimestamp(8, customer.getLastUpdate());
                 statement.setString(9, "admin");
@@ -122,7 +123,7 @@ public class CustomerDB {
             statement.setString(2, customer.getAddress());
             statement.setString(3, customer.getPostalCode());
             statement.setString(4, customer.getPhone());
-            statement.setTimestamp(5, Timestamp.valueOf(customer.getCreateDate()));
+            statement.setTimestamp(5, Timestamp.valueOf(customer.getCreateDate().toString()));
             statement.setString(6, "admin");
             statement.setTimestamp(7, customer.getLastUpdate());
             statement.setString(8, "admin");

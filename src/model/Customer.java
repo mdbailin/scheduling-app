@@ -1,7 +1,7 @@
 package model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * Responsible for containing and allowing access to Customer data.
@@ -52,7 +52,7 @@ public class Customer extends TrackedDBObject {
      * @param divisionId Division ID for the customer
      * */
     public Customer(int customerId, String customerName, String address, String postalCode, String phone,
-                    LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy,
+                    ZonedDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy,
                     int divisionId)
     {
         super(createDate, createdBy, lastUpdate, lastUpdatedBy);

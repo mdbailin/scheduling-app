@@ -1,14 +1,17 @@
 package model;
 
+import utility.TimeManager;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class TrackedDBObject {
     /**
      * Date the object was created in the database.
      * Create_Date DATETIME
      * */
-    private LocalDateTime createDate;
+    private ZonedDateTime createDate;
     /**
      * Who originally created the object.
      * Created_By VARCHAR(50)
@@ -32,7 +35,7 @@ public class TrackedDBObject {
      * @param lastUpdate When the Object was last updated
      * @param lastUpdatedBy Individual who last updated the Object
      * */
-    public TrackedDBObject(LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy) {
+    public TrackedDBObject(ZonedDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy) {
         this.createDate = createDate;
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
@@ -40,16 +43,16 @@ public class TrackedDBObject {
     }
     /**
      * Returns the creation date.
-     * @return LocalDateTime this.createDate
+     * @return ZonedDateTime this.createDate
      * */
-    public LocalDateTime getCreateDate() {
+    public ZonedDateTime getCreateDate() {
         return this.createDate;
     }
     /**
      * Sets the creation date to the current date and time.
      * */
     public void setCreateDate() {
-        this.createDate = LocalDateTime.now();
+        this.createDate = ZonedDateTime.now();
     }
     /**
      * Returns the individual who created the object.

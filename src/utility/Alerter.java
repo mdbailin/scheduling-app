@@ -2,6 +2,7 @@ package utility;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import main.Main;
 import resources.LanguageManager;
 
 /**
@@ -11,6 +12,7 @@ public abstract class Alerter {
     public static void alert(String message, String title) {
         Alert a = new Alert(Alert.AlertType.NONE, LanguageManager.getLocalString(message), ButtonType.OK);
         a.setTitle(LanguageManager.getLocalString(title));
+        a.setHeight(900);
         a.show();
     }
     public static boolean confirm(String string) {

@@ -6,12 +6,14 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import model.Appointment;
 import utility.Alerter;
+import utility.TimeManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class AppointmentDB {
     /**
@@ -31,10 +33,10 @@ public class AppointmentDB {
                 String description = results.getString("Description");
                 String location = results.getString("Location");
                 String type = results.getString("Type");
-                LocalDateTime start = results.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
+                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
+                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
                 String createdBy = results.getString("Created_By");
-                LocalDateTime createDate = results.getTimestamp("Create_Date").toLocalDateTime();
+                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
                 Timestamp lastUpdate = results.getTimestamp("Last_Update");
                 String lastUpdatedBy = results.getString("Last_Updated_By");
                 int customerId = results.getInt("Customer_ID");
@@ -67,10 +69,10 @@ public class AppointmentDB {
                 String description = results.getString("Description");
                 String location = results.getString("Location");
                 String type = results.getString("Type");
-                LocalDateTime start = results.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
+                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
+                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
                 String createdBy = results.getString("Created_By");
-                LocalDateTime createDate = results.getTimestamp("Create_Date").toLocalDateTime();
+                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
                 Timestamp lastUpdate = results.getTimestamp("Last_Update");
                 String lastUpdatedBy = results.getString("Last_Updated_By");
                 int customerId = results.getInt("Customer_ID");
@@ -103,10 +105,10 @@ public class AppointmentDB {
                 String description = results.getString("Description");
                 String location = results.getString("Location");
                 String type = results.getString("Type");
-                LocalDateTime start = results.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
+                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
+                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
                 String createdBy = results.getString("Created_By");
-                LocalDateTime createDate = results.getTimestamp("Create_Date").toLocalDateTime();
+                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
                 Timestamp lastUpdate = results.getTimestamp("Last_Update");
                 String lastUpdatedBy = results.getString("Last_Updated_By");
                 int customerId = results.getInt("Customer_ID");
@@ -137,10 +139,10 @@ public class AppointmentDB {
                 String description = results.getString("Description");
                 String location = results.getString("Location");
                 String type = results.getString("Type");
-                LocalDateTime start = results.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
+                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
+                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
                 String createdBy = results.getString("Created_By");
-                LocalDateTime createDate = results.getTimestamp("Create_Date").toLocalDateTime();
+                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
                 Timestamp lastUpdate = results.getTimestamp("Last_Update");
                 String lastUpdatedBy = results.getString("Last_Updated_By");
                 int customerId = results.getInt("Customer_ID");
@@ -212,10 +214,10 @@ public class AppointmentDB {
                 statement.setString(3, appointment.getDescription());
                 statement.setString(4, appointment.getLocation());
                 statement.setString(5, appointment.getType());
-                statement.setTimestamp(6, Timestamp.valueOf(appointment.getStart()));
-                statement.setTimestamp(7, Timestamp.valueOf(appointment.getEnd()));
+                statement.setTimestamp(6, TimeManager.timestamp(appointment.getStart()));
+                statement.setTimestamp(7, TimeManager.timestamp(appointment.getEnd()));
                 statement.setInt(8, appointment.getCustomerId());
-                statement.setTimestamp(9, Timestamp.valueOf(appointment.getCreateDate()));
+                statement.setTimestamp(9, TimeManager.timestamp(appointment.getCreateDate()));
                 statement.setString(10, "admin");
                 statement.setTimestamp(11, appointment.getLastUpdate());
                 statement.setString(12, "admin");
@@ -243,10 +245,10 @@ public class AppointmentDB {
             statement.setString(2, appointment.getDescription());
             statement.setString(3, appointment.getLocation());
             statement.setString(4, appointment.getType());
-            statement.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
-            statement.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
+            statement.setTimestamp(5, TimeManager.timestamp(appointment.getStart()));
+            statement.setTimestamp(6, TimeManager.timestamp(appointment.getEnd()));
             statement.setInt(7, appointment.getCustomerId());
-            statement.setTimestamp(8, Timestamp.valueOf(appointment.getCreateDate()));
+            statement.setTimestamp(8, TimeManager.timestamp(appointment.getCreateDate()));
             statement.setString(9, "admin");
             statement.setTimestamp(10, appointment.getLastUpdate());
             statement.setString(11, "admin");

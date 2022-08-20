@@ -31,40 +31,6 @@ public class Main extends Application {
     public static void main(String[] args) throws SQLException {
         DBConnector.openConnection();
         launch(args);
-        // Test area
-        ObservableList<Appointment> aptList = FXCollections.observableArrayList();
-        ObservableList<Country> ctryList = FXCollections.observableArrayList();
-        ObservableList<User> usrList = FXCollections.observableArrayList();
-        ObservableList<Contact> conList = FXCollections.observableArrayList();
-        ObservableList<Customer> custList = FXCollections.observableArrayList();
-
-        aptList = AppointmentDB.getAllAppointments();
-        ctryList = CountryDB.getAllCountries();
-        usrList = UserDB.getAllUsers();
-        conList = ContactDB.getAllContacts();
-        custList = CustomerDB.getAllCustomers();
-
-        System.out.println("\nCountries:");
-        for (Country c : ctryList) {
-            System.out.println(c.getCreateDate().toString());
-        }
-        System.out.println("\nAppointments:");
-        for (Appointment a : aptList) {
-            System.out.println(a.getAppointmentId());
-        }
-        System.out.println("\nUsers:");
-        for (User u : usrList) {
-            System.out.println(u.getUsername());
-        }
-        System.out.println("\nContacts:");
-        for (Contact c : conList) {
-            System.out.println(c.getContactName());
-        }
-        System.out.println("\nCustomers:");
-        for (Customer c : custList) {
-            System.out.println(c.getCustomerName());
-        }
-        //Test area end
         DBConnector.closeConnection();
     }
     /**

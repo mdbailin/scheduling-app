@@ -4,12 +4,13 @@ import connection.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
+import utility.TimeManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class CountryDB {
 
@@ -23,7 +24,7 @@ public class CountryDB {
             while (results.next()) {
                 int countryId = results.getInt("Country_ID");
                 String country = results.getString("Country");
-                LocalDateTime createDate = results.getTimestamp("Create_Date").toLocalDateTime();
+                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
                 String createdBy = results.getString("Created_By");
                 Timestamp lastUpdate = results.getTimestamp("Last_Update");
                 String lastUpdatedBy = results.getString("Last_Updated_By");

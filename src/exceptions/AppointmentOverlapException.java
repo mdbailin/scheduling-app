@@ -2,7 +2,7 @@ package exceptions;
 
 import utility.TimeManager;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class AppointmentOverlapException extends RuntimeException {
     public AppointmentOverlapException(Throwable cause) {

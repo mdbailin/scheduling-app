@@ -4,7 +4,7 @@ import database.AppointmentDB;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * Responsible for containing and allowing access to Appointment data.
@@ -40,12 +40,12 @@ public class Appointment extends TrackedDBObject {
      * Appointment start date & time.
      * Start DATETIME
      * */
-    private LocalDateTime start;
+    private ZonedDateTime start;
     /**
      * Appointment end date & time.
      * End DATETIME
      * */
-    private LocalDateTime end;
+    private ZonedDateTime end;
     /**
      * Customer ID relevant to the appointment.
      * Customer_ID INT(10) (FK)
@@ -78,8 +78,8 @@ public class Appointment extends TrackedDBObject {
      * @param lastUpdate When the Appointment was last updated
      * @param lastUpdatedBy Individual who last updated the Appointment
      */
-    public Appointment(int appointmentId, String title, String description, String location, String type, LocalDateTime start,
-                       LocalDateTime end, int customerId, int userId, int contactId, LocalDateTime createDate,
+    public Appointment(int appointmentId, String title, String description, String location, String type, ZonedDateTime start,
+                       ZonedDateTime end, int customerId, int userId, int contactId, ZonedDateTime createDate,
                        String createdBy, Timestamp lastUpdate, String lastUpdatedBy)
     {
         super(createDate, createdBy, lastUpdate, lastUpdatedBy);
@@ -142,19 +142,19 @@ public class Appointment extends TrackedDBObject {
         this.type = type;
     }
 
-    public LocalDateTime getStart() {
+    public ZonedDateTime getStart() {
         return this.start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(ZonedDateTime start) {
         this.start = start;
     }
 
-    public LocalDateTime getEnd() {
+    public ZonedDateTime getEnd() {
         return this.end;
     }
 
-    public void setEnd(LocalDateTime end) {
+    public void setEnd(ZonedDateTime end) {
         this.end = end;
     }
 

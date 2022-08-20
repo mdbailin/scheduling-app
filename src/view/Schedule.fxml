@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -10,23 +11,34 @@
       <Group>
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaff" height="480.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="960.0" />
-            <HBox layoutX="20.0" layoutY="433.0" prefHeight="30.0" prefWidth="456.0" spacing="20.0">
+            <HBox layoutX="20.0" layoutY="433.0" prefHeight="30.0" prefWidth="922.0" spacing="20.0">
                <children>
                   <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButton" text="Add" />
                   <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateButton" text="Update" />
                   <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButton" text="Delete" />
                   <ToggleButton fx:id="toggleViewButton" mnemonicParsing="false" onAction="#onToggleViewButton" text="View appointments" />
+                  <Button fx:id="logOutButton" alignment="CENTER" mnemonicParsing="false" onAction="#onLogOutButton" text="Log out" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="500.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
-            <RadioButton fx:id="appointmentByMonthRadio" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#onMonthToggle" selected="true" text="Appointments by month" />
-            <RadioButton fx:id="appointmentByWeekRadio" layoutX="238.0" layoutY="14.0" mnemonicParsing="false" onAction="#onWeekToggle" text="Appointments by week" />
-            <HBox layoutX="596.0" layoutY="14.0" prefHeight="17.0" prefWidth="222.0" spacing="10.0">
+            <HBox layoutX="543.0" layoutY="13.0" prefHeight="20.0" prefWidth="408.0" spacing="20.0">
                <children>
-                  <Label fx:id="timeZoneDescLabel" text="Time Zone" />
-                  <Label fx:id="timeZoneLabel" text="Time Zone string" />
+                  <RadioButton fx:id="appointmentByMonthRadio" mnemonicParsing="false" onAction="#onMonthToggle" prefHeight="17.0" prefWidth="152.0" selected="true" text="Appointments by month" />
+                  <RadioButton fx:id="appointmentByWeekRadio" mnemonicParsing="false" onAction="#onWeekToggle" text="Appointments by week" />
                </children>
             </HBox>
-            <Button fx:id="logOutButton" layoutX="870.0" layoutY="433.0" mnemonicParsing="false" onAction="#onLogOutButton" text="Log out" />
+            <HBox layoutX="20.0" layoutY="14.0" prefHeight="17.0" prefWidth="523.0" spacing="10.0">
+               <children>
+                  <Label fx:id="timeZoneDescLabel" text="Time Zone:" />
+                  <Label fx:id="timeZoneLabel" text="Time Zone string" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Label fx:id="serverTimeZoneDescLabel" text="Server Time Zone:" />
+                  <Label fx:id="serverTimeZoneLabel" text="Server Time Zone string" />
+               </children>
+            </HBox>
          </children>
       </Group>
       <TableView fx:id="appointmentTableView" layoutX="4.0" layoutY="50.0" onMouseClicked="#onAppointmentTableViewClicked" prefHeight="365.0" prefWidth="952.0">

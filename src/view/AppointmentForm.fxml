@@ -45,9 +45,9 @@
             <TextField fx:id="appointmentIdField" disable="true" editable="false" focusTraversable="false" GridPane.columnIndex="3" />
             <TextField fx:id="locationField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <DatePicker fx:id="startDatePicker" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Spinner fx:id="startTimeSpinner" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Spinner fx:id="startTimeSpinner" onMouseClicked="#onStartSpinnerClick" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <DatePicker fx:id="endDatePicker" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Spinner fx:id="endTimeSpinner" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Spinner fx:id="endTimeSpinner" onMouseClicked="#onEndSpinnerClick" GridPane.columnIndex="3" GridPane.rowIndex="5" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

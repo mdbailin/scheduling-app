@@ -10,11 +10,15 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Customer;
 import resources.LanguageManager;
+import utility.TimeManager;
 import utility.Validator;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Hashtable;
 
 public class CustomerForm {
     public TextField customerIdField;
@@ -33,6 +37,9 @@ public class CustomerForm {
     public Label phoneLabel;
     public Label countryLabel;
     public Label stateLabel;
+    public Hashtable<String, Integer> divisionIdHash;
+    public Hashtable<Integer, String> divisionNameHash;
+
     /**
      * Initializes the CustomerForm.
      * */
@@ -40,6 +47,10 @@ public class CustomerForm {
     private void initialize() throws SQLException {
         // Initialize Country and State lists
         // Initialize Country and Division ComboBox
+        // Initialize Hashtable
+        divisionIdHash = FirstLevelDivisionDB.hashAllDivisionIds();
+        divisionNameHash = FirstLevelDivisionDB.hashAllDivisionNames();
+
         countryComboBox.setItems(CountryDB.getAllCountryNames());
         countryComboBox.getSelectionModel().selectFirst();
         divisionComboBox.setItems(FirstLevelDivisionDB.getUSDivisions());
@@ -83,6 +94,8 @@ public class CustomerForm {
             else {
                 addCustomer();
             }
+            Schedule.selectedAppointment = null;
+            Schedule.selectedCustomer = null;
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.close();
         }
@@ -104,15 +117,15 @@ public class CustomerForm {
      * Creates a customer object with values from all fields.
      * @return Customer object with values from all fields.
      * */
-    public Customer createCustomer() throws SQLException {
+    public Customer createCustomer() {
         int customerId = Integer.parseInt(customerIdField.getText());
         String name = nameField.getText();
         String address = addressField.getText();
         String postalCode = postalCodeField.getText();
         String phone = phoneField.getText();
-        LocalDateTime createDate = LocalDateTime.now();
+        ZonedDateTime createDate = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC"));
         String createdBy = "admin";
-        Timestamp lastUpdate = Timestamp.valueOf(createDate);
+        Timestamp lastUpdate = TimeManager.timestampUTC();
         String lastUpdatedBy = "admin";
         int divisionId = getDivisionIdFromName(divisionComboBox.getSelectionModel().getSelectedItem());
         return new Customer(customerId, name, address, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdatedBy, divisionId);
@@ -146,32 +159,24 @@ public class CustomerForm {
     public void setComboBoxFromDivisionId(int divisionId) throws SQLException {
         if (divisionId >= 1 && divisionId <= 54) {
             countryComboBox.getSelectionModel().select("U.S");
-            divisionComboBox.setItems(FirstLevelDivisionDB.getAllDivisionNames());
-            divisionComboBox.getSelectionModel().select(divisionId);
+            divisionComboBox.setItems(FirstLevelDivisionDB.getUSDivisions());
+            divisionComboBox.getSelectionModel().select(getDivisionNameFromId(divisionId));
         }
         else if (divisionId >= 60 && divisionId <= 72) {
             countryComboBox.getSelectionModel().select("Canada");
-            divisionComboBox.setItems(FirstLevelDivisionDB.getAllDivisionNames());
-            divisionComboBox.getSelectionModel().select(divisionId);
+            divisionComboBox.setItems(FirstLevelDivisionDB.getCADivisions());
+            divisionComboBox.getSelectionModel().select(getDivisionNameFromId(divisionId));
         }
         else if (divisionId >= 101 && divisionId <= 104) {
             countryComboBox.getSelectionModel().select("UK");
-            divisionComboBox.setItems(FirstLevelDivisionDB.getAllDivisionNames());
-            divisionComboBox.getSelectionModel().select(divisionId);
+            divisionComboBox.setItems(FirstLevelDivisionDB.getUKDivisions());
+            divisionComboBox.getSelectionModel().select(getDivisionNameFromId(divisionId));
         }
     }
-    public int getDivisionIdFromName(String division) throws SQLException {
-        int currentIndex = FirstLevelDivisionDB.getAllDivisionNames().indexOf(division);
-        int newIndex = -1;
-        if (currentIndex <= 53) {
-             newIndex = currentIndex;
-        }
-        else if (currentIndex >= 55 && currentIndex <= 65) {
-            newIndex = currentIndex + 6;
-        }
-        else if (currentIndex >= 101 && currentIndex <= 103) {
-            newIndex = currentIndex + 35;
-        }
-        return newIndex;
+    public int getDivisionIdFromName(String division) {
+        return divisionIdHash.get(division);
+    }
+    public String getDivisionNameFromId(int divisionId) {
+        return divisionNameHash.get(divisionId);
     }
 }

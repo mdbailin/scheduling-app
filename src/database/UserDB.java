@@ -8,12 +8,13 @@ import model.User;
 import resources.LanguageManager;
 import utility.Alerter;
 import utility.LoginMonitor;
+import utility.TimeManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class UserDB {
     /**
@@ -31,7 +32,7 @@ public class UserDB {
                 int userId = results.getInt("User_ID");
                 String username = results.getString("User_Name");
                 String password = results.getString("Password");
-                LocalDateTime createDate = results.getTimestamp("Create_Date").toLocalDateTime();
+                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
                 String createdBy = results.getString("Created_By");
                 Timestamp lastUpdate = results.getTimestamp("Last_Update");
                 String lastUpdatedBy = results.getString("Last_Updated_By");
@@ -49,7 +50,7 @@ public class UserDB {
      * @return true if the desired user is validated. Returns false if either of the credentials are incorrect.
      * */
     public static boolean userLogin(String userToFind, String password) {
-        LocalDateTime time = LocalDateTime.now();
+        ZonedDateTime time = ZonedDateTime.now();
         try {
             String sql = "SELECT * FROM USERS WHERE USER_NAME = '" + userToFind + "' AND password = '" + password +"'";
             PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
