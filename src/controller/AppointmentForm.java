@@ -24,31 +24,109 @@ import java.time.ZonedDateTime;
  * AppointmentForm is the controller for the AppointmentForm view. It is responsible for adding and modifying Appointments.
  * */
 public class AppointmentForm {
+    /**
+     * Access to the startTimeSpinner.
+     * */
     public Spinner<LocalTime> startTimeSpinner;
+    /**
+     * Access to the endTimeSpinner.
+     * */
     public Spinner<LocalTime> endTimeSpinner;
+    /**
+     * Access to the startDatePicker.
+     * */
     public DatePicker startDatePicker;
+    /**
+     * Access to the endDatePicker.
+     * */
     public DatePicker endDatePicker;
+    /**
+     * Access to the appointmentIdField.
+     * */
     public TextField appointmentIdField;
+    /**
+     * Access to the locationField.
+     * */
     public TextField locationField;
+    /**
+     * Access to the titleField.
+     * */
     public TextField titleField;
+    /**
+     * Access to the descriptionField.
+     * */
     public TextField descriptionField;
+    /**
+     * Access to the contactComboBox.
+     * */
     public ComboBox<String> contactComboBox;
+    /**
+     * Access to the typeField.
+     * */
     public TextField typeField;
+    /**
+     * Access to the userIdField.
+     * */
     public TextField userIdField;
+    /**
+     * Access to the customerIdField.
+     * */
     public TextField customerIdField;
+    /**
+     * Access to the saveButton.
+     * */
     public Button saveButton;
+    /**
+     * Access to the cancelButton.
+     * */
     public Button cancelButton;
+    /**
+     * Access to the startDateLabel.
+     * */
     public Label startDateLabel;
+    /**
+     * Access to the startTimeLabel.
+     * */
     public Label startTimeLabel;
+    /**
+     * Access to the endDateLabel.
+     * */
     public Label endDateLabel;
+    /**
+     * Access to the endTimeLabel.
+     * */
     public Label endTimeLabel;
+    /**
+     * Access to the titleLabel.
+     * */
     public Label titleLabel;
+    /**
+     * Access to the descriptionLabel.
+     * */
     public Label descriptionLabel;
+    /**
+     * Access to the contactLabel.
+     * */
     public Label contactLabel;
+    /**
+     * Access to the typeLabel.
+     * */
     public Label typeLabel;
+    /**
+     * Access to the userIdLabel.
+     * */
     public Label userIdLabel;
+    /**
+     * Access to the customerIdLabel.
+     * */
     public Label customerIdLabel;
+    /**
+     * Access to the locationLabel.
+     * */
     public Label locationLabel;
+    /**
+     * Access to the appointmentIdLabel.
+     * */
     public Label appointmentIdLabel;
 
     /**

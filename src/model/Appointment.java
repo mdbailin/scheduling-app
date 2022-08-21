@@ -99,7 +99,7 @@ public class Appointment extends TrackedDBObject {
      * Appointment default constructor.
      * */
     public Appointment() {
-        this(-1, null, null, null, null, null, null, -1, -1, -1, null, null, null, null);
+        this(-1, null, null, null, "null", null, null, -1, -1, -1, null, null, null, null);
     }
 
     public int getAppointmentId() {

@@ -4,8 +4,6 @@ import database.AppointmentDB;
 import database.CustomerDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,22 +12,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
 import resources.LanguageManager;
 import utility.Alerter;
+import utility.ReportManager;
 import utility.TimeManager;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Controller for the Schedule view.
@@ -115,6 +111,10 @@ public class Schedule {
      */
     public Button logOutButton;
     /**
+     * Access to the reportsButton.
+     * */
+    public Button reportsButton;
+    /**
      * Login scene.
      */
     Scene loginScene;
@@ -151,7 +151,6 @@ public class Schedule {
      */
     public static Customer selectedCustomer = null;
     public static ZonedDateTime selectedDate = null;
-    public static boolean monthsort = true;
     public ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
     public ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
@@ -181,6 +180,7 @@ public class Schedule {
         logOutButton.setText(LanguageManager.getLocalString("Log_Out"));
         appointmentIdCol_a.setText(LanguageManager.getLocalString("Appointment_ID"));
         titleCol_a.setText(LanguageManager.getLocalString("Title"));
+        reportsButton.setText(LanguageManager.getLocalString("Reports"));
         // Translate Appointment cols
         descriptionCol_a.setText(LanguageManager.getLocalString("Description"));
         locationCol_a.setText(LanguageManager.getLocalString("Location"));
@@ -455,5 +455,16 @@ public class Schedule {
         if (!alert) {
             Alerter.alert("No appointments scheduled within 15 minutes.", "No upcoming appointments.");
         }
+    }
+
+    public void onReportsButton(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Reports.fxml"));
+        Parent root = loadSchedule.load();
+        Scene reportScene = new Scene(root);
+        Stage reportStage = new Stage();
+        reportStage.setScene(reportScene);
+        reportStage.setTitle(LanguageManager.getLocalString("Reports"));
+        reportStage.setResizable(false);
+        reportStage.show();
     }
 }

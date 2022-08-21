@@ -13,6 +13,7 @@ public abstract class TimeManager {
      * Formatter to make times into a String acceptable for the MySQL Datetime format.
      * */
     private static DateTimeFormatter sqlFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static DateTimeFormatter reportFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm z");
     private static DateTimeFormatter labelFormat = DateTimeFormatter.ofPattern(("HH:mm"));
     private static DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -42,6 +43,9 @@ public abstract class TimeManager {
     }
     public static ZonedDateTime EST(ZonedDateTime time) {
         return ZonedDateTime.of(time.toLocalDateTime(), ZoneId.of("America/New_York"));
+    }
+    public static String reportEST(ZonedDateTime time) {
+        return reportFormat.format(ZonedDateTime.of(time.toLocalDateTime(), ZoneId.of("America/New_York")));
     }
     public static ZonedDateTime UTC(ZonedDateTime time) {
         return ZonedDateTime.of(time.toLocalDateTime(), ZoneId.of("UTC"));

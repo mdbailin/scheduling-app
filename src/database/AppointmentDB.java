@@ -3,7 +3,6 @@ package database;
 import connection.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import model.Appointment;
 import utility.Alerter;
 import utility.TimeManager;
@@ -12,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class AppointmentDB {
@@ -21,146 +19,80 @@ public class AppointmentDB {
      * @return ObservableList containing all Appointments.
      * */
     public static ObservableList<Appointment> getAllAppointments() throws SQLException {
-        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        ResultSet results = null;
         try {
             String sql = "SELECT * FROM APPOINTMENTS";
             PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
-            ResultSet results = statement.executeQuery();
-
-            while (results.next()) {
-                int appointmentId = results.getInt("Appointment_ID");
-                String title = results.getString("Title");
-                String description = results.getString("Description");
-                String location = results.getString("Location");
-                String type = results.getString("Type");
-                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
-                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
-                String createdBy = results.getString("Created_By");
-                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
-                Timestamp lastUpdate = results.getTimestamp("Last_Update");
-                String lastUpdatedBy = results.getString("Last_Updated_By");
-                int customerId = results.getInt("Customer_ID");
-                int userId = results.getInt("User_ID");
-                int contactId = results.getInt("Contact_ID");
-                Appointment a = new Appointment(appointmentId, title, description, location, type, start, end,
-                        customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
-                appointmentList.add(a);
-            }
+            results = statement.executeQuery();
         }
         catch(SQLException sqlE) {
             sqlE.printStackTrace();
         }
-        return appointmentList;
+        return process(results);
+    }
+    /**
+     *
+     * */
+    public static ObservableList<Appointment> getOrderedAppointments() throws SQLException {
+        ResultSet results = null;
+        try {
+            String sql = "SELECT * FROM APPOINTMENTS ORDER BY Type ASC";
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            results = statement.executeQuery();
+        }
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+        return process(results);
     }
     /**
      * Attempts to retrieve all Appointments except appointments that match the Appointment_ID specified.
      * @return ObservableList containing the desired appointments.
      * */
     public static ObservableList<Appointment> getAllAppointmentsExcept(int id) throws SQLException {
-        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        ResultSet results = null;
         try {
             String sql = "SELECT * FROM APPOINTMENTS WHERE Appointment_ID != " + id;
             PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
-            ResultSet results = statement.executeQuery();
-
-            while (results.next()) {
-                int appointmentId = results.getInt("Appointment_ID");
-                String title = results.getString("Title");
-                String description = results.getString("Description");
-                String location = results.getString("Location");
-                String type = results.getString("Type");
-                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
-                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
-                String createdBy = results.getString("Created_By");
-                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
-                Timestamp lastUpdate = results.getTimestamp("Last_Update");
-                String lastUpdatedBy = results.getString("Last_Updated_By");
-                int customerId = results.getInt("Customer_ID");
-                int userId = results.getInt("User_ID");
-                int contactId = results.getInt("Contact_ID");
-                Appointment a = new Appointment(appointmentId, title, description, location, type, start, end,
-                        customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
-                appointmentList.add(a);
+            results = statement.executeQuery();
             }
-        }
         catch(SQLException sqlE) {
             sqlE.printStackTrace();
         }
-        return appointmentList;
+        return process(results);
     }
     /**
      * Attempts to retrieve all Appointments that contain a particular Customer_ID.
      * @return ObservableList containing all Appointments containing a particular Customer_ID.
      * */
     public static ObservableList<Appointment> getAllAppointments(int id) throws SQLException {
-        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        ResultSet results = null;
         try {
             String sql = "SELECT * FROM APPOINTMENTS WHERE Customer_ID = " + id;
             PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
-            ResultSet results = statement.executeQuery();
-
-            while (results.next()) {
-                int appointmentId = results.getInt("Appointment_ID");
-                String title = results.getString("Title");
-                String description = results.getString("Description");
-                String location = results.getString("Location");
-                String type = results.getString("Type");
-                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
-                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
-                String createdBy = results.getString("Created_By");
-                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
-                Timestamp lastUpdate = results.getTimestamp("Last_Update");
-                String lastUpdatedBy = results.getString("Last_Updated_By");
-                int customerId = results.getInt("Customer_ID");
-                int userId = results.getInt("User_ID");
-                int contactId = results.getInt("Contact_ID");
-                Appointment a = new Appointment(appointmentId, title, description, location, type, start, end,
-                        customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
-                appointmentList.add(a);
+            results = statement.executeQuery();
             }
+        catch(SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+        return process(results);
+    }
+    /**
+     * Attempts to retrieve all Appointments that contain a particular Contact_ID.
+     * Used when generating the Contact report.
+     * @return ObservableList containing all Appointments containing a particular Contact_ID.
+     * */
+    public static ObservableList<Appointment> getContactAppointments(int id) throws SQLException {
+        ResultSet results = null;
+        try {
+            String sql = "SELECT * FROM APPOINTMENTS WHERE Contact_ID = " + id;
+            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
+            results = statement.executeQuery();
         }
         catch(SQLException sqlE) {
             sqlE.printStackTrace();
         }
-        return appointmentList;
-    }
-    public static ObservableList<Appointment> getNewAppointments() throws SQLException {
-        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
-        boolean success = false;
-        try {
-
-            String sql = "SELECT * FROM APPOINTMENTS";
-            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
-            ResultSet results = statement.executeQuery();
-
-            while (results.next()) {
-                int appointmentId = results.getInt("Appointment_ID");
-                String title = results.getString("Title");
-                String description = results.getString("Description");
-                String location = results.getString("Location");
-                String type = results.getString("Type");
-                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
-                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
-                String createdBy = results.getString("Created_By");
-                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
-                Timestamp lastUpdate = results.getTimestamp("Last_Update");
-                String lastUpdatedBy = results.getString("Last_Updated_By");
-                int customerId = results.getInt("Customer_ID");
-                int userId = results.getInt("User_ID");
-                int contactId = results.getInt("Contact_ID");
-                Appointment a = new Appointment(appointmentId, title, description, location, type, start, end,
-                        customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
-                appointmentList.add(a);
-            }
-            success = true;
-        }
-        catch (SQLException sqlE) {
-            sqlE.printStackTrace();
-        }
-        if (success) {
-
-        }
-        return appointmentList;
+        return process(results);
     }
     /**
      * Queries the database to check for the next valid Appointment_ID.
@@ -260,11 +192,47 @@ public class AppointmentDB {
             sqlE.printStackTrace();
         }
     }
+    private static ObservableList<Appointment> process(ResultSet results) throws SQLException {
+        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        try {
+            while (results.next()) {
+                int appointmentId = results.getInt("Appointment_ID");
+                String title = results.getString("Title");
+                String description = results.getString("Description");
+                String location = results.getString("Location");
+                String type = results.getString("Type");
+                ZonedDateTime start = TimeManager.toLocal(results.getTimestamp("Start"));
+                ZonedDateTime end = TimeManager.toLocal(results.getTimestamp("End"));
+                String createdBy = results.getString("Created_By");
+                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
+                Timestamp lastUpdate = results.getTimestamp("Last_Update");
+                String lastUpdatedBy = results.getString("Last_Updated_By");
+                int customerId = results.getInt("Customer_ID");
+                int userId = results.getInt("User_ID");
+                int contactId = results.getInt("Contact_ID");
+                Appointment a = new Appointment(appointmentId, title, description, location, type, start, end,
+                        customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
+                appointmentList.add(a);
+            }
+        }
+        catch (SQLException sqlE) {
+            sqlE.printStackTrace();
+        }
+        return appointmentList;
+    }
+    /**
+     * Attempts to remove all Appointments associated with a specified customerId.
+     * The user is then notified if the Appointments were removed or if they were not.
+     * @param appointments An ObservableList containing all Appointments to check.
+     * @param customerId The Customer_ID of the customer to be removed.
+     * */
     public static void removeCustomerAppointments(ObservableList<Appointment> appointments, int customerId) throws SQLException {
         boolean success = false;
         try {
             for (Appointment a : appointments) {
-                removeAppointment(a.getCustomerId());
+                if (a.getCustomerId() == customerId) {
+                    removeAppointment(a.getCustomerId());
+                }
             }
             success = true;
         }

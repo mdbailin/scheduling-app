@@ -16,10 +16,14 @@
                   <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButton" text="Add" />
                   <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateButton" text="Update" />
                   <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButton" text="Delete" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <ToggleButton fx:id="toggleViewButton" mnemonicParsing="false" onAction="#onToggleViewButton" text="View appointments" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Button fx:id="reportsButton" mnemonicParsing="false" onAction="#onReportsButton" text="Reports" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <Button fx:id="logOutButton" alignment="CENTER" mnemonicParsing="false" onAction="#onLogOutButton" text="Log out" textAlignment="CENTER">
                      <HBox.margin>
-                        <Insets left="500.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
                </children>

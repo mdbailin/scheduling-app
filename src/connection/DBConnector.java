@@ -62,7 +62,7 @@ public abstract class DBConnector {
 
     /**
      * Returns the current Connection.
-     * @Return Connection
+     * @Return Connection created from the current session.
      * */
     public static Connection getConnection() {
         return connection;
@@ -77,8 +77,5 @@ public abstract class DBConnector {
             System.out.println("Connection closed!");
         }
         catch(Exception e){}
-    }
-    public static String getDBPassword() {
-        return password;
     }
 }
