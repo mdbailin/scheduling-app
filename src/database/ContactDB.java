@@ -4,14 +4,12 @@ import connection.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Contact;
-import model.User;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.ZonedDateTime;
-
+/**
+ * ContactDB is responsible for all queries to the database regarding Contact objects.
+ * */
 public class ContactDB {
     public static ObservableList<Contact> getAllContacts() throws SQLException {
         ObservableList<Contact> contactList = FXCollections.observableArrayList();

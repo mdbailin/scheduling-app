@@ -6,13 +6,14 @@ import javafx.collections.ObservableList;
 import model.Appointment;
 import utility.Alerter;
 import utility.TimeManager;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
-
+/**
+ * AppointmentDB is responsible for all queries to the database regarding Appointment objects.
+ * */
 public class AppointmentDB {
     /**
      * Attempts to retrieve all Appointments.

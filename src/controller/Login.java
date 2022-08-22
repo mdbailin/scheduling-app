@@ -26,45 +26,15 @@ import java.util.TimeZone;
  * Controller for the Login view.
  * */
 public class Login {
-    /**
-     * Access to the time zone Label description
-     * */
     public Label timeZoneDescLabel;
-    /**
-     * Access to the time zone Label that is updated to display the current time zone.
-     * */
     public Label timeZoneLabel;
-    /**
-     * Access to the username Label.
-     * */
     public Label usernameLabel;
-    /**
-     * Access to the username Text Field.
-     * */
     public TextField usernameTextField;
-    /**
-     * Access to the password Label.
-     * */
     public Label passwordLabel;
-    /**
-     * Access to the Password Field.
-     * */
     public PasswordField passwordField;
-    /**
-     * Access to the login Button.
-     * */
     public Button loginButton;
-    /**
-     * Used to load a Stage for the Schedule view.
-     * */
     Stage scheduleStage = new Stage();
-    /**
-     * Used to load a Scene for the Schedule view.
-     * */
     Scene scheduleScene;
-    /**
-     * Used to check if the user credentials have been verified.
-     * */
     private boolean access = false;
     /**
      * Initializes the Login view. This includes translating text on the Login view.

@@ -1,17 +1,16 @@
 package database;
 
 import connection.DBConnector;
-import controller.Schedule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
-import model.User;
-import utility.Alerter;
 import utility.TimeManager;
 
 import java.sql.*;
 import java.time.ZonedDateTime;
-
+/**
+ * CustomerDB is responsible for all queries to the database regarding Customer objects.
+ * */
 public class CustomerDB {
     /**
      * Attempts to get all Customers in the database.

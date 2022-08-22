@@ -6,14 +6,11 @@ import database.UserDB;
 import exceptions.AppointmentOverlapException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import model.Appointment;
 import model.Customer;
 import model.User;
 import resources.LanguageManager;
-
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;

@@ -5,13 +5,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
 import utility.TimeManager;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
-
+/**
+ * CountryDB is responsible for all queries to the database regarding Country objects.
+ * */
 public class CountryDB {
 
     public static ObservableList<Country> getAllCountries() throws SQLException {

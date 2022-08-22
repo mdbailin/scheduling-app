@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 import model.Contact;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,8 +1,5 @@
 package model;
 
-import database.AppointmentDB;
-
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 

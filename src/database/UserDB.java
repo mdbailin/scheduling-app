@@ -3,19 +3,18 @@ package database;
 import connection.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Country;
 import model.User;
-import resources.LanguageManager;
 import utility.Alerter;
 import utility.LoginMonitor;
 import utility.TimeManager;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
-
+/**
+ * UserDB is responsible for all queries to the database regarding User objects.
+ * */
 public class UserDB {
     /**
      * Selects all users in the database.

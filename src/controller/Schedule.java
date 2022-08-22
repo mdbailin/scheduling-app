@@ -13,12 +13,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
 import resources.LanguageManager;
 import utility.Alerter;
-import utility.ReportManager;
 import utility.TimeManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,59 +32,19 @@ import java.time.ZoneId;
  * Controller for the Schedule view.
  * */
 public class Schedule {
-    /**
-     * Access to the addButton
-     */
     public Button addButton;
-    /**
-     * Access to the updateButton
-     */
     public Button updateButton;
-    /**
-     * Access to the deleteButton
-     */
     public Button deleteButton;
-    /**
-     * Access to the appointmentByMonthRadio
-     */
     public RadioButton appointmentByMonthRadio;
-    /**
-     * Access to the appointmentByWeekRadio
-     */
     public RadioButton appointmentByWeekRadio;
-    /**
-     * Access to the time zone Label description
-     */
     public Label timeZoneDescLabel;
-    /**
-     * Access to the time zone Label
-     */
     public Label timeZoneLabel;
-    /**
-     * Access to the server time zone description
-     */
     public Label serverTimeZoneDescLabel;
-    /**
-     * Access to the server time zone Label
-     */
     public Label serverTimeZoneLabel;
-    /**
-     * Access to the toggleViewButton
-     */
     public ToggleButton toggleViewButton;
-    /**
-     * Keep track of which TableView should be active.
-     */
     public boolean viewAppointments = true;
-    /**
-     * Access to the appointmentTableView
-     */
     public TableView appointmentTableView;
-    /**
-     * Access to the customerTableView
-     */
     public TableView customerTableView;
-    // Access to Appointment columns
     public TableColumn appointmentIdCol_a;
     public TableColumn titleCol_a;
     public TableColumn descriptionCol_a;
@@ -95,7 +56,7 @@ public class Schedule {
     public TableColumn customerIdCol_a;
     public TableColumn userIdCol_a;
 
-    // Access to Customer columns
+    // Customer columns
     public TableColumn customerIdCol_c;
     public TableColumn customerNameCol_c;
     public TableColumn addressCol_c;
@@ -106,56 +67,31 @@ public class Schedule {
     public TableColumn lastUpdateCol_c;
     public TableColumn lastUpdatedByCol_c;
     public TableColumn divisionIdCol_c;
-    /**
-     * Access to the logOutButton.
-     */
+
     public Button logOutButton;
-    /**
-     * Access to the reportsButton.
-     * */
     public Button reportsButton;
-    /**
-     * Login scene.
-     */
+    public Rectangle appointmentRectangle;
+    public Button dismissRectangleButton;
+    public Label rectangleLabel;
     Scene loginScene;
-    /**
-     * Login stage.
-     */
     Stage loginStage = new Stage();
-    /**
-     * AppointmentForm scene.
-     */
     Scene appointmentFormScene;
-    /**
-     * AppointmentForm stage.
-     */
     Stage appointmentFormStage = new Stage();
-    /**
-     * CustomerForm scene.
-     */
     Scene customerFormScene;
-    /**
-     * CustomerForm stage.
-     */
     Stage customerFormStage = new Stage();
     /**
      * Toggle group to allow toggling of radio buttons.
      */
     static ToggleGroup radioToggle = new ToggleGroup();
-    /**
-     * Stores the data of the selected Appointment.
-     */
     public static Appointment selectedAppointment = null;
-    /**
-     * Stores the data of the selected Customer.
-     */
     public static Customer selectedCustomer = null;
     public static ZonedDateTime selectedDate = null;
     public ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
     public ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
     /**
-     * Initializes Schedule by translating all text and filling the TableView.
+     * Initializes Schedule by translating all text and filling the TableView then checks if
+     * there are any appointments occuring within 15 minutes.
      */
     @FXML
     private void initialize() throws SQLException {
@@ -181,6 +117,7 @@ public class Schedule {
         appointmentIdCol_a.setText(LanguageManager.getLocalString("Appointment_ID"));
         titleCol_a.setText(LanguageManager.getLocalString("Title"));
         reportsButton.setText(LanguageManager.getLocalString("Reports"));
+        dismissRectangleButton.setText(LanguageManager.getLocalString("Acknowledge"));
         // Translate Appointment cols
         descriptionCol_a.setText(LanguageManager.getLocalString("Description"));
         locationCol_a.setText(LanguageManager.getLocalString("Location"));
@@ -322,9 +259,10 @@ public class Schedule {
                 if (Alerter.confirm("Delete_Customer")) {
                     AppointmentDB.removeCustomerAppointments(AppointmentDB.getAllAppointments(selectedCustomer.getCustomerId()), selectedCustomer.getCustomerId());
                     CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
-                } else {
-                    System.out.println("Customer not deleted");
                 }
+//                else {
+//                    System.out.println("Customer not deleted");
+//                }
             }
             setUpTables();
             selectedCustomer = null;
@@ -372,11 +310,11 @@ public class Schedule {
      */
     public void onAppointmentTableViewClicked(MouseEvent mouseEvent) {
         setSelectedAppointment();
-        if (selectedAppointment != null) {
-            System.out.println("Selected appointment ID: " + selectedAppointment.getAppointmentId());
-        } else {
-            System.out.println("No appointment selected.");
-        }
+//        if (selectedAppointment != null) {
+//            System.out.println("Selected appointment ID: " + selectedAppointment.getAppointmentId());
+//        } else {
+//            System.out.println("No appointment selected.");
+//        }
     }
 
     /**
@@ -384,12 +322,11 @@ public class Schedule {
      */
     public void onCustomerTableViewClicked(MouseEvent mouseEvent) {
         setSelectedCustomer();
-        if (selectedCustomer != null) {
-            System.out.println("Selected customer ID: " + selectedCustomer.getCustomerId());
-        } else {
-            System.out.println("No customer selected.");
-        }
-
+//        if (selectedCustomer != null) {
+//            System.out.println("Selected customer ID: " + selectedCustomer.getCustomerId());
+//        } else {
+//            System.out.println("No customer selected.");
+//        }
     }
 
     /**
@@ -421,6 +358,7 @@ public class Schedule {
     }
 
     public void toggle() {
+        // TODO sort Appointment TableView
         System.out.println("Sorted.");
     }
 
@@ -446,14 +384,13 @@ public class Schedule {
             if (a.getStart().toLocalDate().equals(today)) {
                 LocalTime aTime = a.getStart().toLocalTime();
                 if (aTime.compareTo(now) <= FIFTEEN_MINUTES && aTime.compareTo(now) > 0) {
-                    Alerter.alert("Upcoming appointment within 15 minutes!\nAppointment ID: " + a.getAppointmentId() + "\nDate: "
-                            + TimeManager.getDate(a.getStart()) + "\nTime: " + TimeManager.getTime(a.getStart()), "Upcoming Appointment!");
+                    showAppointmentWarning(true, a.getAppointmentId(), a.getStart());
                     alert = true;
                 }
             }
         }
         if (!alert) {
-            Alerter.alert("No appointments scheduled within 15 minutes.", "No upcoming appointments.");
+            showAppointmentWarning(false, -1, ZonedDateTime.now());
         }
     }
 
@@ -466,5 +403,39 @@ public class Schedule {
         reportStage.setTitle(LanguageManager.getLocalString("Reports"));
         reportStage.setResizable(false);
         reportStage.show();
+    }
+
+    public void onDismissRectangleButton(ActionEvent actionEvent) {
+        hideAppointmentWarning();
+    }
+    private void showAppointmentWarning(boolean imminent, int id, ZonedDateTime start) {
+        if (imminent) {
+            appointmentRectangle.setFill(Paint.valueOf("#d71b4a"));
+            String alert = "" + LanguageManager.getLocalString("Appointment_ID") + ": " + id + " " +
+                    LanguageManager.getLocalString("Begins_In_15") + " " +
+                    LanguageManager.getLocalString("Date") +
+                    ": " + TimeManager.getDate(start) + ", " +
+                    LanguageManager.getLocalString("Time") +
+                    ": " + TimeManager.getTime(start);
+            rectangleLabel.setText(alert);
+        }
+        else {
+            appointmentRectangle.setFill(Paint.valueOf("#1c7fd6"));
+            rectangleLabel.setText(LanguageManager.getLocalString("No_Appointments_Scheduled_Within_15_Minutes"));
+        }
+        rectangleLabel.setVisible(true);
+        rectangleLabel.setDisable(false);
+        appointmentRectangle.setVisible(true);
+        appointmentRectangle.setDisable(false);
+        dismissRectangleButton.setVisible(true);
+        dismissRectangleButton.setDisable(false);
+    }
+    private void hideAppointmentWarning() {
+        rectangleLabel.setVisible(false);
+        rectangleLabel.setDisable(true);
+        appointmentRectangle.setVisible(false);
+        appointmentRectangle.setDisable(true);
+        dismissRectangleButton.setVisible(false);
+        dismissRectangleButton.setDisable(true);
     }
 }

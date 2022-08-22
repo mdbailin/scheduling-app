@@ -3,12 +3,13 @@ package database;
 import connection.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
-
+/**
+ * FirstLevelDivisionDB is responsible for all queries to the database regarding first level divisions.
+ * */
 public class FirstLevelDivisionDB {
     public static ObservableList<String> getAllDivisionNames() throws SQLException {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
