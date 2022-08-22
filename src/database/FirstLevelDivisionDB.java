@@ -11,23 +11,6 @@ import java.util.Hashtable;
  * FirstLevelDivisionDB is responsible for all queries to the database regarding first level divisions.
  * */
 public class FirstLevelDivisionDB {
-    public static ObservableList<String> getAllDivisionNames() {
-        ObservableList<String> divisionList = FXCollections.observableArrayList();
-        try {
-            String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS";
-            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
-            ResultSet results = statement.executeQuery();
-
-            while (results.next()) {
-                String division = results.getString("Division");
-                divisionList.add(division);
-            }
-        }
-        catch(SQLException sqlE) {
-            sqlE.printStackTrace();
-        }
-        return divisionList;
-    }
     /**
      * Builds a hashtable consisting of first-level divisions mapped to their Division_ID.
      * */
@@ -51,6 +34,7 @@ public class FirstLevelDivisionDB {
     }
     /**
      * Builds a hashtable consisting of Division_ID's mapped to their associated first-level division.
+     * @return HashTable containing Division_ID's paired with Division names.
      * */
     public static Hashtable<Integer, String> hashAllDivisionNames() {
         Hashtable<Integer, String> divisionHashtable = new Hashtable<>();
@@ -71,6 +55,10 @@ public class FirstLevelDivisionDB {
         }
         return divisionHashtable;
     }
+    /**
+     * Queries the database for US divisions.
+     * @return ObservableList of Division name Strings.
+     * */
     public static ObservableList<String> getUSDivisions() {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {
@@ -88,6 +76,10 @@ public class FirstLevelDivisionDB {
         }
         return divisionList;
     }
+    /**
+     * Queries the database for Canadian divisions.
+     * @return ObservableList of Division name Strings.
+     * */
     public static ObservableList<String> getCADivisions() {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {
@@ -105,6 +97,10 @@ public class FirstLevelDivisionDB {
         }
         return divisionList;
     }
+    /**
+     * Queries the database for UK divisions.
+     * @return ObservableList of Division name Strings.
+     * */
     public static ObservableList<String> getUKDivisions() {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {

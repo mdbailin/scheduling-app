@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -15,9 +14,12 @@ public class Reports {
     public Button appointmentsButton;
     public Button exportButton;
     private String report = "";
-
+    /**
+     * Sets the TextArea to contain the Contact Schedule as a default.
+     * Translates all window text.
+     * */
     @FXML
-    private void initialize() throws SQLException {
+    private void initialize() {
         try {
             reportTextArea.setText(ReportManager.contactSchedule());
         }
@@ -27,18 +29,32 @@ public class Reports {
         exportButton.setText(LanguageManager.getLocalString("Export"));
 
     }
-
-    public void onContactScheduleButton(ActionEvent actionEvent) throws SQLException {
-        reportTextArea.setText(ReportManager.contactSchedule());
-        report = "contact_schedule";
+    /**
+     * Sets the TextArea to Contact Schedule, and sets the report member variable to the
+     * appropriate text for the title of a related txt file.
+     * */
+    public void onContactScheduleButton() {
+        try {
+            reportTextArea.setText(ReportManager.contactSchedule());
+            report = "contact_schedule";
+        }
+        catch (SQLException SQLe) {
+            reportTextArea.setText(LanguageManager.getLocalString("An SQL error has occurred upon database query."));
+            report = "SQL_error";
+        }
     }
-
-    public void onAppointmentsButton(ActionEvent actionEvent) {
+    /**
+     * Sets the TextArea to Appointments sorted by type and month, and sets the report member variable to the
+     * appropriate text for the title of a related txt file.
+     * */
+    public void onAppointmentsButton() {
         reportTextArea.setText(ReportManager.appointmentsByTypeMonth());
         report = "appointments_by_type_and_month";
     }
-
-    public void onExportButton(ActionEvent actionEvent) {
+    /**
+     * Writes the current report to a txt file. The report will be appended if it is printed multiple times.
+     * */
+    public void onExportButton() {
         ReportManager.write(report, reportTextArea.getText());
     }
 }

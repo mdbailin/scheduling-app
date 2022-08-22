@@ -178,24 +178,17 @@ public abstract class Validator {
     }
 
     /**
-     * Validates Date and Time entries.
-     */
-    public static boolean isDateTime() {
-        return true;
-    }
-
-    /**
      * Validates input against a list of User's and their User_ID's.
      *
      * @param validate The String value to be validated.
      * @return true if the input is validated, false if it is not.
      */
-    public static boolean isUserId(int validate) throws SQLException {
+    public static boolean isUserId(int validate) {
         ObservableList<User> users = FXCollections.observableArrayList();
         List<Integer> ids = new ArrayList<>();
         try {
             users = UserDB.getAllUsers();
-        } catch (SQLException sqlE) {
+        } catch (SQLException ignored) {
         }
         for (User u : users) {
             ids.add(u.getUserId());
@@ -213,12 +206,12 @@ public abstract class Validator {
      * @param validate The String value to be validated.
      * @return true if the input is validated, false if it is not.
      */
-    public static boolean isCustomerId(int validate) throws SQLException {
+    public static boolean isCustomerId(int validate) {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
         List<Integer> ids = new ArrayList<>();
         try {
             customers = CustomerDB.getAllCustomers();
-        } catch (SQLException sqlE) {
+        } catch (SQLException ignored) {
         }
         for (Customer c : customers) {
             ids.add(c.getCustomerId());

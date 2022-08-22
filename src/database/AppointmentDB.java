@@ -32,7 +32,8 @@ public class AppointmentDB {
         return process(results);
     }
     /**
-     *
+     * Queries the database and builds an ObservableList of Appointments, ordered by their Type in Ascending order.
+     * @return ObservableList of Appointments ordered by their Type attribute.
      * */
     public static ObservableList<Appointment> getOrderedAppointments() throws SQLException {
         ResultSet results = null;
@@ -193,7 +194,12 @@ public class AppointmentDB {
             sqlE.printStackTrace();
         }
     }
-    private static ObservableList<Appointment> process(ResultSet results) throws SQLException {
+    /**
+     * Performs required processing to turn a ResultSet into an ObservableList of Appointments.
+     * @param results ResultSet generated from querying the database.
+     * @return ObservableList of Appointment objects created from the ResultSet.
+     * */
+    private static ObservableList<Appointment> process(ResultSet results) {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
         try {
             while (results.next()) {

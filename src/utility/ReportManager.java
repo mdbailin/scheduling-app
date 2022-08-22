@@ -108,7 +108,4 @@ public abstract class ReportManager {
             } catch (NullPointerException | IOException ignored) {}
         }
     }
-    public static void writeContactSchedule() throws SQLException {
-        write("contact_schedule", contactSchedule());
-    }
 }

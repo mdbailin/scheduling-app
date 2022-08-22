@@ -14,30 +14,10 @@ import java.time.ZonedDateTime;
  * CountryDB is responsible for all queries to the database regarding Country objects.
  * */
 public class CountryDB {
-
-    public static ObservableList<Country> getAllCountries() {
-        ObservableList<Country> countryList = FXCollections.observableArrayList();
-        try {
-            String sql = "SELECT * FROM COUNTRIES";
-            PreparedStatement statement = DBConnector.getConnection().prepareStatement(sql);
-            ResultSet results = statement.executeQuery();
-
-            while (results.next()) {
-                int countryId = results.getInt("Country_ID");
-                String country = results.getString("Country");
-                ZonedDateTime createDate = TimeManager.toLocal(results.getTimestamp("Create_Date"));
-                String createdBy = results.getString("Created_By");
-                Timestamp lastUpdate = results.getTimestamp("Last_Update");
-                String lastUpdatedBy = results.getString("Last_Updated_By");
-                Country c = new Country(countryId, country, createDate, createdBy, lastUpdate, lastUpdatedBy);
-                countryList.add(c);
-            }
-        }
-        catch(SQLException sqlE) {
-            sqlE.printStackTrace();
-        }
-        return countryList;
-    }
+    /**
+     * Queries the database for all Country names.
+     * @return ObservableList containing all Country names.
+     * */
     public static ObservableList<String> getAllCountryNames() {
         ObservableList<String> countryList = FXCollections.observableArrayList();
         try {

@@ -95,7 +95,7 @@ public class CustomerDB {
                 statement.setString(3, customer.getAddress());
                 statement.setString(4, customer.getPostalCode());
                 statement.setString(5, customer.getPhone());
-                statement.setTimestamp(6, Timestamp.valueOf(customer.getCreateDate().toString()));
+                statement.setTimestamp(6, TimeManager.timestamp(customer.getCreateDate()));
                 statement.setString(7, "admin");
                 statement.setTimestamp(8, customer.getLastUpdate());
                 statement.setString(9, "admin");
@@ -122,7 +122,7 @@ public class CustomerDB {
             statement.setString(2, customer.getAddress());
             statement.setString(3, customer.getPostalCode());
             statement.setString(4, customer.getPhone());
-            statement.setTimestamp(5, Timestamp.valueOf(customer.getCreateDate().toString()));
+            statement.setTimestamp(5, TimeManager.timestamp(customer.getCreateDate()));
             statement.setString(6, "admin");
             statement.setTimestamp(7, customer.getLastUpdate());
             statement.setString(8, "admin");

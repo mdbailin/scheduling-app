@@ -11,6 +11,10 @@ import java.sql.SQLException;
  * ContactDB is responsible for all queries to the database regarding Contact objects.
  * */
 public class ContactDB {
+    /**
+     * Queries the database for all Contacts.
+     * @return ObservableList of all Contacts in the database.
+     * */
     public static ObservableList<Contact> getAllContacts() throws SQLException {
         ObservableList<Contact> contactList = FXCollections.observableArrayList();
         try {
@@ -31,6 +35,10 @@ public class ContactDB {
         }
         return contactList;
     }
+    /**
+     * Queries database for all contacts and returns an ObservableList of containing their names.
+     * @return ObservableList of all Contact names in the database.
+     * */
     public static ObservableList<String> getAllContactNames() {
         ObservableList<String> contactList = FXCollections.observableArrayList();
         try {
@@ -48,6 +56,11 @@ public class ContactDB {
         }
         return contactList;
     }
+    /**
+     * Attempts to retrieve a Contact with a specified name.
+     * @param name The name of the Contact to be found.
+     * @return Contact with a specified name.
+     * */
     public static Contact getContactByName(String name) {
         Contact c = null;
         try {

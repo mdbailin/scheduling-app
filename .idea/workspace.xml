@@ -6,20 +6,17 @@
       <change beforePath="$PROJECT_DIR$/login_activity.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/AppointmentForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AppointmentForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/CustomerForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Reports.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Reports.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Schedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/AppointmentDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/AppointmentDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/ContactDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/ContactDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/CountryDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/CountryDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/CustomerDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/CustomerDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/FirstLevelDivisionDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/FirstLevelDivisionDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Appointment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Country.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utility/Alerter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/Alerter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utility/LoginMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/LoginMonitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utility/ReportManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/ReportManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utility/TimeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/TimeManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utility/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/Validator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Schedule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Schedule.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

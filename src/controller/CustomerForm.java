@@ -12,7 +12,6 @@ import model.Customer;
 import resources.LanguageManager;
 import utility.TimeManager;
 import utility.Validator;
-
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -45,17 +44,12 @@ public class CustomerForm {
      * */
     @FXML
     private void initialize() throws SQLException {
-        // Initialize Country and State lists
-        // Initialize Country and Division ComboBox
-        // Initialize Hashtable
         divisionIdHash = FirstLevelDivisionDB.hashAllDivisionIds();
         divisionNameHash = FirstLevelDivisionDB.hashAllDivisionNames();
-
         countryComboBox.setItems(CountryDB.getAllCountryNames());
         countryComboBox.getSelectionModel().selectFirst();
         divisionComboBox.setItems(FirstLevelDivisionDB.getUSDivisions());
         divisionComboBox.getSelectionModel().selectFirst();
-
         nameLabel.setText(LanguageManager.getLocalString("Customer_Name"));
         addressLabel.setText(LanguageManager.getLocalString("Address"));
         postalCodeLabel.setText(LanguageManager.getLocalString("Postal_Code"));
@@ -109,9 +103,14 @@ public class CustomerForm {
         Schedule.selectedCustomer = null;
         stage.close();
     }
-
-    public void addCustomer() throws SQLException {
-        CustomerDB.sendCustomer(createCustomer());
+    /**
+     * Attempts to add a Customer object to the database.
+     * */
+    public void addCustomer() {
+        try {
+            CustomerDB.sendCustomer(createCustomer());
+        }
+        catch(SQLException ignored) {}
     }
     /**
      * Creates a customer object with values from all fields.
@@ -131,6 +130,10 @@ public class CustomerForm {
         return new Customer(customerId, name, address, postalCode, phone, createDate, createdBy, lastUpdate,
                 lastUpdatedBy, divisionId);
     }
+    /**
+     * Performs validation on the Customer form fields.
+     * @return true if all fields are validated, false if any are not.
+     * */
     public boolean validateFields() {
         boolean nameInput = Validator.isName(nameField.getText());
         boolean addressInput = Validator.isAddress(addressField.getText());
@@ -144,8 +147,10 @@ public class CustomerForm {
         }
         return true;
     }
-
-    public void onCountryComboBox(ActionEvent actionEvent) throws SQLException {
+    /**
+     * Updates the First LEvel Division ComboBox when a new Country is selected.
+     * */
+    public void onCountryComboBox() {
         if (countryComboBox.getSelectionModel().getSelectedIndex() == 0) {
             divisionComboBox.setItems(FirstLevelDivisionDB.getUSDivisions());
         }
@@ -157,7 +162,11 @@ public class CustomerForm {
         }
         divisionComboBox.getSelectionModel().selectFirst();
     }
-    public void setComboBoxFromDivisionId(int divisionId) throws SQLException {
+    /**
+     * Sets ComboBox contents based on the divisionId passed in.
+     * @param divisionId The Division_ID of the First Level Division that is selected.
+     * */
+    public void setComboBoxFromDivisionId(int divisionId) {
         if (divisionId >= 1 && divisionId <= 54) {
             countryComboBox.getSelectionModel().select("U.S");
             divisionComboBox.setItems(FirstLevelDivisionDB.getUSDivisions());
@@ -174,9 +183,19 @@ public class CustomerForm {
             divisionComboBox.getSelectionModel().select(getDivisionNameFromId(divisionId));
         }
     }
+    /**
+     * Returns the ID value stored at the division key.
+     * @param division String division name to search the HashTable with.
+     * @return Integer value of the Division_ID stored at the division name.
+     * */
     public int getDivisionIdFromName(String division) {
         return divisionIdHash.get(division);
     }
+    /**
+     * Returns the Name value stored at the Division_ID key.
+     * @param divisionId Integer division ID to search the HashTable with.
+     * @return String value of the Division name, stored at the Division_ID.
+     * */
     public String getDivisionNameFromId(int divisionId) {
         return divisionNameHash.get(divisionId);
     }

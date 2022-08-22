@@ -8,13 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Appointment;
 import resources.LanguageManager;
 import utility.TimeManager;
 import utility.Validator;
-
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
@@ -223,20 +221,29 @@ public class AppointmentForm {
         }
         return TimeManager.combineDateTime(date, time);
     }
+    /**
+     * Creates an ObservableList of hours 0000 - 2300.
+     * */
     private ObservableList<LocalTime> generateHours() {
-        ObservableList<LocalTime> hours = FXCollections.observableArrayList(); // Business hours 0800 - 2200 EST
+        ObservableList<LocalTime> hours = FXCollections.observableArrayList();
         for (int i = 0; i <= 23; i++) {
             hours.add(TimeManager.createLocalTime(i));
         }
         return hours;
     }
 
-    public void onStartSpinnerClick(MouseEvent mouseEvent) {
+    /**
+     * Updates the startTimeLabel with the selected hour.
+     * */
+    public void onStartSpinnerClick() {
         startTimeLabel.setText(LanguageManager.getLocalString("Start_Time") +
                 TimeManager.labelEST(startTimeSpinner.getValue()));
     }
 
-    public void onEndSpinnerClick(MouseEvent mouseEvent) {
+    /**
+     * Updates the endTimeLabel with the selected hour.
+     * */
+    public void onEndSpinnerClick() {
         endTimeLabel.setText(LanguageManager.getLocalString("Start_Time") +
                 TimeManager.labelEST(endTimeSpinner.getValue()));
     }
