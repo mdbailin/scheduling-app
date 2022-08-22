@@ -28,6 +28,7 @@ public class Reports {
         contactScheduleButton.setText(LanguageManager.getLocalString("Contact_Schedule"));
         appointmentsButton.setText(LanguageManager.getLocalString("Sorted_Appointments"));
         exportButton.setText(LanguageManager.getLocalString("Export"));
+        locationReportButton.setText(LanguageManager.getLocalString("Customer_Locations"));
 
     }
 

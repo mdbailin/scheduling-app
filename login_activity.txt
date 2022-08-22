@@ -178,3 +178,8 @@ Time: 15:48
 Username: test
 Password: CORRECT_PASSWORD
 ----------
+Date: 2022-08-22
+Time: 16:04
+Username: test
+Password: CORRECT_PASSWORD
+----------

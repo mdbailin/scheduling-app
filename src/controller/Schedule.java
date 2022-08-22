@@ -270,7 +270,7 @@ public class Schedule {
             selectedCustomer = null;
             selectedAppointment = null;
         } else {
-            Alerter.alert("Please make a selection to delete.", "Delete Error");
+            Alerter.alert(LanguageManager.getLocalString("Please_Make_A_Selection_To_Delete"), LanguageManager.getLocalString("Delete_Error"));
         }
     }
 
