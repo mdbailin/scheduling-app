@@ -11,6 +11,7 @@ import model.Customer;
 import model.User;
 import resources.LanguageManager;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -275,9 +276,11 @@ public abstract class Validator {
      * @param endTime   the date and time the appointment ends.
      * @return true if the times are validated, false if they are not validated.
      */
-    public static boolean isTimeValid(ZonedDateTime startTime, ZonedDateTime endTime) {
+    public static boolean isTimeValid(ZonedDateTime startTime, ZonedDateTime endTime, LocalTime startEST,
+                                      LocalTime endEST)
+    {
         if (startTime.isBefore(endTime)) {
-            if (TimeManager.EST(startTime).getHour() >= 8 && TimeManager.EST(endTime).getHour() <= 22) {
+            if (startEST.getHour() >= 8 && endEST.getHour() <= 22) {
                 return true;
             }
             else {

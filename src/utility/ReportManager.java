@@ -39,7 +39,9 @@ public abstract class ReportManager {
                     catch(IndexOutOfBoundsException e){
                         nextAppointment = new Appointment();
                     }
-                    if (a.getType().equals(nextAppointment.getType()) && nextAppointment.getStart().getMonthValue() == month) {
+                    if (a.getType().equals(nextAppointment.getType()) && nextAppointment.getStart().getMonthValue()
+                            == month)
+                    {
                         typeCount += 1;
                     }
                     else {
@@ -72,10 +74,11 @@ public abstract class ReportManager {
             schedule.append("Contact: ").append(c.getContactName()).append("\n");
             for (Appointment a : contactAppointments) {
                 schedule.append("|Appointment ").append(appt).append("|\nAppointment_ID: ")
-                        .append(a.getAppointmentId()).append("\nTitle: ")
-                        .append(a.getTitle()).append("\nType: ").append(a.getType()).append("\nDescription: ")
-                        .append(a.getDescription()).append("\nStart: ").append(TimeManager.reportEST(a.getStart())).append("\nEnd: ")
-                        .append(TimeManager.reportEST(a.getEnd())).append("\nCustomer ID: ").append(a.getCustomerId()).append("\n\n");
+                        .append(a.getAppointmentId()).append("\nTitle: ").append(a.getTitle()).append("\nType: ")
+                        .append(a.getType()).append("\nDescription: ").append(a.getDescription()).append("\nStart: ")
+                        .append(TimeManager.reportEST(a.getStart())).append("\nEnd: ")
+                        .append(TimeManager.reportEST(a.getEnd())).append("\nCustomer ID: ")
+                        .append(a.getCustomerId()).append("\n\n");
                 appt +=1;
             }
         }

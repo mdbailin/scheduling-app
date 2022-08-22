@@ -26,7 +26,8 @@ public abstract class Alerter {
      * @return true if the user selects YES, false if NO or CANCEL is selected.
      * */
     public static boolean confirm(String message) {
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION, LanguageManager.getLocalString(message), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION, LanguageManager.getLocalString(message), ButtonType.YES,
+                ButtonType.NO, ButtonType.CANCEL);
         a.showAndWait();
         if (a.getResult() == ButtonType.YES) {
             return true;

@@ -33,7 +33,9 @@ public class User extends TrackedDBObject {
      * @param lastUpdate When the User was last updated
      * @param lastUpdatedBy Individual who last updated the User
      * */
-    public User(int userId, String username, String password, ZonedDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy) {
+    public User(int userId, String username, String password, ZonedDateTime createDate, String createdBy,
+                Timestamp lastUpdate, String lastUpdatedBy)
+    {
         super(createDate, createdBy, lastUpdate, lastUpdatedBy);
         this.userId = userId;
         this.username = username;

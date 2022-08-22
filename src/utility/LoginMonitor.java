@@ -14,7 +14,8 @@ public abstract class LoginMonitor {
     public static void logAttempt(String username, String password) {
         String date = TimeManager.getDate(ZonedDateTime.now());
         String time = TimeManager.getTime(ZonedDateTime.now());
-        String attempt = "Date: " + date + "\nTime: " + time + "\nUsername: " + username +"\nPassword: " + password + "\n----------";
+        String attempt = "Date: " + date + "\nTime: " + time + "\nUsername: " + username +"\nPassword: " +
+                password + "\n----------";
         ReportManager.write("login_activity.txt", attempt);
     }
 }

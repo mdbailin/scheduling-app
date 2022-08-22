@@ -21,7 +21,8 @@ import java.time.*;
 import java.time.ZonedDateTime;
 
 /**
- * AppointmentForm is the controller for the AppointmentForm view. It is responsible for adding and modifying Appointments.
+ * AppointmentForm is the controller for the AppointmentForm view.
+ * Responsible for adding and modifying Appointments.
  * */
 public class AppointmentForm {
     public Spinner<LocalTime> startTimeSpinner;
@@ -67,9 +68,11 @@ public class AppointmentForm {
         endTimeValueFactory.setValue(LocalTime.of(LocalTime.now().getHour() + 1, 0));
         contactComboBox.setItems(ContactDB.getAllContactNames());
         startDateLabel.setText(LanguageManager.getLocalString("Start_Date"));
-        startTimeLabel.setText(LanguageManager.getLocalString("Start_Time") + TimeManager.labelEST(startTimeSpinner.getValue()));
+        startTimeLabel.setText(LanguageManager.getLocalString("Start_Time") +
+                TimeManager.labelEST(startTimeSpinner.getValue()));
         endDateLabel.setText(LanguageManager.getLocalString("End_Date"));
-        endTimeLabel.setText(LanguageManager.getLocalString("End_Time") + TimeManager.labelEST(endTimeSpinner.getValue()));
+        endTimeLabel.setText(LanguageManager.getLocalString("End_Time") +
+                TimeManager.labelEST(endTimeSpinner.getValue()));
         titleLabel.setText(LanguageManager.getLocalString("Title"));
         descriptionLabel.setText(LanguageManager.getLocalString("Description"));
         contactLabel.setText(LanguageManager.getLocalString("Contact"));
@@ -85,12 +88,14 @@ public class AppointmentForm {
             LocalTime startTime = TimeManager.toLocal(Schedule.selectedAppointment.getStart()).toLocalTime();
             startDatePicker.setValue(startDate);
             startTimeValueFactory.setValue(startTime);
-            startTimeLabel.setText(LanguageManager.getLocalString("Start_Time") + TimeManager.labelEST(startTimeSpinner.getValue()));
+            startTimeLabel.setText(LanguageManager.getLocalString("Start_Time") +
+                    TimeManager.labelEST(startTimeSpinner.getValue()));
             LocalDate endDate = TimeManager.toLocal(Schedule.selectedAppointment.getEnd()).toLocalDate();
             LocalTime endTime = TimeManager.toLocal(Schedule.selectedAppointment.getEnd()).toLocalTime();
             endDatePicker.setValue(endDate);
             endTimeValueFactory.setValue(endTime);
-            endTimeLabel.setText(LanguageManager.getLocalString("End_Time") + TimeManager.labelEST(endTimeSpinner.getValue()));
+            endTimeLabel.setText(LanguageManager.getLocalString("End_Time") +
+                    TimeManager.labelEST(endTimeSpinner.getValue()));
             contactComboBox.getSelectionModel().selectFirst();
             contactComboBox.getSelectionModel().select(Schedule.selectedAppointment.getContactId() - 1);
             titleField.setText(Schedule.selectedAppointment.getTitle());
@@ -162,7 +167,8 @@ public class AppointmentForm {
         String createdBy = "admin";
         Timestamp lastUpdate = TimeManager.timestampUTC();
         String lastUpdatedBy = "admin";
-        return new Appointment(appointmentId, title, description, location, type, start, end, customerId, userId, contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
+        return new Appointment(appointmentId, title, description, location, type, start, end, customerId, userId,
+                contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
     }
     /**
      * Used to call validation methods on the Appointment form fields.
@@ -183,12 +189,15 @@ public class AppointmentForm {
         if (customerIdInputInt) {
             customerIdInput = Validator.isCustomerId(Integer.parseInt(customerIdField.getText()));
         }
-        boolean datesInput = Validator.isTimeValid(readDatePicker(0), readDatePicker(1));
+        boolean datesInput = Validator.isTimeValid(readDatePicker(0), readDatePicker(1),
+                TimeManager.EST(startTimeSpinner.getValue()), TimeManager.EST(endTimeSpinner.getValue()));
         boolean dateAvailable = false;
         if (customerIdInput) {
-            dateAvailable = Validator.isDateAvailable(readDatePicker(0), readDatePicker(1), Integer.parseInt(appointmentIdField.getText()));
+            dateAvailable = Validator.isDateAvailable(readDatePicker(0), readDatePicker(1),
+                    Integer.parseInt(appointmentIdField.getText()));
         }
-        boolean[] inputs = {titleInput, descriptionInput, locationInput, typeInput, userIdInputInt, userIdInput, customerIdInputInt, customerIdInput, datesInput, dateAvailable};
+        boolean[] inputs = {titleInput, descriptionInput, locationInput, typeInput, userIdInputInt, userIdInput,
+                customerIdInputInt, customerIdInput, datesInput, dateAvailable};
         for (boolean b : inputs) {
             if (!b) {
                 return false;
@@ -223,10 +232,12 @@ public class AppointmentForm {
     }
 
     public void onStartSpinnerClick(MouseEvent mouseEvent) {
-        startTimeLabel.setText(LanguageManager.getLocalString("Start_Time") + TimeManager.labelEST(startTimeSpinner.getValue()));
+        startTimeLabel.setText(LanguageManager.getLocalString("Start_Time") +
+                TimeManager.labelEST(startTimeSpinner.getValue()));
     }
 
     public void onEndSpinnerClick(MouseEvent mouseEvent) {
-        endTimeLabel.setText(LanguageManager.getLocalString("Start_Time") + TimeManager.labelEST(endTimeSpinner.getValue()));
+        endTimeLabel.setText(LanguageManager.getLocalString("Start_Time") +
+                TimeManager.labelEST(endTimeSpinner.getValue()));
     }
 }

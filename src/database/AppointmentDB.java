@@ -227,7 +227,7 @@ public class AppointmentDB {
      * @param appointments An ObservableList containing all Appointments to check.
      * @param customerId The Customer_ID of the customer to be removed.
      * */
-    public static void removeCustomerAppointments(ObservableList<Appointment> appointments, int customerId) throws SQLException {
+    public static void removeCustomerAppointments(ObservableList<Appointment> appointments, int customerId) {
         boolean success = false;
         try {
             for (Appointment a : appointments) {

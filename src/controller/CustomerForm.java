@@ -128,7 +128,8 @@ public class CustomerForm {
         Timestamp lastUpdate = TimeManager.timestampUTC();
         String lastUpdatedBy = "admin";
         int divisionId = getDivisionIdFromName(divisionComboBox.getSelectionModel().getSelectedItem());
-        return new Customer(customerId, name, address, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdatedBy, divisionId);
+        return new Customer(customerId, name, address, postalCode, phone, createDate, createdBy, lastUpdate,
+                lastUpdatedBy, divisionId);
     }
     public boolean validateFields() {
         boolean nameInput = Validator.isName(nameField.getText());

@@ -11,7 +11,7 @@ import java.util.Hashtable;
  * FirstLevelDivisionDB is responsible for all queries to the database regarding first level divisions.
  * */
 public class FirstLevelDivisionDB {
-    public static ObservableList<String> getAllDivisionNames() throws SQLException {
+    public static ObservableList<String> getAllDivisionNames() {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS";
@@ -31,7 +31,7 @@ public class FirstLevelDivisionDB {
     /**
      * Builds a hashtable consisting of first-level divisions mapped to their Division_ID.
      * */
-    public static Hashtable<String, Integer> hashAllDivisionIds() throws SQLException {
+    public static Hashtable<String, Integer> hashAllDivisionIds() {
         Hashtable<String, Integer> divisionHashtable = new Hashtable<>();
         try {
             String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS";
@@ -52,7 +52,7 @@ public class FirstLevelDivisionDB {
     /**
      * Builds a hashtable consisting of Division_ID's mapped to their associated first-level division.
      * */
-    public static Hashtable<Integer, String> hashAllDivisionNames() throws SQLException {
+    public static Hashtable<Integer, String> hashAllDivisionNames() {
         Hashtable<Integer, String> divisionHashtable = new Hashtable<>();
         try {
             String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS";
@@ -71,7 +71,7 @@ public class FirstLevelDivisionDB {
         }
         return divisionHashtable;
     }
-    public static ObservableList<String> getUSDivisions() throws SQLException {
+    public static ObservableList<String> getUSDivisions() {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID BETWEEN 1 AND 54";
@@ -88,7 +88,7 @@ public class FirstLevelDivisionDB {
         }
         return divisionList;
     }
-    public static ObservableList<String> getCADivisions() throws SQLException {
+    public static ObservableList<String> getCADivisions() {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID BETWEEN 60 AND 72";
@@ -105,7 +105,7 @@ public class FirstLevelDivisionDB {
         }
         return divisionList;
     }
-    public static ObservableList<String> getUKDivisions() throws SQLException {
+    public static ObservableList<String> getUKDivisions() {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID BETWEEN 101 AND 104";

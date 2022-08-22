@@ -44,6 +44,14 @@ public abstract class TimeManager {
     public static ZonedDateTime EST(ZonedDateTime time) {
         return ZonedDateTime.of(time.toLocalDateTime(), ZoneId.of("America/New_York"));
     }
+    public static LocalTime EST(LocalTime time) {
+        ZoneId system = ZoneId.systemDefault();
+        ZoneId est = ZoneId.of("America/New_York");
+        LocalDateTime today = LocalDateTime.of(LocalDate.now(), time);
+        ZonedDateTime systemDateTime = ZonedDateTime.of(today, system);
+        ZonedDateTime estDateTime = systemDateTime.withZoneSameInstant(est);
+        return estDateTime.toLocalTime();
+    }
     public static String reportEST(ZonedDateTime time) {
         return reportFormat.format(ZonedDateTime.of(time.toLocalDateTime(), ZoneId.of("America/New_York")));
     }

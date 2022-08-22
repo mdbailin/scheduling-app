@@ -31,7 +31,7 @@ public class ContactDB {
         }
         return contactList;
     }
-    public static ObservableList<String> getAllContactNames() throws SQLException {
+    public static ObservableList<String> getAllContactNames() {
         ObservableList<String> contactList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM CONTACTS";
@@ -48,7 +48,7 @@ public class ContactDB {
         }
         return contactList;
     }
-    public static Contact getContactByName(String name) throws SQLException {
+    public static Contact getContactByName(String name) {
         Contact c = null;
         try {
             String sql = "SELECT FROM CONTACTS WHERE Contact_Name = " + name;

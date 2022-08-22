@@ -75,9 +75,9 @@ public class Appointment extends TrackedDBObject {
      * @param lastUpdate When the Appointment was last updated
      * @param lastUpdatedBy Individual who last updated the Appointment
      */
-    public Appointment(int appointmentId, String title, String description, String location, String type, ZonedDateTime start,
-                       ZonedDateTime end, int customerId, int userId, int contactId, ZonedDateTime createDate,
-                       String createdBy, Timestamp lastUpdate, String lastUpdatedBy)
+    public Appointment(int appointmentId, String title, String description, String location, String type,
+                       ZonedDateTime start, ZonedDateTime end, int customerId, int userId, int contactId,
+                       ZonedDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy)
     {
         super(createDate, createdBy, lastUpdate, lastUpdatedBy);
         this.appointmentId = appointmentId;
@@ -96,7 +96,9 @@ public class Appointment extends TrackedDBObject {
      * Appointment default constructor.
      * */
     public Appointment() {
-        this(-1, null, null, null, "null", null, null, -1, -1, -1, null, null, null, null);
+        this(-1, null, null, null, "null", null,
+                null, -1, -1, -1, null, null,
+                null, null);
     }
 
     public int getAppointmentId() {

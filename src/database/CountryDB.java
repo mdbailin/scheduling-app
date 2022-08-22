@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
  * */
 public class CountryDB {
 
-    public static ObservableList<Country> getAllCountries() throws SQLException {
+    public static ObservableList<Country> getAllCountries() {
         ObservableList<Country> countryList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM COUNTRIES";
@@ -38,7 +38,7 @@ public class CountryDB {
         }
         return countryList;
     }
-    public static ObservableList<String> getAllCountryNames() throws SQLException {
+    public static ObservableList<String> getAllCountryNames() {
         ObservableList<String> countryList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM COUNTRIES";

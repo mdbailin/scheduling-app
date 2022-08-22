@@ -28,7 +28,9 @@ public class Country extends TrackedDBObject {
      * @param lastUpdate When the Country was last updated
      * @param lastUpdatedBy Individual who last updated the Country
      * */
-    public Country(int countryId, String country, ZonedDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy) {
+    public Country(int countryId, String country, ZonedDateTime createDate, String createdBy, Timestamp lastUpdate,
+                   String lastUpdatedBy)
+    {
         super(createDate, createdBy, lastUpdate, lastUpdatedBy);
         this.countryId = countryId;
         this.country = country;
