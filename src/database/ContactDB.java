@@ -35,6 +35,7 @@ public class ContactDB {
         }
         return contactList;
     }
+
     /**
      * Queries database for all contacts and returns an ObservableList of containing their names.
      * @return ObservableList of all Contact names in the database.
@@ -56,6 +57,7 @@ public class ContactDB {
         }
         return contactList;
     }
+
     /**
      * Attempts to retrieve a Contact with a specified name.
      * @param name The name of the Contact to be found.

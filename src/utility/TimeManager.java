@@ -61,6 +61,9 @@ public abstract class TimeManager {
     public static String reportEST(ZonedDateTime time) {
         return reportFormat.format(ZonedDateTime.of(time.toLocalDateTime(), ZoneId.of("America/New_York")));
     }
+    public static String columnView(ZonedDateTime time) {
+        return reportFormat.format(time);
+    }
     /**
      * Creates a Timestamp with the value of the current time in UTC, formatted for SQL.
      * @return Timestamp of ZonedDateTime.now() with the ZoneID of UTC.

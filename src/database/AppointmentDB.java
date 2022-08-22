@@ -31,6 +31,7 @@ public class AppointmentDB {
         }
         return process(results);
     }
+
     /**
      * Queries the database and builds an ObservableList of Appointments, ordered by their Type in Ascending order.
      * @return ObservableList of Appointments ordered by their Type attribute.
@@ -47,6 +48,7 @@ public class AppointmentDB {
         }
         return process(results);
     }
+
     /**
      * Attempts to retrieve all Appointments except appointments that match the Appointment_ID specified.
      * @return ObservableList containing the desired appointments.
@@ -63,6 +65,7 @@ public class AppointmentDB {
         }
         return process(results);
     }
+
     /**
      * Attempts to retrieve all Appointments that contain a particular Customer_ID.
      * @return ObservableList containing all Appointments containing a particular Customer_ID.
@@ -79,12 +82,13 @@ public class AppointmentDB {
         }
         return process(results);
     }
+
     /**
      * Attempts to retrieve all Appointments that contain a particular Contact_ID.
      * Used when generating the Contact report.
      * @return ObservableList containing all Appointments containing a particular Contact_ID.
      * */
-    public static ObservableList<Appointment> getContactAppointments(int id) throws SQLException {
+    public static ObservableList<Appointment> getContactAppointments(int id) {
         ResultSet results = null;
         try {
             String sql = "SELECT * FROM APPOINTMENTS WHERE Contact_ID = " + id;
@@ -96,6 +100,7 @@ public class AppointmentDB {
         }
         return process(results);
     }
+
     /**
      * Queries the database to check for the next valid Appointment_ID.
      * @return nextId the integer value of the current highest number ID incremented by 1.
@@ -117,6 +122,7 @@ public class AppointmentDB {
         }
         return nextId;
     }
+
     /**
      * Attempts to remove an appointment.
      * @param appointmentId The Appointment_ID for the Appointment to remove.
@@ -131,11 +137,12 @@ public class AppointmentDB {
             sqlE.printStackTrace();
         }
     }
+
     /**
      * Attempts to add an appointment to the database.
      * @param appointment The appointment that is meant to be added to the database
      * */
-    public static void sendAppointment(Appointment appointment) throws SQLException {
+    public static void sendAppointment(Appointment appointment) {
         if (appointment != null) {
             try {
                 String sql = "INSERT INTO APPOINTMENTS (Appointment_ID, Title, Description, Location, Type, Start, End, " +
@@ -164,6 +171,7 @@ public class AppointmentDB {
             }
         }
     }
+
     /**
      * Attempts to modify an Appointment. The modification is made at the Appointment_ID of the appointment parameter.
      * @param appointment The Appointment which the user desires to modify.
@@ -194,6 +202,7 @@ public class AppointmentDB {
             sqlE.printStackTrace();
         }
     }
+
     /**
      * Performs required processing to turn a ResultSet into an ObservableList of Appointments.
      * @param results ResultSet generated from querying the database.
@@ -227,6 +236,7 @@ public class AppointmentDB {
         }
         return appointmentList;
     }
+
     /**
      * Attempts to remove all Appointments associated with a specified customerId.
      * The user is then notified if the Appointments were removed or if they were not.

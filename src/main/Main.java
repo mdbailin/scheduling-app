@@ -23,6 +23,7 @@ public class Main extends Application {
         launch(args);
         DBConnector.closeConnection();
     }
+
     /**
      * Sets and loads the Login view.
      * */

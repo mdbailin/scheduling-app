@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
 import utility.TimeManager;
-
 import java.sql.*;
 import java.time.ZonedDateTime;
 /**

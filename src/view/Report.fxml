@@ -13,8 +13,8 @@
             <HBox layoutX="6.0" layoutY="365.0" prefHeight="25.0" prefWidth="586.0" spacing="20.0">
                <children>
                   <Button fx:id="contactScheduleButton" mnemonicParsing="false" onAction="#onContactScheduleButton" text="Contact Schedule" />
-                  <Button fx:id="appointmentsButton" mnemonicParsing="false" onAction="#onAppointmentsButton" text="Appointments" />
-                  <Button mnemonicParsing="false" text="My Report" />
+                  <Button fx:id="appointmentsButton" mnemonicParsing="false" onAction="#onAppointmentsButton" text="Sorted Appointments" />
+                  <Button fx:id="locationReportButton" mnemonicParsing="false" onAction="#onLocationReportButton" text="Customer Locations" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportButton" text="Export" />
                </children></HBox>

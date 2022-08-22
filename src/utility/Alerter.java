@@ -29,11 +29,6 @@ public abstract class Alerter {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, LanguageManager.getLocalString(message), ButtonType.YES,
                 ButtonType.NO, ButtonType.CANCEL);
         a.showAndWait();
-        if (a.getResult() == ButtonType.YES) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return a.getResult() == ButtonType.YES;
     }
 }

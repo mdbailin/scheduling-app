@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -166,6 +165,7 @@ public class Schedule {
 
         checkAppointments();
     }
+
     /**
      * Closes the Schedule window.
      * */
@@ -197,7 +197,7 @@ public class Schedule {
     /**
      * Opens the AppointmentForm view when the user presses the addAppointmentButton.
      */
-    public void onAddButton(ActionEvent actionEvent) throws IOException {
+    public void onAddButton() throws IOException {
         selectedAppointment = null;
         selectedCustomer = null;
         if (viewAppointments) {
@@ -224,7 +224,7 @@ public class Schedule {
     /**
      * Opens the UpdateAppointment view when the user presses the updateAppointmentButton.
      */
-    public void onUpdateButton(ActionEvent actionEvent) throws IOException, SQLException {
+    public void onUpdateButton() throws IOException {
         if (selectedAppointment != null || selectedCustomer != null) {
             FXMLLoader loadSchedule;
             if (viewAppointments) {
@@ -254,7 +254,7 @@ public class Schedule {
     /**
      * Deletes the selected appointment when the user presses the deleteAppointmentButton.
      */
-    public void onDeleteButton(ActionEvent actionEvent) throws SQLException {
+    public void onDeleteButton() throws SQLException {
         if (selectedAppointment != null || selectedCustomer != null) {
             if (viewAppointments) {
                 if (Alerter.confirm("Delete_Appointment")) {
@@ -265,9 +265,6 @@ public class Schedule {
                     AppointmentDB.removeCustomerAppointments(AppointmentDB.getAllAppointments(selectedCustomer.getCustomerId()), selectedCustomer.getCustomerId());
                     CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
                 }
-//                else {
-//                    System.out.println("Customer not deleted");
-//                }
             }
             setUpTables();
             selectedCustomer = null;
@@ -280,7 +277,7 @@ public class Schedule {
     /**
      * Allows the user to toggle between the Appointment TableView and the Customer TableView
      */
-    public void onToggleViewButton(ActionEvent actionEvent) throws SQLException {
+    public void onToggleViewButton() {
         selectedCustomer = null;
         selectedAppointment = null;
         if (viewAppointments) {
@@ -313,25 +310,15 @@ public class Schedule {
     /**
      * Set the selectedAppointment to the correct item in the TableView.
      */
-    public void onAppointmentTableViewClicked(MouseEvent mouseEvent) {
+    public void onAppointmentTableViewClicked() {
         setSelectedAppointment();
-//        if (selectedAppointment != null) {
-//            System.out.println("Selected appointment ID: " + selectedAppointment.getAppointmentId());
-//        } else {
-//            System.out.println("No appointment selected.");
-//        }
     }
 
     /**
      * Set the selectedCustomer to the correct item in the TableView.
      */
-    public void onCustomerTableViewClicked(MouseEvent mouseEvent) {
+    public void onCustomerTableViewClicked() {
         setSelectedCustomer();
-//        if (selectedCustomer != null) {
-//            System.out.println("Selected customer ID: " + selectedCustomer.getCustomerId());
-//        } else {
-//            System.out.println("No customer selected.");
-//        }
     }
 
     /**
@@ -363,6 +350,7 @@ public class Schedule {
     }
 
     /**
+     * Contains Lambda 1
      * Returns a SortedList of Appointments from the appointmentList ObservableList.
      * The Comparator is implemented as a lambda expression, so I can utilize its abstract method of compare() in the
      * creation of the SortedList.
@@ -381,6 +369,7 @@ public class Schedule {
 
         });
     }
+
     /**
      * Used to switch between month-sort and week-sort.
      * */
@@ -393,16 +382,19 @@ public class Schedule {
         }
         setUpTables();
     }
+
     /**
      * Call toggle() when the month radio is selected.  */
     public void onMonthToggle() {
         toggle();
     }
+
     /**
      * Call toggle() when the week radio is selected.  */
     public void onWeekToggle() {
         toggle();
     }
+
     /**
      * Used to check if there are any appointments occurring within 15 minutes of local time.
      * */
@@ -429,10 +421,11 @@ public class Schedule {
             showAppointmentWarning(false, -1, ZonedDateTime.now());
         }
     }
+
     /**
      * Used to show the Reports stage when the Report button is pressed.  */
     public void onReportsButton() throws IOException {
-        FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Reports.fxml"));
+        FXMLLoader loadSchedule = new FXMLLoader(getClass().getResource("/view/Report.fxml"));
         Parent root = loadSchedule.load();
         Scene reportScene = new Scene(root);
         Stage reportStage = new Stage();
@@ -441,11 +434,13 @@ public class Schedule {
         reportStage.setResizable(false);
         reportStage.show();
     }
+
     /**
      * Hides the Appointment warning banner after the user presses the Acknowledge button.  */
     public void onDismissRectangleButton() {
         hideAppointmentWarning();
     }
+
     /**
      * Translates and prepares a warning banner to be shown upon user login.
      * @param imminent Boolean value to determine whether there is an appointment in 15 minutes or less.
@@ -473,6 +468,7 @@ public class Schedule {
         dismissRectangleButton.setVisible(true);
         dismissRectangleButton.setDisable(false);
     }
+
     /**
      * Used to hide the Appointment warning banner.
      * */

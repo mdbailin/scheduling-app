@@ -2,15 +2,20 @@ package utility;
 
 import database.AppointmentDB;
 import database.ContactDB;
+import database.CustomerDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import model.Appointment;
 import model.Contact;
+import model.Customer;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  * The ReportManager is used to generate and write a report to a txt file.
@@ -84,6 +89,56 @@ public abstract class ReportManager {
         }
         return schedule.toString();
     }
+
+    /**
+     * Contains Lambda 2
+     * Generates a report of customers and their contact information.
+     * Customers are sorted by their respective Division_IDs.
+     * @return String constructed with customer data.
+     * Lambdas are utilized to set predicates for the FilteredLists.
+     * */
+    public static String customersByDivision() {
+        StringBuilder customerLocationReport = new StringBuilder("");
+        ObservableList<Customer> customerList = FXCollections.observableArrayList();
+        try{
+            customerList = CustomerDB.getAllCustomers();
+        } catch (SQLException ignored) {}
+        // US Customers FilteredList
+        FilteredList<Customer> customersUS = new FilteredList<>(customerList);
+        customersUS.setPredicate(c -> {
+            int divisionId = c.getDivisionId();
+            return divisionId >= 1 && divisionId <= 54;
+        });
+        // Canadian Customers FilteredList
+        FilteredList<Customer> customersCA = new FilteredList<>(customerList);
+        customersCA.setPredicate(c -> {
+            int divisionId = c.getDivisionId();
+            return divisionId >= 60 && divisionId <= 72;
+        });
+        // UK Customers FilteredList
+        FilteredList<Customer> customersUK = new FilteredList<>(customerList);
+        customersUK.setPredicate(c -> {
+            int divisionId = c.getDivisionId();
+            return divisionId >= 101 && divisionId <= 104;
+        });
+        customerLocationReport.append("------US Customers------\n");
+        for (Customer c : customersUS) {
+            customerLocationReport.append("Name: ").append(c.getCustomerName()).append("\nAddress: ")
+                    .append(c.getAddress()).append("\nPhone: ").append(c.getPhone()).append("\n~~~~~~~~~~~~~~~~\n");
+        }
+        customerLocationReport.append("------CA Customers------\n");
+        for (Customer c : customersCA) {
+            customerLocationReport.append("Name: ").append(c.getCustomerName()).append("\nAddress: ")
+                    .append(c.getAddress()).append("\nPhone: ").append(c.getPhone()).append("\n~~~~~~~~~~~~~~~~\n");
+        }
+        customerLocationReport.append("------UK Customers------\n");
+        for (Customer c : customersUK) {
+            customerLocationReport.append("Name: ").append(c.getCustomerName()).append("\nAddress: ")
+                    .append(c.getAddress()).append("\nPhone: ").append(c.getPhone()).append("\n~~~~~~~~~~~~~~~~\n");
+        }
+        return customerLocationReport.toString();
+    }
+
     /**
      * Handles writing reports to a txt file.
      * @param reportName The name of the txt file to be generated or appended.

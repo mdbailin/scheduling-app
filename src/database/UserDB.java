@@ -44,6 +44,7 @@ public class UserDB {
         }
         return userList;
     }
+
     /**
      * Attempts to validate user credentials. Attempts are logged with the LoginMonitor.
      * @return true if the desired user is validated. Returns false if either of the credentials are incorrect.

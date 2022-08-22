@@ -113,6 +113,7 @@ public class AppointmentForm {
         }
 
     }
+
     /**
      * Saves or modifies an Appointment, then closes the window.
      * @param actionEvent generated from clicking the button.
@@ -131,6 +132,7 @@ public class AppointmentForm {
             stage.close();
         }
     }
+
     /**
      * Closes the AppointmentForm without saving anything to the database.
      * */
@@ -139,12 +141,14 @@ public class AppointmentForm {
         Schedule.selectedAppointment = null;
         stage.close();
     }
+
     /**
      * Creates and adds an appointment to the database.
      * */
     public void addAppointment() throws SQLException {
         AppointmentDB.sendAppointment(createAppointment());
     }
+
     /**
      * Creates an Appointment object from the AppointmentForm fields.
      * Must be called after validation.
@@ -168,6 +172,7 @@ public class AppointmentForm {
         return new Appointment(appointmentId, title, description, location, type, start, end, customerId, userId,
                 contactId, createDate, createdBy, lastUpdate, lastUpdatedBy);
     }
+
     /**
      * Used to call validation methods on the Appointment form fields.
      * @return true if all inputs are validated, false if any inputs are not validated.
@@ -203,6 +208,7 @@ public class AppointmentForm {
         }
         return true;
     }
+
     /**
      * Uses TimeManager to combine time and date components.
      * @param picker is either 0 for Start or 1 for End.
@@ -221,6 +227,7 @@ public class AppointmentForm {
         }
         return TimeManager.combineDateTime(date, time);
     }
+
     /**
      * Creates an ObservableList of hours 0000 - 2300.
      * */

@@ -1,9 +1,6 @@
 package controller;
 
 import database.UserDB;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,15 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import main.Main;
-import model.User;
 import resources.LanguageManager;
 import utility.Alerter;
-import utility.LoginMonitor;
-
 import java.io.IOException;
 import java.time.ZoneId;
-import java.util.TimeZone;
 
 /**
  * Controller for the Login view.
@@ -47,6 +39,7 @@ public class Login {
         passwordLabel.setText(LanguageManager.getLocalString("Password"));
         loginButton.setText(LanguageManager.getLocalString("Login"));
     }
+
     /**
      * Closes the Login stage.
      * */

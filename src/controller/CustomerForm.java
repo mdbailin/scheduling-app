@@ -76,6 +76,7 @@ public class CustomerForm {
             }
         }
     }
+
     /**
      * Writes the customer object to the database.
      * @param actionEvent The button press.
@@ -94,6 +95,7 @@ public class CustomerForm {
             stage.close();
         }
     }
+
     /**
      * Closes the CustomerForm without saving anything to the database.
      * @param actionEvent The button press.
@@ -103,6 +105,7 @@ public class CustomerForm {
         Schedule.selectedCustomer = null;
         stage.close();
     }
+
     /**
      * Attempts to add a Customer object to the database.
      * */
@@ -112,6 +115,7 @@ public class CustomerForm {
         }
         catch(SQLException ignored) {}
     }
+
     /**
      * Creates a customer object with values from all fields.
      * @return Customer object with values from all fields.
@@ -130,6 +134,7 @@ public class CustomerForm {
         return new Customer(customerId, name, address, postalCode, phone, createDate, createdBy, lastUpdate,
                 lastUpdatedBy, divisionId);
     }
+
     /**
      * Performs validation on the Customer form fields.
      * @return true if all fields are validated, false if any are not.
@@ -147,6 +152,7 @@ public class CustomerForm {
         }
         return true;
     }
+
     /**
      * Updates the First LEvel Division ComboBox when a new Country is selected.
      * */
@@ -162,6 +168,7 @@ public class CustomerForm {
         }
         divisionComboBox.getSelectionModel().selectFirst();
     }
+
     /**
      * Sets ComboBox contents based on the divisionId passed in.
      * @param divisionId The Division_ID of the First Level Division that is selected.
@@ -183,6 +190,7 @@ public class CustomerForm {
             divisionComboBox.getSelectionModel().select(getDivisionNameFromId(divisionId));
         }
     }
+
     /**
      * Returns the ID value stored at the division key.
      * @param division String division name to search the HashTable with.
@@ -191,6 +199,7 @@ public class CustomerForm {
     public int getDivisionIdFromName(String division) {
         return divisionIdHash.get(division);
     }
+
     /**
      * Returns the Name value stored at the Division_ID key.
      * @param divisionId Integer division ID to search the HashTable with.

@@ -32,6 +32,7 @@ public class FirstLevelDivisionDB {
         }
         return divisionHashtable;
     }
+
     /**
      * Builds a hashtable consisting of Division_ID's mapped to their associated first-level division.
      * @return HashTable containing Division_ID's paired with Division names.
@@ -55,6 +56,7 @@ public class FirstLevelDivisionDB {
         }
         return divisionHashtable;
     }
+
     /**
      * Queries the database for US divisions.
      * @return ObservableList of Division name Strings.
@@ -76,6 +78,7 @@ public class FirstLevelDivisionDB {
         }
         return divisionList;
     }
+
     /**
      * Queries the database for Canadian divisions.
      * @return ObservableList of Division name Strings.
@@ -97,6 +100,7 @@ public class FirstLevelDivisionDB {
         }
         return divisionList;
     }
+
     /**
      * Queries the database for UK divisions.
      * @return ObservableList of Division name Strings.
