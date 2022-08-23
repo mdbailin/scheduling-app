@@ -7,9 +7,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cdcf52-3518-4cef-b45b-2fbcf3beb717" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/connection/DBConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/connection/DBConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/connection/connector.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/connection/connector.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/AppointmentForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AppointmentForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CustomerForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Reports.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Reports.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/AppointmentDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/AppointmentDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/TrackedDBObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/TrackedDBObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/LanguageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/LanguageManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utility/Alerter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/Alerter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utility/ReportManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/ReportManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utility/TimeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/TimeManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

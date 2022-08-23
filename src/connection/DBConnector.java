@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.util.Properties;
 
 /**
- * DBConnector is configured to connect to a MySQL server that is provided on a virtual machine, for this assignment.
+ * DBConnector used to establish a connection with the user's database.
  * */
 public abstract class DBConnector {
     private static String jdbcUrl = "";
@@ -39,7 +39,7 @@ public abstract class DBConnector {
 
     /**
      * Returns the current Connection.
-     * @Return Connection created from the current session.
+     * @return Connection created from the current session.
      * */
     public static Connection getConnection() {
         return connection;

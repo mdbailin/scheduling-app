@@ -35,13 +35,29 @@ public abstract class TimeManager {
     public static LocalTime createLocalTime(int hour, int minute) {
         return LocalTime.of(hour, minute, 0);
     }
-    // Refactor below
+    /**
+     * Converts a ZonedDateTime to a new ZonedDateTime with a ZoneId matching the system's default.
+     * @param time The ZonedDateTime to be converted
+     * @return A ZonedDateTime with a ZoneId that matches the system.
+     * */
     public static ZonedDateTime toLocal(ZonedDateTime time) {
         return ZonedDateTime.of(time.toLocalDateTime(), ZoneId.systemDefault());
     }
+
+    /**
+     * Converts a Timestamp to a new ZonedDateTime with a ZoneId matching the system's default.
+     * @param time The Timestamp to be converted
+     * @return A ZonedDateTime with a ZoneId that matches the system.
+     * */
     public static ZonedDateTime toLocal(Timestamp time) {
         return ZonedDateTime.of(time.toLocalDateTime(), ZoneId.systemDefault());
     }
+
+    /**
+     * Converts a ZonedDateTime to a new ZonedDateTime with a ZoneId of America/New_York.
+     * @param time The ZonedDateTime to be converted
+     * @return A ZonedDateTime with a ZoneId that matches America/New_York.
+     * */
     public static ZonedDateTime EST(ZonedDateTime time) {
         return ZonedDateTime.of(time.toLocalDateTime(), ZoneId.of("America/New_York"));
     }

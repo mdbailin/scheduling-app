@@ -18,7 +18,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Hashtable;
-
+/**
+ * CustomerForm is the controller for CustomerForm.fxml.
+ * CustomerForm handles Customer creation and updates.
+ * */
 public class CustomerForm {
     public TextField customerIdField;
     public TextField nameField;

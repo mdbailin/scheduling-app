@@ -3,7 +3,10 @@ package model;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-
+/**
+ * A class to be extended by classes that require tracking of creation date, who created the object, when the object
+ * was last updated, and who last updated the object.
+ * */
 public class TrackedDBObject {
     /**
      * Date the object was created in the database.

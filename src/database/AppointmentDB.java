@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * AppointmentDB is responsible for all queries to the database regarding Appointment objects.

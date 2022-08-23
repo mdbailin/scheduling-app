@@ -9,13 +9,11 @@ import javafx.collections.transformation.FilteredList;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.Month;
 
 /**
@@ -62,7 +60,7 @@ public abstract class ReportManager {
     }
     /**
      * Generates a report consisting of the schedules for each contact. Includes Appointment ID, Title, type,
-     * description, start & end date/time, and customer ID.
+     * description, start and end date/time, and customer ID.
      * @return A formatted string, including the report details.
      * */
     public static String contactSchedule() throws SQLException {

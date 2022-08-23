@@ -19,7 +19,7 @@ import java.time.*;
 import java.time.ZonedDateTime;
 
 /**
- * AppointmentForm is the controller for the AppointmentForm view.
+ * AppointmentForm is the controller for AppointmentForm.fxml.
  * Responsible for adding and modifying Appointments.
  * */
 public class AppointmentForm {

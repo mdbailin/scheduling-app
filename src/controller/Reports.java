@@ -7,7 +7,10 @@ import resources.LanguageManager;
 import utility.ReportManager;
 
 import java.sql.SQLException;
-
+/**
+ * Controller for Reports.fxml.
+ * Report is responsible for generating, exporting, and showing reports.
+ * */
 public class Reports {
     public TextArea reportTextArea;
     public Button contactScheduleButton;
@@ -63,6 +66,10 @@ public class Reports {
         ReportManager.write(report, reportTextArea.getText());
     }
 
+    /**
+     * Sets the TextArea to Customer data sorted by their location, and sets the report member variable to the
+     * appropriate text for the title of a related txt file.
+     * */
     public void onLocationReportButton() {
         reportTextArea.setText(ReportManager.customersByDivision());
         report = "customer_location_report";

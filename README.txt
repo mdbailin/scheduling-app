@@ -1,4 +1,5 @@
 Title and purpose: The Scheduling App is used to generate, store, and track appointments and customer information.
+Users may also view and export various reports, generated from their database.
 
 Author: Dylan Melone
 Contact: melodev484b@gmail.com

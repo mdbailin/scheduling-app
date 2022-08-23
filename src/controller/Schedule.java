@@ -32,7 +32,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Controller for the Schedule view.
+ * Controller for the Schedule.fxml.
+ * Schedule handles the Appointment and Customer TableView, and is the main hub for all the scheduling app's features.
  * */
 public class Schedule {
     public Button addButton;

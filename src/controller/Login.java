@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.time.ZoneId;
 
 /**
- * Controller for the Login view.
+ * Controller for Login.fxml.
+ * Login handles user login.
  * */
 public class Login {
     public Label timeZoneDescLabel;
