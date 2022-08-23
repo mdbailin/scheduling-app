@@ -1,44 +1,21 @@
 package connection;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 /**
  * DBConnector is configured to connect to a MySQL server that is provided on a virtual machine, for this assignment.
  * */
 public abstract class DBConnector {
-    /**
-     * Driver.
-     * */
-    private static final String protocol = "jdbc";
-    /**
-     * Database type.
-     * */
-    private static final String vendor = ":mysql:";
-    /**
-     * Desired location.
-     * */
-    private static final String location = "//localhost/";
-    /**
-     * Database name.
-     * */
-    private static final String databaseName = "client_schedule";
-    /**
-     * URL for the provided server.
-     * */
-    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER";
+    private static String jdbcUrl = "";
     /**
      * Driver reference.
      * */
     private static final String driver = "com.mysql.cj.jdbc.Driver";
-    /**
-     * Username for MySQL user on the provided virtual machine.
-     * */
-    private static final String username = "sqlUser";
-    /**
-     * Password for MySQL user on the provided virtual machine.
-     * */
-    private static final String password = "";
+    private static String username = "";
+    private static String password = "";
     /**
      * Connection interface.
      * */
@@ -49,10 +26,10 @@ public abstract class DBConnector {
      * */
     public static void openConnection()
     {
+        loadDatabaseCredentials();
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(jdbcUrl, username, password);
-            System.out.println("Connection successful!");
         }
         catch(Exception e)
         {
@@ -74,8 +51,41 @@ public abstract class DBConnector {
     public static void closeConnection() {
         try {
             connection.close();
-            System.out.println("Connection closed!");
         }
         catch(Exception e){}
+    }
+    /**
+     * Loads username, password, and URL for database access from the connector.properties file.
+     * */
+    private static void loadDatabaseCredentials() {
+        Properties p = new Properties();
+        try {
+            p.load(DBConnector.class.getClassLoader().getResourceAsStream("connection/connector.properties"));
+        }
+        catch (IOException ignored){}
+        setJdbcUrl(p.getProperty("jdbcUrl"));
+        setUsername(p.getProperty("username"));
+        setPassword(p.getProperty("password"));
+    }
+    /**
+     * Sets the URL.
+     * @param url URL for server access.
+     * */
+    public static void setJdbcUrl(String url) {
+        jdbcUrl = url;
+    }
+    /**
+     * Sets the server username.
+     * @param serverUsername Username for server access.
+     * */
+    public static void setUsername(String serverUsername) {
+        username = serverUsername;
+    }
+    /**
+     * Sets the server password.
+     * @param serverPassword Password for server access.
+     * */
+    public static void setPassword(String serverPassword) {
+        password = serverPassword;
     }
 }

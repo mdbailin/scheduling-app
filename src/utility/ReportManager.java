@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Month;
 
 /**
  * The ReportManager is used to generate and write a report to a txt file.
@@ -35,7 +36,7 @@ public abstract class ReportManager {
         }
         catch(SQLException sqlE) {}
         for (int month = 1; month <= 12; month ++) {
-            appointmentReport.append("|Month ").append(month).append("|");
+            appointmentReport.append("|----").append(Month.of(month).name()).append("----|");
             for (Appointment a : appointments) {
                 if (a.getStart().getMonthValue() == month) {
                     try {
@@ -55,7 +56,7 @@ public abstract class ReportManager {
                     }
                 }
             }
-            appointmentReport.append("\n----------\n");
+            appointmentReport.append("\n>\n");
         }
         return appointmentReport.toString();
     }
@@ -121,17 +122,17 @@ public abstract class ReportManager {
             int divisionId = c.getDivisionId();
             return divisionId >= 101 && divisionId <= 104;
         });
-        customerLocationReport.append("------US Customers------\n");
+        customerLocationReport.append("|-----US Customers-----|\n");
         for (Customer c : customersUS) {
             customerLocationReport.append("Name: ").append(c.getCustomerName()).append("\nAddress: ")
                     .append(c.getAddress()).append("\nPhone: ").append(c.getPhone()).append("\n~~~~~~~~~~~~~~~~\n");
         }
-        customerLocationReport.append("------CA Customers------\n");
+        customerLocationReport.append("|-----CA Customers-----|\n");
         for (Customer c : customersCA) {
             customerLocationReport.append("Name: ").append(c.getCustomerName()).append("\nAddress: ")
                     .append(c.getAddress()).append("\nPhone: ").append(c.getPhone()).append("\n~~~~~~~~~~~~~~~~\n");
         }
-        customerLocationReport.append("------UK Customers------\n");
+        customerLocationReport.append("|-----UK Customers-----|\n");
         for (Customer c : customersUK) {
             customerLocationReport.append("Name: ").append(c.getCustomerName()).append("\nAddress: ")
                     .append(c.getAddress()).append("\nPhone: ").append(c.getPhone()).append("\n~~~~~~~~~~~~~~~~\n");

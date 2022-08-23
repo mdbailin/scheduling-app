@@ -259,6 +259,10 @@ public class Schedule {
             if (viewAppointments) {
                 if (Alerter.confirm("Delete_Appointment")) {
                     AppointmentDB.removeAppointment(selectedAppointment.getAppointmentId());
+                    Alerter.alert(LanguageManager.getLocalString("Appointment_ID") + ": " +
+                            selectedAppointment.getAppointmentId() + "\n" +
+                            LanguageManager.getLocalString("Appointment_Type") + selectedAppointment.getType(),
+                            LanguageManager.getLocalString("Appointment_Deleted"));
                 }
             } else {
                 if (Alerter.confirm("Delete_Customer")) {
