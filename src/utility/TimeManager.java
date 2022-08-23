@@ -15,10 +15,14 @@ public abstract class TimeManager {
     private static DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
-     * Combines a date and time into a formatted DateTime.
+     * Combines a date and time into a ZonedDateTime of the UTC ZoneId.
+     * @param date The LocalDate date to be combined.
+     * @param time The LocalTime time to be combined.
+     * @return ZonedDateTime created from the date and time.
      * */
     public static ZonedDateTime combineDateTime(LocalDate date, LocalTime time) {
         if (date != null && time != null) {
+            System.out.println("Valid input");
             LocalDateTime combinedTime = LocalDateTime.of(date, time);
             ZonedDateTime combinedLocalTime = ZonedDateTime.of(combinedTime, ZoneId.of("America/New_York"));
             return ZonedDateTime.of(combinedLocalTime.toLocalDateTime(), ZoneId.of("UTC"));
@@ -28,8 +32,8 @@ public abstract class TimeManager {
     /**
      * Creates formatted LocalTime objects.
      * */
-    public static LocalTime createLocalTime(int hour) {
-        return LocalTime.of(hour, 0, 0);
+    public static LocalTime createLocalTime(int hour, int minute) {
+        return LocalTime.of(hour, minute, 0);
     }
     // Refactor below
     public static ZonedDateTime toLocal(ZonedDateTime time) {
@@ -61,9 +65,7 @@ public abstract class TimeManager {
     public static String reportEST(ZonedDateTime time) {
         return reportFormat.format(ZonedDateTime.of(time.toLocalDateTime(), ZoneId.of("America/New_York")));
     }
-    public static String columnView(ZonedDateTime time) {
-        return reportFormat.format(time);
-    }
+
     /**
      * Creates a Timestamp with the value of the current time in UTC, formatted for SQL.
      * @return Timestamp of ZonedDateTime.now() with the ZoneID of UTC.

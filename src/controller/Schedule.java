@@ -24,10 +24,12 @@ import utility.TimeManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Controller for the Schedule view.
@@ -147,7 +149,37 @@ public class Schedule {
         locationCol_a.setCellValueFactory(new PropertyValueFactory<>("location"));
         typeCol_a.setCellValueFactory(new PropertyValueFactory<>("type"));
         startCol_a.setCellValueFactory(new PropertyValueFactory<>("start"));
+        startCol_a.setCellFactory(column -> {
+            TableCell<Appointment, ZonedDateTime> cell = new TableCell<>() {
+                DateTimeFormatter colFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm z");
+                @Override
+                protected void updateItem(ZonedDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(colFormat.format(item));
+                    }
+                }
+            };
+            return cell;
+        });
         endCol_a.setCellValueFactory(new PropertyValueFactory<>("end"));
+        endCol_a.setCellFactory(column -> {
+            TableCell<Appointment, ZonedDateTime> cell = new TableCell<>() {
+                DateTimeFormatter colFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm z");
+                @Override
+                protected void updateItem(ZonedDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(colFormat.format(item));
+                    }
+                }
+            };
+            return cell;
+        });
         customerIdCol_a.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userIdCol_a.setCellValueFactory(new PropertyValueFactory<>("userId"));
         contactCol_a.setCellValueFactory(new PropertyValueFactory<>("contactId"));

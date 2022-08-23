@@ -4,6 +4,7 @@ import connection.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
+import resources.LanguageManager;
 import utility.Alerter;
 import utility.TimeManager;
 import java.sql.PreparedStatement;
@@ -11,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * AppointmentDB is responsible for all queries to the database regarding Appointment objects.
  * */
@@ -257,10 +260,12 @@ public class AppointmentDB {
             sqlE.printStackTrace();
         }
         if (success) {
-            Alerter.alert("Removal successful!", "Success!");
+            Alerter.alert(LanguageManager.getLocalString("Removal_Successful"),
+                    LanguageManager.getLocalString("Success"));
         }
         else {
-            Alerter.alert("Removal unsuccessful.", "Error!");
+            Alerter.alert(LanguageManager.getLocalString("Removal_Unsuccessful"),
+                    LanguageManager.getLocalString("Error"));
         }
     }
 }

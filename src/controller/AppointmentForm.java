@@ -55,7 +55,7 @@ public class AppointmentForm {
      * fills fields appropriately.
      * */
     @FXML
-    private void initialize() throws SQLException {
+    private void initialize() {
         // Initialize spinners
         ObservableList<LocalTime> hours = generateHours();
         SpinnerValueFactory<LocalTime> startTimeValueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(hours);
@@ -118,7 +118,7 @@ public class AppointmentForm {
      * Saves or modifies an Appointment, then closes the window.
      * @param actionEvent generated from clicking the button.
      * */
-    public void onSaveButton(ActionEvent actionEvent) throws SQLException {
+    public void onSaveButton(ActionEvent actionEvent) {
         if (validateFields()) {
             if (Schedule.selectedAppointment != null) {
                 AppointmentDB.modifyAppointment(createAppointment());
@@ -145,7 +145,7 @@ public class AppointmentForm {
     /**
      * Creates and adds an appointment to the database.
      * */
-    public void addAppointment() throws SQLException {
+    public void addAppointment() {
         AppointmentDB.sendAppointment(createAppointment());
     }
 
@@ -177,7 +177,7 @@ public class AppointmentForm {
      * Used to call validation methods on the Appointment form fields.
      * @return true if all inputs are validated, false if any inputs are not validated.
      * */
-    public boolean validateFields() throws SQLException {
+    public boolean validateFields() {
         boolean titleInput = Validator.isVarcharFifty("Title", titleField.getText());
         boolean descriptionInput = Validator.isVarcharFifty("Description", descriptionField.getText());
         boolean locationInput = Validator.isVarcharFifty("Location", locationField.getText());
@@ -234,7 +234,9 @@ public class AppointmentForm {
     private ObservableList<LocalTime> generateHours() {
         ObservableList<LocalTime> hours = FXCollections.observableArrayList();
         for (int i = 0; i <= 23; i++) {
-            hours.add(TimeManager.createLocalTime(i));
+            for (int m = 0; m <= 1; m++) {
+                hours.add(TimeManager.createLocalTime(i, m * 30));
+            }
         }
         return hours;
     }
