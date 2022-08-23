@@ -288,7 +288,7 @@ public class Schedule {
      */
     public void onDeleteButton() throws SQLException {
         if (selectedAppointment != null || selectedCustomer != null) {
-            if (viewAppointments) {
+            if (viewAppointments && selectedAppointment != null) {
                 if (Alerter.confirm("Delete_Appointment")) {
                     AppointmentDB.removeAppointment(selectedAppointment.getAppointmentId());
                     Alerter.alert(LanguageManager.getLocalString("Appointment_ID") + ": " +
@@ -297,9 +297,11 @@ public class Schedule {
                             LanguageManager.getLocalString("Appointment_Deleted"));
                 }
             } else {
-                if (Alerter.confirm("Delete_Customer")) {
-                    AppointmentDB.removeCustomerAppointments(AppointmentDB.getAllAppointments(selectedCustomer.getCustomerId()), selectedCustomer.getCustomerId());
-                    CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
+                if (selectedCustomer != null) {
+                    if (Alerter.confirm("Delete_Customer")) {
+                        AppointmentDB.removeCustomerAppointments(AppointmentDB.getAllAppointments(selectedCustomer.getCustomerId()), selectedCustomer.getCustomerId());
+                        CustomerDB.removeCustomer(selectedCustomer.getCustomerId());
+                    }
                 }
             }
             setUpTables();
