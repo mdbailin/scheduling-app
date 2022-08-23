@@ -7,10 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cdcf52-3518-4cef-b45b-2fbcf3beb717" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/SchedulingApp_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_activity.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/connection/connector.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/connection/connector.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
