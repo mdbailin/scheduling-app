@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="SchedulingApp:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="10cdcf52-3518-4cef-b45b-2fbcf3beb717" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/SchedulingApp_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login_activity.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/connection/connector.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/connection/connector.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/AppointmentForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AppointmentForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Schedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/AppointmentDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/AppointmentDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/lang_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/lang_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/lang_fr.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utility/TimeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/TimeManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Schedule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Schedule.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,22 +39,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mango/Documents/Java Packages/JDBC Drivers/mysql-connector-java-8.0.30/mysql-connector-java-8.0.30.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.folding&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/Mango/Documents/Java Packages/JDBC Drivers/mysql-connector-java-8.0.30/mysql-connector-java-8.0.30.jar",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.folding"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Mango\Documents\GitHub\SchedulingApp\src\connection" />
