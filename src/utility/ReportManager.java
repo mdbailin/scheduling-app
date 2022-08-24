@@ -90,7 +90,7 @@ public abstract class ReportManager {
     }
 
     /**
-     * Contains Lambda 2
+     * Contains Lambda 3
      * Generates a report of customers and their contact information.
      * Customers are sorted by their respective Division_IDs.
      * @return String constructed with customer data.

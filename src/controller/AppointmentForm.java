@@ -63,7 +63,7 @@ public class AppointmentForm {
         startTimeSpinner.setValueFactory(startTimeValueFactory);
         endTimeSpinner.setValueFactory(endTimeValueFactory);
         startTimeValueFactory.setValue(LocalTime.of(LocalTime.now().getHour(), 0));
-        endTimeValueFactory.setValue(LocalTime.of(LocalTime.now().getHour() + 1, 0));
+        endTimeValueFactory.setValue(LocalTime.of(LocalTime.now().getHour(), 0));
         contactComboBox.setItems(ContactDB.getAllContactNames());
         startDateLabel.setText(LanguageManager.getLocalString("Start_Date"));
         startTimeLabel.setText(LanguageManager.getLocalString("Start_Time") +
