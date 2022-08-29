@@ -31,9 +31,13 @@
             </HBox>
             <HBox layoutX="543.0" layoutY="13.0" prefHeight="20.0" prefWidth="408.0" spacing="20.0">
                <children>
-                  <RadioButton fx:id="appointmentByMonthRadio" mnemonicParsing="false" onAction="#onMonthToggle" prefHeight="17.0" prefWidth="152.0" selected="true" text="Appointments by month" />
-                  <RadioButton fx:id="appointmentByWeekRadio" mnemonicParsing="false" onAction="#onWeekToggle" text="Appointments by week" />
+                  <RadioButton fx:id="appointmentByMonthRadio" mnemonicParsing="false" onAction="#onMonthToggle" prefHeight="17.0" prefWidth="130.0" selected="true" text="Appt. this month" />
+                  <RadioButton fx:id="appointmentByWeekRadio" mnemonicParsing="false" onAction="#onWeekToggle" prefHeight="17.0" prefWidth="129.0" text="Appt. this week" />
+                  <RadioButton fx:id="allAppointmentsRadio" mnemonicParsing="false" onAction="#onAllAppointmentsRadio" prefHeight="17.0" prefWidth="94.0" text="All Appt." />
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </HBox>
             <HBox layoutX="20.0" layoutY="14.0" prefHeight="17.0" prefWidth="523.0" spacing="10.0">
                <children>
@@ -74,7 +78,7 @@
             <TableColumn fx:id="divisionIdCol_c" editable="false" prefWidth="83.0" sortable="false" text="Division_ID" />
          </columns>
       </TableView>
-      <Group layoutX="4.0" layoutY="4.0">
+      <Group layoutX="4.0" layoutY="4.0" visible="false">
          <children>
             <Rectangle fx:id="appointmentRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="51.0" stroke="BLACK" strokeType="INSIDE" width="952.0" />
             <Button fx:id="dismissRectangleButton" layoutX="852.0" layoutY="13.0" mnemonicParsing="false" onAction="#onDismissRectangleButton" text="Acknowledge" />
