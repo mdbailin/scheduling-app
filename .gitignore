@@ -29,3 +29,6 @@ bin/
 .DS_Store
 src/connection/connector.properties
 .idea/workspace.xml
+login_activity.txt
+src/connection/connector.properties
+*.properties
